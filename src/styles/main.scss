@@ -1,0 +1,5 @@
+@use './variables';
+main{
+    padding: 75px 0 0 0;
+    background: variables.$Background_main;
+}

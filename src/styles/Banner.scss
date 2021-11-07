@@ -1,0 +1,111 @@
+@use './variables';
+
+.Banner {
+    overflow: hidden;
+    position: relative;
+    font-size: 0;
+
+    &__Slide {
+        display: flex;
+        transition: all .25s;
+
+    }
+
+    &__SubSlide {
+        position: absolute;
+        width: 20%;
+        bottom: 50px;
+        right: 50px;
+    }
+}
+
+.Slide__Details {
+    min-width: 100%;
+    position: relative;
+
+    .warp {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        color: white;
+        background-color: rgba(48, 47, 47, 0.35);
+
+        .detail {
+            width: 42%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 150px 0 0 50px;
+            .genre{
+                margin-top: 10px;
+                font-size: 14px;
+            }
+            .link {
+                outline: none;
+                border: none;
+                cursor: pointer;
+                color: white;
+                text-align: center;
+                font-size: 15px;
+                margin-top: 60px;
+                padding: 10px 0;
+                border-radius: 5px;
+                width: 22%;
+                background: variables.$Color_purple;
+            }
+        }
+    }
+
+    img {
+        min-width: 100%;
+        max-height: 420px;
+        object-fit: cover;
+    }
+}
+
+.SubSlide {
+    &__Wrap {
+        display: flex;
+        position: relative;
+
+        .Wrap__img {
+            width: calc(100% / 3);
+            display: flex;
+        }
+
+        .Wrap__img+.Wrap__img {
+            margin-left: 10px;
+        }
+
+        img {
+            border-radius: 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+    }
+
+    &__arrow {
+        position: absolute;
+        top: calc(50% - 16px);
+        width: 100%;
+        font-size: 32px;
+        display: flex;
+        justify-content: space-between;
+        color: variables.$Color_purple;
+        cursor: pointer;
+
+        .left {
+            transform: translateX(-23px);
+        }
+
+        .right {
+            transform: translateX(23px);
+        }
+    }
+}
+
+.Img_shadow {
+    border-radius: 15px;
+    box-shadow: 0 0 6px 2px #ffffff;
+}

@@ -1,0 +1,37 @@
+@use './Header.scss';
+@use './SideBar.scss';
+@use './footer.scss';
+@use './main.scss';
+@use './Banner.scss';
+@use './Product.scss';
+@use './Details.scss';
+@use './Login.scss';
+@use './Cart.scss';
+@use './Admin.scss';
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+img{
+    max-width: 100%;
+}
+button{
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+input[type=number] input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}

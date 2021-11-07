@@ -1,0 +1,57 @@
+@use './variables';
+
+.SideBar{
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    background-color: variables.$SideBar_body;
+    height: 100vh;
+    width: 256px;
+    border-right: 1px solid rgba(128, 128, 128, 0.404);
+}
+.SideBarTop{
+    padding: 50px;
+    position: absolute;
+    background-color: variables.$SideBar_body;
+    top: 0;
+    width: 100%;
+    font-size: 30px;    
+    font-weight: 700;
+    .wrap{
+        display: flex;
+        color: white;
+        justify-content: space-around;
+        cursor: pointer;
+    }
+    .wrap:visited{
+        color: white;
+    }
+
+}
+.SideBarWrap{
+    max-height: 100%;
+    padding: 136px 0 81px 0;
+    overflow: auto;
+    .Wrap{
+        color: variables.$Color_text;
+        font-weight: 500;
+        padding: 0 20px;
+    }
+    &::-webkit-scrollbar{
+        width: 0;
+    }
+}
+.SideBarBottom{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 0;
+    width: 100%;
+    background-color: variables.$SideBar_body;
+    &__icon{
+        font-size: 25px;
+        color: variables.$Color_text;
+    }
+}

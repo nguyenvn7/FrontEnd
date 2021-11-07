@@ -1,0 +1,62 @@
+.Admin{
+    padding: 100px 100px 40px;
+    background: linear-gradient(to bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    &-header{
+        margin-bottom: 50px;
+        padding: 15px;
+        border-radius: 6px;
+        box-shadow: 0 0 20px gray;
+        background: white;
+        display: grid;
+        grid-template-columns: repeat(4,22%) 8%;
+        grid-gap: 10px;
+    }
+    &-select{
+        display: flex;
+        margin-bottom: 30px;
+        gap: 20px;
+        *{
+            border: 1px solid gray;
+            padding: 10px;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+        }
+    }
+    &-List{
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 0 20px gray;
+        background: white;
+    }
+    &-Item{
+        display: grid;
+        grid-template-columns:repeat(4, 22%) 8%;
+        align-items: center;
+        grid-gap: 10px;
+        margin-bottom: 10px;
+        border: 1px solid black;
+        padding: 5px;
+    }
+    &-product{
+        display: flex;
+        align-items: center;
+    }
+    &-img{
+        flex: 1;
+    }
+    &-name{
+        flex: 3;
+    }
+    &-btn{
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    button{
+        font-size: 12px;
+    }
+    &-active{
+        background: #6C5DD3;
+    }
+}

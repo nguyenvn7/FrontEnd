@@ -1,0 +1,155 @@
+@use './variables.scss';
+
+Header{
+    position: fixed;
+    z-index: 3; 
+    width: 100%;
+    height: 75px;
+    background: variables.$Header;
+    display: grid;
+    grid-template-columns: 11% 30% 25% auto auto;
+    grid-column-gap: 102px;
+    padding: 0 100px;
+    grid-auto-rows: 100%;
+    align-items: center;
+    .logo{
+        display: flex;
+        align-items: center;      
+        color: white;
+        .img{
+            flex: 1;
+        }
+    }
+    nav{
+        display: flex;
+        justify-content: space-around;
+    }
+    .auth{
+        position: relative;
+        cursor: pointer;
+        .log{
+            position: absolute;
+            transform: translateX(0);
+            top: calc(50% - 13px);
+            background: variables.$Color_purple;
+            font-size: 13px;
+            padding: 5px;
+            border-radius: 5px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all .25s;
+            pointer-events: none;
+        }
+        .log::after{
+            content: "";
+            position: absolute;
+            top: calc(50% - 8px);
+            left: -34%;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid transparent;
+            border-right: 8px solid variables.$Color_purple;
+        }
+        .logout::after{
+            left: -29%;
+        }
+    }
+    .Log_icon:hover +  .log{
+       
+            transform: translateX(42px);
+            opacity: 1;
+            visibility: visible;
+    }
+
+    
+}
+.Search{
+    margin-left: 100px;
+    position: relative;
+}
+.Search__icon{
+    font-size: 20px;
+    color: variables.$Color_text;
+}
+.Search__Output{
+    position: absolute;
+    width: 400px;
+    top: 135%;
+    max-height: 250px;
+    border-radius: 20px;
+    padding: 15px;
+    overflow: auto;
+    background-color: variables.$Color_purplegray;
+    box-shadow: 0 0 15px gray;
+    .Item{
+        display: flex;
+        font-size: 0;
+        color: black;
+        max-height: 63px;
+        font-size: 14px;
+        border-radius: 15px;
+        box-sizing: content-box;
+        padding: 10px;
+        transition: all .4s;
+        cursor: pointer;
+        .img{
+            display: flex;
+            img{
+                border-radius: 50%;
+            }
+        }
+        .details{
+            max-width: 80%;
+            min-width: 80%;
+            padding-left: 10px;
+            .name{
+                overflow: hidden;
+                max-width: 340px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .des{
+                overflow: hidden;
+                max-width: 340px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin: 8px 0;
+            }
+        }
+    }
+    
+    .Item:hover{
+        background-color: #d5d5d5b3;
+    }
+    &::-webkit-scrollbar{
+        width: 0;
+    }
+}
+
+.Search__inp{
+    border: none;
+    outline: none;
+    font-size: 16px;
+    margin-left: 10px;
+    background: variables.$Header;
+    color: white;
+}
+
+.icon{
+    color: variables.$Color_text;
+    font-size: 25px;
+}
+.Cart{
+    position: relative;
+    &-total{
+        position: absolute;
+        top: -12px;
+        right: -13px;
+        background: red;
+        padding: 1px 6px;
+        border-radius: 50%;
+        font-size: 12px;
+    }
+}
+
+
