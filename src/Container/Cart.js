@@ -7,6 +7,7 @@ import {useState} from "react";
 
 function Cart() {
   const { state, dispatch } = CartState();
+  
   const [modal, setModal] = useState(false);
   const checkedAll = state.cart.length && state.cart.every(value => value.select);
   const handleChange = (e, value) => {

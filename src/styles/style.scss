@@ -35,3 +35,23 @@ input[type=number] input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button{
     -webkit-appearance: none;
 }
+.Load{
+        z-index: 2;
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        background: #00000021;
+        height: 100vh;
+        align-items: center;
+        & div{
+            transform: scale(.15);
+            height: auto!important;
+        }
+}
+.Page404{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

@@ -1,6 +1,7 @@
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
-import { CartState } from "../context/context";
+import { logout } from "../Api";
+import { AuthState, CartState } from "../context/context";
 
 function Admin() {
   const formatPrice = (price) => {
@@ -8,12 +9,19 @@ function Admin() {
       return p + ",";
     });
   };
-  const { state } = CartState();
-
+  const {state} = CartState();
+  const [auth,setAuth] = AuthState();
+  
   return (
     <>
       <Header />
       <main>
+        <div onClick={()=>
+          {
+            logout();
+            setAuth();
+          }
+        }>Logout</div>
         <section className="Admin">
           <div className="Admin-select">
             <div className="Admin-SP Admin-active">Sản Phẩm</div>

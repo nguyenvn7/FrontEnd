@@ -21,6 +21,7 @@ export async function login(name, pass) {
                             headers: {
                               "Content-Type": "application/json",
                             },
+                            credentials: 'include',
                             body: JSON.stringify({                        
                                 name,
                                 pass
@@ -29,27 +30,35 @@ export async function login(name, pass) {
   return res;
 }
 export async function signup(name,pass){
-  // const res = await fetch("http://localhost:3001/apiTaikhoan/signup",{
-  //                           method: "POST",
-  //                           headers: {
-  //                             "Content-Type": "application/json",
-  //                           },
-  //                           body: JSON.stringify({
-  //                               name,
-  //                               pass
-  //                           }),
-  //                         });
-  // const res = await fetch("http://localhost:3001/apiTaiKhoan/api/session",{
-  //      method: 'POST',
-  //      'credentials': 'include'
-  // }).then(res => res.text()).then(data => console.log(data))
-  const res1 = await fetch("http://localhost:3001/get/session",{
-    'credentials': 'include'
-  }).then(res => res.text()).then(data => console.log(data))
-  // return res;                          
+  const res = await fetch("http://localhost:3001/apiTaikhoan/signup",{
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                name,
+                                pass
+                            }),
+                          });
+  return res;           
+           
+}
+export async function logout(name,pass){
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/logout",{
+    method: "DELETE",
+    credentials: 'include'
+  })  
+  return res;
+}
+export async function checkLogged(){
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/checklogged",{
+    credentials: 'include'
+  });
+  const data = await res.json();
+  return data;
 }
 export async function validationName(name){
-  const res = await fetch("http://localhost:3001/apiTaikhoan/validationName",{
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/validationName",{
                             method: "POST",
                             headers: {
                               "Content-Type": "application/json",

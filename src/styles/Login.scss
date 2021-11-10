@@ -25,10 +25,12 @@
         & p{
             display: inline-block;
             text-align: center;
-            font-size: 14px;
             margin: 20px auto auto;
-            color: blue;
             cursor: pointer;
+            & a{
+                 color: blue;
+                 font-size: 14px;
+            }
         }
     }
    &-tittle{

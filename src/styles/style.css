@@ -5,11 +5,27 @@ Header {
   height: 75px;
   background: black;
   display: grid;
-  grid-template-columns: 11% 30% 25% auto auto;
+  grid-template-columns: 11% 30% 4% auto 22%;
   grid-column-gap: 102px;
   padding: 0 100px;
   grid-auto-rows: 100%;
   align-items: center;
+}
+Header .log_sign {
+  color: white;
+  display: flex;
+  gap: 20px;
+}
+Header .log_sign .l-s {
+  padding: 7px 20px;
+  border-radius: 50px;
+}
+Header .log_sign .signup {
+  border: 2px solid white;
+}
+Header .log_sign .login {
+  background-color: #6C5DD3;
+  border: 2px solid #6C5DD3;
 }
 Header .logo {
   display: flex;
@@ -22,36 +38,6 @@ Header .logo .img {
 Header nav {
   display: flex;
   justify-content: space-around;
-}
-Header .auth {
-  position: relative;
-  cursor: pointer;
-}
-Header .auth .log {
-  position: absolute;
-  transform: translateX(0);
-  top: calc(50% - 13px);
-  background: #6C5DD3;
-  font-size: 13px;
-  padding: 5px;
-  border-radius: 5px;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.25s;
-  pointer-events: none;
-}
-Header .auth .log::after {
-  content: "";
-  position: absolute;
-  top: calc(50% - 8px);
-  left: -34%;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 8px solid transparent;
-  border-right: 8px solid #6C5DD3;
-}
-Header .auth .logout::after {
-  left: -29%;
 }
 Header .Log_icon:hover + .log {
   transform: translateX(42px);
@@ -298,6 +284,7 @@ footer .right {
 }
 
 main {
+  position: relative;
   padding: 75px 0 0 0;
   background: #f0f0f0;
 }
@@ -762,10 +749,12 @@ main {
 .Form-wrap p {
   display: inline-block;
   text-align: center;
-  font-size: 14px;
   margin: 20px auto auto;
-  color: blue;
   cursor: pointer;
+}
+.Form-wrap p a {
+  color: blue;
+  font-size: 14px;
 }
 .Form-tittle {
   font-size: 27px;
@@ -1033,6 +1022,28 @@ button {
 input[type=number] input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.Load {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #00000021;
+  height: 100vh;
+  align-items: center;
+}
+.Load div {
+  transform: scale(0.15);
+  height: auto !important;
+}
+
+.Page404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -7,11 +7,27 @@ Header{
     height: 75px;
     background: variables.$Header;
     display: grid;
-    grid-template-columns: 11% 30% 25% auto auto;
+    grid-template-columns: 11% 30% 4% auto 22%;
     grid-column-gap: 102px;
     padding: 0 100px;
     grid-auto-rows: 100%;
     align-items: center;
+    .log_sign{
+        color: white;
+        display: flex;
+        gap: 20px;
+        .l-s{
+            padding: 7px 20px;
+            border-radius: 50px;
+        }
+        .signup{
+            border: 2px solid white;
+        }
+        .login{
+            background-color: variables.$Color_purple;
+            border: 2px solid variables.$Color_purple;
+        }
+    }
     .logo{
         display: flex;
         align-items: center;      
@@ -24,36 +40,7 @@ Header{
         display: flex;
         justify-content: space-around;
     }
-    .auth{
-        position: relative;
-        cursor: pointer;
-        .log{
-            position: absolute;
-            transform: translateX(0);
-            top: calc(50% - 13px);
-            background: variables.$Color_purple;
-            font-size: 13px;
-            padding: 5px;
-            border-radius: 5px;
-            visibility: hidden;
-            opacity: 0;
-            transition: all .25s;
-            pointer-events: none;
-        }
-        .log::after{
-            content: "";
-            position: absolute;
-            top: calc(50% - 8px);
-            left: -34%;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 8px solid transparent;
-            border-right: 8px solid variables.$Color_purple;
-        }
-        .logout::after{
-            left: -29%;
-        }
-    }
+   
     .Log_icon:hover +  .log{
        
             transform: translateX(42px);

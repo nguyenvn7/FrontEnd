@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CartState } from "../context/context";
 import { queryProduct } from "../Api/index";
+import {AuthState} from "../context/context"; 
 
 function Item(props) {
   return (
@@ -23,9 +24,8 @@ function Header() {
   const [search, setSearch] = useState([]);
   const {
     state: { cart },
-    auth,
-    setAuth,
   } = CartState();
+  const [auth,setAuth] = AuthState();
   const [isStopped, setIsStopped] = useState(true);
 
   // const handleClickWindow = (e) => {
@@ -39,7 +39,6 @@ function Header() {
   const handleSearch = (nameSearch) => {
     if (nameSearch) queryProduct('name',nameSearch).then(data => setSearch(data.results));    
   };
-
   const handleBlur = (e) => {
     if (!e.currentTarget.contains(e.relatedTarget)) setSearch([]);
   };
@@ -81,8 +80,7 @@ function Header() {
       </div>
 
       <nav>
-        <Link to="/">HOME</Link>
-        {auth && <Link to="/Admin">ADMIN</Link>}
+        <Link to="/">HOME</Link>     
       </nav>
       <div className="Cart">
         <Link to="/Cart">
@@ -91,25 +89,10 @@ function Header() {
             ""}
         </Link>
       </div>
-      <div className="auth">
-        {(auth && (
-          <>
-            <i
-              className="fas fa-sign-out-alt icon Log_icon"
-              onClick={() => setAuth(false)}
-            ></i>
-            <div className="log logout">Logout</div>
-          </>
-        )) || (
-          <>
-            <Link
-              to="/Login"
-              className="far fa-sign-in-alt icon Log_icon"
-            ></Link>
-            <div className="log login">Login</div>
-          </>
-        )}
-      </div>
+      {(auth?.username && <div className="Avartar">Avatar</div>) || (<div className="log_sign">
+        <div className="login l-s"><Link to="/login">Đăng Nhập</Link></div>
+        <div className="signup l-s"><Link to="/signup">Đăng Ký</Link></div>
+      </div>) }
     </header>
   );
 }

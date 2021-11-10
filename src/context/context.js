@@ -10,12 +10,24 @@ const Context = ({children}) => {
         products: FakeProduct,
         cart:[]
     })
-    const [auth,setAuth] = useState(false);
-    return <Cart.Provider value={{state,dispatch,auth,setAuth}}>
+    return <Cart.Provider value={{state,dispatch}}>
         {children}
     </Cart.Provider>
 }
 export default Context;
 export const CartState = ()=>{
     return useContext(Cart);
+}
+
+const Authentication = createContext();
+
+export const AuthContext = ({children})=>{
+    const [auth,setAuth] = useState({});
+    return <Authentication.Provider value = {[auth,setAuth]}>
+        {children}
+    </Authentication.Provider>
+}
+
+export const AuthState = ()=>{
+    return useContext(Authentication);
 }
