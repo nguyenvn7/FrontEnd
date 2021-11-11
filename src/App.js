@@ -45,9 +45,13 @@ function PrivateLoginSignup({children}){
   )
 }
 
-
-function App() {
-  
+  function App (){
+    const {isLoad,auth} = CheckLoggedAPI();
+    if(isLoad){
+      return(
+        <div>Load</div>
+      )
+    }
   return (
     <>
       <Switch>

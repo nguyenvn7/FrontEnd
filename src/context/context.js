@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useContext, useState } from 'react';
 import { Reducer } from './Reducer';
 import FakeProduct from "../Component/FakeProduct"
+import { checkLogged } from '../Api';
 
 const Cart = createContext();
 
@@ -21,8 +22,32 @@ export const CartState = ()=>{
 
 const Authentication = createContext();
 
-export const AuthContext = ({children})=>{
+ const Preload = () => new Promise(
+    async  (resolve,reject) =>{
+        await checkLogged()
+        .then(data => {
+            resolve(data);
+        });
+    }
+ )
+
+
+export const  AuthContext = ({children})=>{
+    // the first way
+
+    // Call API truoc khi render
+    // let xhr = new XMLHttpRequest();
+    // xhr.open('GET','http://localhost:3001/apiTaiKhoan/checklogged',false);
+    // xhr.withCredentials = true;
+    // xhr.send();
+    // const data = JSON.parse(xhr.response);
+    // const [auth,setAuth] = useState(...Object.values(data));
+
+    // the second way
+    // Loading component App
+
     const [auth,setAuth] = useState({});
+
     return <Authentication.Provider value = {[auth,setAuth]}>
         {children}
     </Authentication.Provider>

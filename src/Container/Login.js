@@ -36,7 +36,7 @@ function Login() {
                 <div className="Form-wrapIp">
                   <input
                     type="text"
-                    className="Form-btnIp"
+                    className="Form-Inp"
                     placeholder="Username"
                     name="email"
                     onChange={(e) => setName(e.target.value)}
@@ -47,7 +47,7 @@ function Login() {
                 <div className="Form-wrapIp">
                   <input
                     type="password"
-                    className="Form-btnIp"
+                    className="Form-Inp"
                     placeholder="Password"
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}

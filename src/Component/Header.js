@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { CartState } from "../context/context";
 import { queryProduct } from "../Api/index";
 import {AuthState} from "../context/context"; 
+import Avatar from "./Avatar";
 
 function Item(props) {
   return (
@@ -26,6 +27,7 @@ function Header() {
     state: { cart },
   } = CartState();
   const [auth,setAuth] = AuthState();
+  // console.log('Header',auth);
   const [isStopped, setIsStopped] = useState(true);
 
   // const handleClickWindow = (e) => {
@@ -89,7 +91,7 @@ function Header() {
             ""}
         </Link>
       </div>
-      {(auth?.username && <div className="Avartar">Avatar</div>) || (<div className="log_sign">
+      {(auth?.username && <Avatar/>) || (<div className="log_sign">
         <div className="login l-s"><Link to="/login">Đăng Nhập</Link></div>
         <div className="signup l-s"><Link to="/signup">Đăng Ký</Link></div>
       </div>) }

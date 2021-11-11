@@ -29,7 +29,7 @@ export async function login(name, pass) {
                           });
   return res;
 }
-export async function signup(name,pass){
+export async function signup(name,pass,firstname,lastname){
   const res = await fetch("http://localhost:3001/apiTaikhoan/signup",{
                             method: "POST",
                             headers: {
@@ -37,7 +37,9 @@ export async function signup(name,pass){
                             },
                             body: JSON.stringify({
                                 name,
-                                pass
+                                pass,
+                                firstname,
+                                lastname
                             }),
                           });
   return res;           
