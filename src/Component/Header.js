@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CartState } from "../context/context";
 import { queryProduct } from "../Api/index";
-import {AuthState} from "../context/context"; 
+import { AuthState } from "../context/context";
 import Avatar from "./Avatar";
 
 function Item(props) {
@@ -26,20 +26,12 @@ function Header() {
   const {
     state: { cart },
   } = CartState();
-  const [auth,setAuth] = AuthState();
+  const [auth, setAuth] = AuthState();
   // console.log('Header',auth);
-  const [isStopped, setIsStopped] = useState(true);
-
-  // const handleClickWindow = (e) => {
-  //   console.log('window click')
-  // }
-  useEffect(() => {
-    // window.addEventListener('click',handleClickWindow);
-    // window.removeEventListener('click',handleClickWindow); 
-    return () => {};
-  }, []);
+  
   const handleSearch = (nameSearch) => {
-    if (nameSearch) queryProduct('name',nameSearch).then(data => setSearch(data.results));    
+    if (nameSearch)
+      queryProduct("name", nameSearch).then((data) => setSearch(data.results));
   };
   const handleBlur = (e) => {
     if (!e.currentTarget.contains(e.relatedTarget)) setSearch([]);
@@ -82,7 +74,7 @@ function Header() {
       </div>
 
       <nav>
-        <Link to="/">HOME</Link>     
+        <Link to="/">TRANG CHỦ</Link>
       </nav>
       <div className="Cart">
         <Link to="/Cart">
@@ -91,10 +83,16 @@ function Header() {
             ""}
         </Link>
       </div>
-      {(auth?.username && <Avatar/>) || (<div className="log_sign">
-        <div className="login l-s"><Link to="/login">Đăng Nhập</Link></div>
-        <div className="signup l-s"><Link to="/signup">Đăng Ký</Link></div>
-      </div>) }
+      {(auth?.username && <Avatar />) || (
+        <div className="log_sign">
+          <div className="login l-s">
+            <Link to="/login">Đăng Nhập</Link>
+          </div>
+          <div className="signup l-s">
+            <Link to="/signup">Đăng Ký</Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

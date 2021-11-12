@@ -6,47 +6,11 @@ import Login from "./Container/Login";
 import Signup from "./Container/Signup";
 import Admin from "./Container/Admin";
 import { Route, Switch,Redirect } from "react-router-dom";
-import {  checkLogged, login, logout } from "./Api";
-import { useEffect, useState } from "react";
-import { AuthState, CartState } from "./context/context";
-import Load from "./Component/Load";
-
-
-function CheckLoggedAPI(){
-  const [auth,setAuth] = AuthState();
-  const [isLoad,setIsLoad] = useState(true);
-    useEffect(() => {
-      checkLogged()
-      .then(data => {
-        setIsLoad(false);
-        setAuth(...Object.values(data));
-      })
-    }, []);
-  return {isLoad,auth}
-}
-
-function PrivateAdmin({children}){
-  const {isLoad,auth} = CheckLoggedAPI();
-  return(
-    <Route
-      render={()=>
-       isLoad ? (<Load/>):( auth?.username ? (children):(<Page404/>))
-      }
-    />
-  )
-}
-
-function PrivateLoginSignup({children}){
-  const {isLoad,auth} = CheckLoggedAPI();
-  return (
-    <Route
-      render={()=> isLoad? (<Load/>):(auth?.username? (<Redirect to="/"/>):(children))}
-    />
-  )
-}
+import SettingsAccount from "./Component/SettingsAccount";
+import PrivateRouter, {CheckLogin, PrivateLogin} from "./Auth/Authentication"; 
 
   function App (){
-    const {isLoad,auth} = CheckLoggedAPI();
+    const {isLoad,auth} = CheckLogin();
     if(isLoad){
       return(
         <div>Load</div>
@@ -58,16 +22,19 @@ function PrivateLoginSignup({children}){
         <Route exact path="/">
               <HomePage/>
         </Route>
-        <PrivateAdmin path="/admin">
+        <PrivateRouter path="/admin">
           <Admin/>
-        </PrivateAdmin>
+        </PrivateRouter>
+        <PrivateRouter path="/Settings">
+          <SettingsAccount/>
+        </PrivateRouter>
 
-        <PrivateLoginSignup path="/Signup">
+        <PrivateLogin path="/Signup"> 
           <Signup/> 
-        </PrivateLoginSignup>
-        <PrivateLoginSignup path="/Login">
+        </PrivateLogin>
+        <PrivateLogin path="/Login">
           <Login/>
-        </PrivateLoginSignup>
+        </PrivateLogin>
 
          {appRoute.map((value) => (
           <Route path={value.path} key={value.path}>

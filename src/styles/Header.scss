@@ -8,7 +8,7 @@ Header {
   background: variables.$Header;
   display: grid;
   justify-items: end;
-  grid-template-columns: 11% 30% 4% auto 22%;
+  grid-template-columns: 11% 29% auto auto auto;
   grid-column-gap: 102px;
   padding: 0 100px;
   grid-auto-rows: 100%;
@@ -22,13 +22,16 @@ Header {
       right: 0;
       padding: 35px 21px;
       position: absolute;
-      color: #666666;
       background-color: white;
       border-radius: 10px;
       box-shadow: 0 -4px 32px rgb(0 0 0 / 20%);
       font-size: 17px;
      *{
          transition: .5s;
+         color: #666666;
+         margin: 20px 0;
+         width: 100%;
+         display: block;
      }
      *:hover{
             cursor: pointer;

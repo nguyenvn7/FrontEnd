@@ -189,7 +189,7 @@ function Cart() {
               <div className="Cart-empty">
                 <div className="Cart-img">
                   <img
-                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f49e36beaf32db.png"
+                    src="https://chicken1000.com/images/img-empty.png"
                     alt=""
                   />
                 </div>

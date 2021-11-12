@@ -67,8 +67,20 @@ export async function validationName(name){
                             },
                             body: JSON.stringify({
                                 name
-
                             }),
                           });
   return res.status;
+}
+export async function GetInfor({username}){
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/GetInfor",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        username
+    }),
+    credentials: 'include'
+  })
+  return res;
 }

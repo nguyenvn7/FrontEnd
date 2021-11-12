@@ -22,17 +22,8 @@ export const CartState = ()=>{
 
 const Authentication = createContext();
 
- const Preload = () => new Promise(
-    async  (resolve,reject) =>{
-        await checkLogged()
-        .then(data => {
-            resolve(data);
-        });
-    }
- )
 
-
-export const  AuthContext = ({children})=>{
+export const  AuthContext =  ({children})=>{
     // the first way
 
     // Call API truoc khi render
