@@ -6,6 +6,7 @@ export const Reducer = (state, dispatch) => {
                         value['quantity'] = value.quantity + dispatch.payload.quantity;
                         return true;
                     }
+                    return false;
                 })) {
                     return state;
             } else {

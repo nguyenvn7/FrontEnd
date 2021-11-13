@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { logout } from "../Api";
 import {  AuthState } from "../context/context";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 
 function Avatar() {
-    const [auth,setAuth] = AuthState();
+    const {setAuth} = AuthState();
     const [toggle,setToggle] = useState(false);
+    const history = useHistory();
     // const handleWindowClick = () => {
     //     // setToggle(false);
     //     console.log('window click')
@@ -30,7 +31,8 @@ function Avatar() {
                 <ul>
                 <li onClick={()=>{
                     logout();
-                    setAuth({});
+                    setAuth({isLoad: false});
+                    history.push('/');
                 }} >Logout</li>
  
                 <li><Link to="/settings">

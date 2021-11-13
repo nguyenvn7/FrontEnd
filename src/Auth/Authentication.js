@@ -1,42 +1,65 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Redirect, Route } from "react-router";
 import { checkLogged } from "../Api";
 import Page404 from "../Component/404";
 import Load from "../Component/Load";
 import { AuthState } from "../context/context";
+//co the do setstate nhieu lan
+/// sua bi lap set 3 lan
+export  function  CheckLogin(name){
 
-
-export function CheckLogin(){
-    const [auth,setAuth] = AuthState();
-    const [isLogin,setIsLogin] = useState(true);
-      useEffect(() => {
-        checkLogged()
-        .then(data => {
-          setIsLogin(false);
-          setAuth(...Object.values(data));
-        })
+    const {auth,setAuth} = AuthState();
+    console.log('CheckLogin',name);
+      useEffect(() => { 
+        if(auth?.username){
+          checkLogged()
+          .then(data => {
+            console.log('effect ',name);
+            setAuth(Object.assign({isLoad:false},...Object.values(data)));
+          });
+        }
+        return ()=>{
+          console.log('unmount clg ',name)
+        }
+        //eslint-disable-next-line
       }, []);
-    return {isLogin,auth}
+
+    return {auth}
   }
 
-export function PrivateLogin({children}){
-    const {isLogin,auth} = CheckLogin();
+export function PrivateLogin({children,name}){
+    console.log('PrivateLogin')
+    const {auth} = CheckLogin(name);
     return (
       <Route
-        render={()=> isLogin? (<Load/>):(auth?.username? (<Redirect to="/"/>):(children))}
+        render={()=> auth.isLoad? (<Load/>):(auth?.username? (<Redirect to="/"/>):(children))}
       />
     )
 }
 
-function PrivateRouter({children}) {
-        const {isLogin,auth} = CheckLogin();
+export function PrivateCart({children,name}){
+  // cart van con vao duoc do async
+  console.log('PrivateCart');
+    const {auth} = CheckLogin(name);
+    console.log('cart auth: ',auth)
+    return(
+      <Route
+        render={() => auth?.username? (children):(<Redirect to="/login"/>)}
+      />
+    )
+}
+
+function PrivateRouter({children,name}) {
+        console.log('PrivateRouter');
+        const {auth} = CheckLogin(name);
     return(
         <Route
         render={()=>
-        isLogin ? (<Load/>):( auth?.username ? (children):(<Page404/>))
+        auth.isLoad ? (<Load/>):( auth?.username ? (children):(<Page404/>))
         }
         />
     );
 }
 
 export default PrivateRouter;
+

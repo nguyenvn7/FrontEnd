@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CartState } from "../context/context";
 import { queryProduct } from "../Api/index";
 import { AuthState } from "../context/context";
@@ -26,8 +26,7 @@ function Header() {
   const {
     state: { cart },
   } = CartState();
-  const [auth, setAuth] = AuthState();
-  // console.log('Header',auth);
+  const {auth} = AuthState();
   
   const handleSearch = (nameSearch) => {
     if (nameSearch)

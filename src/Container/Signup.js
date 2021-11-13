@@ -32,10 +32,10 @@ function Signup() {
               <form onSubmit={handleSubmit} method="POST">
                 <p className="Form-tittle">Member Sign</p>
                 <div className="Form-infor">
-                  <input type="text" name="" id="" className="Form-infor-inp Form-Inp" placeholder="First Name" 
+                  <input type="text" name=""  className="Form-infor-inp Form-Inp" placeholder="First Name" 
                     onChange = {(e) => setFirstname(e.target.value)}
                   />
-                  <input type="text" name="" id="" className="Form-infor-inp Form-Inp" placeholder="Last Name" 
+                  <input type="text" name=""  className="Form-infor-inp Form-Inp" placeholder="Last Name" 
                     onChange = {(e) => setLastname(e.target.value)}
                   />
                 </div>

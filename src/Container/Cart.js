@@ -1,31 +1,37 @@
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
-import { CartState } from "../context/context";
+import { AuthState, CartState } from "../context/context";
 import { formatPrice } from "../helper";
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import { getCart, updateQtyCart } from "../Api";
+
 
 function Cart() {
   const { state, dispatch } = CartState();
-  
+  const [productCart,setProductCart] = useState();
   const [modal, setModal] = useState(false);
+  const {auth} = AuthState();
   const checkedAll = state.cart.length && state.cart.every(value => value.select);
+
   const handleChange = (e, value) => {
     value.quantity = +e.target.value;
     if (e.target.value === "" || e.target.value === "0") {
       window.alert("Muon Xoa");
     }
-    dispatch({
-      type: "CHANGE_CART_QTY",
-      payload: value,
-    });
+    // dispatch({
+    //   type: "CHANGE_CART_QTY",
+    //   payload: value,
+    // });
+    
   };
   const handleIncreaseValue = (value) => {
     value.quantity += 1;
-    dispatch({
-      type: "CHANGE_CART_QTY",
-      payload: value,
-    });
+    // dispatch({
+    //   type: "CHANGE_CART_QTY",
+    //   payload: value,
+    // });
+    updateQtyCart(value.quantity).then(data => console.log(data.status))
   };
   const handleReduceValue = (value) => {
     if (value.quantity === 1) {
@@ -43,13 +49,26 @@ function Cart() {
       });
     }
   };
+  console.log(' Cart effect',auth);
 
+  useEffect(()=>{
+    if(auth?.username){
+      getCart(auth.username)
+      .then(data => data.json())
+      .then(data => {
+        setProductCart(data.map(value => ({...value,select: false})));
+      } );
+    }
+    
+    return ()=>setProductCart();
+    //eslint-disable-next-line
+  },[])
   return (
     <>
       <Header />
       <main>
         <div className="Cart-wrap">         
-          {(state.cart.length && (
+          {(productCart?.length && (
             <>
               <div className="Cart-header">
                 <div className="Cart-btn">
@@ -71,8 +90,8 @@ function Cart() {
                 </div>
               </div>
               <div className="Cart-Products">
-                {(state.cart.length &&
-                  state.cart.map((value) => (
+                {(productCart?.length &&
+                  productCart.map((value) => (
                     <div className="Cart-item" key={value.id}>
                       <input
                         type="checkbox"

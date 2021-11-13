@@ -6,7 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 function SettingsAccount() {
-  const [auth, setAuth] = AuthState();
+  const {auth} = AuthState();
   const [infor, setInfor] = useState();
   useEffect(() => {
     GetInfor(auth)
@@ -14,6 +14,7 @@ function SettingsAccount() {
       .then((data) => {
         setInfor(data);
       });
+      //eslint-disable-next-line
   }, []);
   return (
     <>

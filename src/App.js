@@ -1,47 +1,66 @@
-
 import appRoute from "./routes/appRoute";
-import Page404 from "./Component/404";
 import HomePage from "./Container/HomePage";
 import Login from "./Container/Login";
 import Signup from "./Container/Signup";
 import Admin from "./Container/Admin";
-import { Route, Switch,Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import SettingsAccount from "./Component/SettingsAccount";
-import PrivateRouter, {CheckLogin, PrivateLogin} from "./Auth/Authentication"; 
+import PrivateRouter, {
+  PrivateLogin,
+  PrivateCart,
+} from "./Auth/Authentication";
+import Cart from "./Container/Cart";
+import { useEffect } from "react";
+import { checkLogged } from "./Api";
+import { AuthState } from "./context/context";
+import Load from "./Component/Load";
 
-  function App (){
-    const {isLoad,auth} = CheckLogin();
-    if(isLoad){
-      return(
-        <div>Load</div>
-      )
-    }
+
+function App() {
+  const {auth,setAuth} = AuthState();
+
+  useEffect(()=>{
+      checkLogged()
+          .then(data => {     
+            console.log('fetch app');
+              setAuth(Object.assign({isLoad:false},...Object.values(data)));
+          });
+         return ()=> console.log('unmount app');
+        } 
+        ,[])
+        console.log('app');
   return (
     <>
+    {auth.isLoad? (<Load/>):(
       <Switch>
         <Route exact path="/">
-              <HomePage/>
+          <HomePage />
         </Route>
-        <PrivateRouter path="/admin">
-          <Admin/>
+        <PrivateRouter path="/admin" name="admin">
+          <Admin />
         </PrivateRouter>
-        <PrivateRouter path="/Settings">
-          <SettingsAccount/>
+        <PrivateRouter path="/Settings" name="settings">
+          <SettingsAccount />
         </PrivateRouter>
 
-        <PrivateLogin path="/Signup"> 
-          <Signup/> 
+        <PrivateLogin path="/Signup" name="signup">
+          <Signup />
         </PrivateLogin>
-        <PrivateLogin path="/Login">
-          <Login/>
+        <PrivateLogin path="/Login" name="login">
+          <Login />
         </PrivateLogin>
 
-         {appRoute.map((value) => (
+        <PrivateCart path="/Cart" name="cart">
+          <Cart />
+        </PrivateCart>
+
+        {appRoute.map((value) => (
           <Route path={value.path} key={value.path}>
             {value.component}
           </Route>
         ))}
       </Switch>
+    )}
     </>
   );
 }

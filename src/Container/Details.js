@@ -1,19 +1,20 @@
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { CartState } from "../context/context";
-import { queryProduct } from "../Api";
+import { checkLogged, queryProduct } from "../Api";
 import Lottie from "react-lottie";
 import animAdd from "../lottie/4914-cart-checkout-fast";
 import { formatPrice } from "../helper";
 
 function Details() {
   const [toggleBtn, setToggleBtn] = useState(true);
-  const { state, dispatch } = CartState();
+  const {  dispatch } = CartState();
   const [toggleLottie, setToggleLottie] = useState(false);
   const nameProduct = useParams();
-  const [qty,setQty] = useState(1);
+  const [qty, setQty] = useState(1);
+  const history = useHistory();
   const [product, setProduct] = useState({});
   const defaultOptions = {
     loop: false,
@@ -24,7 +25,9 @@ function Details() {
     },
   };
   useEffect(() => {
-    queryProduct("name", nameProduct.name).then((data) => setProduct(...data.results));
+    queryProduct("name", nameProduct.name).then((data) =>
+      setProduct(...data.results)
+    );
   }, [nameProduct.name]);
   const handleLottie = () => {
     setToggleLottie(!toggleLottie);
@@ -46,15 +49,21 @@ function Details() {
                 <button
                   className="Add"
                   onClick={() => {
-                    dispatch({
-                      type: "ADD_TO_CART",
-                      payload: {
-                        ...product,
-                        quantity: qty,
-                        select:false
+                    checkLogged().then((data) => {
+                      if (data?.user) {
+                        dispatch({
+                          type: "ADD_TO_CART",
+                          payload: {
+                            ...product,
+                            quantity: qty,
+                            select: false,
+                          },
+                        });
+                        handleLottie();
+                      }else {
+                        history.push('/login');
                       }
                     });
-                    handleLottie();
                   }}
                 >
                   Thêm Vào Giỏ Hàng
@@ -80,7 +89,7 @@ function Details() {
                         className="Cart-label"
                         onClick={() => {
                           if (qty > 1) {
-                           setQty(qty-1);
+                            setQty(qty - 1);
                           }
                         }}
                       >
@@ -103,7 +112,7 @@ function Details() {
                         htmlFor=""
                         className="Cart-label"
                         onClick={() => {
-                          setQty(qty+1);
+                          setQty(qty + 1);
                         }}
                       >
                         +

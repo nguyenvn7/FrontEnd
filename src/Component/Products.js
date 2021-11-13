@@ -1,10 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useLocation,useHistory } from "react-router-dom";
+import { useState } from "react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import animAdd from "../lottie/4914-cart-checkout-fast";
 import Lottie from "react-lottie";
 import { CartState } from "../context/context";
 import { formatPrice } from "../helper";
+import { checkLogged } from "../Api";
 
 function Item(props) {
   return <img src={props.link} alt="" />;
@@ -12,16 +13,20 @@ function Item(props) {
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
+
 function Products({ Products, total, page, handleSort, params }) {
   const endPage = Math.ceil(+total / 15);
-  let genre = useQuery().get("genre"); 
-  let order = useQuery().get('order');
-  genre = genre && `&genre=${genre}` || "";
-  order = order && `&order=${order}` || "";
+  let genre = useQuery().get("genre");
+  let order = useQuery().get("order");
+  genre = (genre && `&genre=${genre}`) || "";
+  order = (order && `&order=${order}`) || "";
+
   const [toggle, setToggle] = useState(false);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const { state, dispatch } = CartState();
-  const searchParams = useLocation().search;
+  const history = useHistory();
+
+  const {  dispatch } = CartState();
+
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -56,6 +61,7 @@ function Products({ Products, total, page, handleSort, params }) {
   //     setStopped(-1);
   //   }, 2000);
   // }
+
   return (
     <section className="Products">
       <div className="Products-select">
@@ -104,6 +110,7 @@ function Products({ Products, total, page, handleSort, params }) {
                   </Link>
                 </ul>
               </div>
+
               <div className="Products-ItemGenres">
                 <Link to="/" className="Products-TittleGenres">
                   Ngoại Ngữ
@@ -142,17 +149,28 @@ function Products({ Products, total, page, handleSort, params }) {
             </div>
           )}
         </div>
-        <p
-        className="Products-Item Products-TittleGenres">Hàng Mới</p>
-        <Link to={`/?${page && `page=${page}`|| ""}${genre && `${genre}&` || "&"}order=ASC`}
-         className="Products-Item Products-TittleGenres">Giá Thấp</Link>
-        <Link to={`/?${page && `page=${page}`|| ""}${genre && `${genre}&` || "&"}order=DESC`}
-         className="Products-Item Products-TittleGenres">Giá Cao</Link>
+        <p className="Products-Item Products-TittleGenres">Hàng Mới</p>
+        <Link
+          to={`/?${(page && `page=${page}`) || ""}${
+            (genre && `${genre}&`) || "&"
+          }order=ASC`}
+          className="Products-Item Products-TittleGenres"
+        >
+          Giá Thấp
+        </Link>
+        <Link
+          to={`/?${(page && `page=${page}`) || ""}${
+            (genre && `${genre}&`) || "&"
+          }order=DESC`}
+          className="Products-Item Products-TittleGenres"
+        >
+          Giá Cao
+        </Link>
       </div>
 
       <div className="Products__List">
         {Products.map((value, index) => (
-          <div className="Item" key={value.id} >
+          <div className="Item" key={value.id}>
             <Link to={`/Details/${value.name}`} className="img">
               <div className="Rote">
                 <Item link={value.link} />
@@ -168,15 +186,21 @@ function Products({ Products, total, page, handleSort, params }) {
             <div className="details-add">
               <MdOutlineAddShoppingCart
                 onClick={() => {
-                  dispatch({
-                    type: "ADD_TO_CART",
-                    payload: {
-                      ...value,
-                      quantity: 1,
-                      select: false
-                    },
+                  checkLogged().then((data) => {
+                    if (data?.user) {
+                      dispatch({
+                        type: "ADD_TO_CART",
+                        payload: {
+                          ...value,
+                          quantity: 1,
+                          select: false,
+                        },
+                      });
+                      handleAdd();
+                    }else {
+                      history.push('/login');
+                    }
                   });
-                  handleAdd();
                 }}
               />
               {/* <Lottie
@@ -191,10 +215,7 @@ function Products({ Products, total, page, handleSort, params }) {
         ))}
         <div className="Products-pag">
           <ul className="Products-pagList">
-            <Link
-              className="Products-pagItem"
-              to={`/?page=1${genre}${order}`}
-            >
+            <Link className="Products-pagItem" to={`/?page=1${genre}${order}`}>
               1
             </Link>
             {+page > 2 ? (

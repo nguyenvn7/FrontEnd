@@ -9,7 +9,6 @@ function Admin() {
     });
   };
   const {state} = CartState();
-  
   return (
     <>
       <Header />

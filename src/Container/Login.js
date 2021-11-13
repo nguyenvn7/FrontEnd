@@ -3,11 +3,10 @@ import { useState } from "react";
 import {  Link, useHistory } from "react-router-dom";
 import { AuthState } from "../context/context";
 import {  login } from "../Api";
-import Cookies from "js-cookie";
 import Load from "../Component/Load";
 
 function Login() {
-  const [auth, setAuth] = AuthState();
+  const {auth,setAuth} = AuthState();
   const history = useHistory();
   const [load, setLoad] = useState(false);
   const [name, setName] = useState("");
@@ -22,7 +21,7 @@ function Login() {
       <Header />
       <main>
        
-      {load && <Load/>}
+      { ( load && <Load/>) || (    
           <section className="Form">
             <div className="wrap">
               <div className="Form-img">
@@ -70,9 +69,9 @@ function Login() {
                       }
                       return data.json();
                     })
-                    .then(value => {                    
-                      setAuth(...Object.values(value));
-                      if(value?.user){
+                    .then(data => {                    
+                      if(data?.user){
+                      setAuth(Object.assign({isLoad:false},...Object.values(data)));
                         history.push('/');
                       }
                     })
@@ -84,7 +83,8 @@ function Login() {
               </form>
             </div>
           </section>
-        
+        )}
+  
       </main>
     </>
   );

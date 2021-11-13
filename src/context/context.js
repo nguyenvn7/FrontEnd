@@ -1,14 +1,13 @@
 import React, { createContext, useReducer, useContext, useState } from 'react';
 import { Reducer } from './Reducer';
-import FakeProduct from "../Component/FakeProduct"
-import { checkLogged } from '../Api';
+import products from "../Component/FakeProduct";
 
 const Cart = createContext();
 
 
 const Context = ({children}) => {
     const [state,dispatch] = useReducer(Reducer,{
-        products: FakeProduct,
+        products,
         cart:[]
     })
     return <Cart.Provider value={{state,dispatch}}>
@@ -37,9 +36,12 @@ export const  AuthContext =  ({children})=>{
     // the second way
     // Loading component App
 
-    const [auth,setAuth] = useState({});
+    const [auth,setAuth] = useState({
+        isLoad: true,
+        username: {}
+    });
 
-    return <Authentication.Provider value = {[auth,setAuth]}>
+    return <Authentication.Provider value = {{auth,setAuth}}>
         {children}
     </Authentication.Provider>
 }
