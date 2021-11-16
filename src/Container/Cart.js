@@ -9,10 +9,10 @@ import { getCart, updateQtyCart } from "../Api";
 
 function Cart() {
   const { state, dispatch } = CartState();
-  const [productCart,setProductCart] = useState();
+  const [productCart,setProductCart] = useState([]);
   const [modal, setModal] = useState(false);
   const {auth} = AuthState();
-  const checkedAll = state.cart.length && state.cart.every(value => value.select);
+  const checkedAll = productCart.length && productCart.every(value => value.select);
 
   const handleChange = (e, value) => {
     value.quantity = +e.target.value;
@@ -31,7 +31,7 @@ function Cart() {
     //   type: "CHANGE_CART_QTY",
     //   payload: value,
     // });
-    updateQtyCart(value.quantity).then(data => console.log(data.status))
+    // updateQtyCart(value.quantity).then(data => console.log(data.status))
   };
   const handleReduceValue = (value) => {
     if (value.quantity === 1) {
@@ -49,8 +49,19 @@ function Cart() {
       });
     }
   };
-  console.log(' Cart effect',auth);
-
+  const handleCheckInp = (index) => {
+    const newP = [...productCart.map(value => Object.assign({},value))];
+    newP[index].select = !newP[index].select;
+    setProductCart(newP);
+  };
+  const handleCheckInpAll = (stateSelect) => {
+    const newP = [...productCart.map(value => {
+      const newSelect = Object.assign({},value);
+      newSelect.select = stateSelect;
+      return newSelect;
+    })];
+    setProductCart(newP);
+  };
   useEffect(()=>{
     if(auth?.username){
       getCart(auth.username)
@@ -59,7 +70,6 @@ function Cart() {
         setProductCart(data.map(value => ({...value,select: false})));
       } );
     }
-    
     return ()=>setProductCart();
     //eslint-disable-next-line
   },[])
@@ -75,11 +85,8 @@ function Cart() {
                   <input
                     type="checkbox"
                     checked={checkedAll}
-                    onChange={() => {
-                      dispatch({
-                        type: "CHANGE_ALL_SELECT_CART",
-                        payload: !checkedAll,
-                      });
+                    onChange={(e) => {
+                      handleCheckInpAll(e.target.checked)
                     }}
                   />
                   <label htmlFor=""> Sản Phẩm </label>
@@ -91,18 +98,13 @@ function Cart() {
               </div>
               <div className="Cart-Products">
                 {(productCart?.length &&
-                  productCart.map((value) => (
+                  productCart.map((value,index) => (
                     <div className="Cart-item" key={value.id}>
                       <input
                         type="checkbox"
                         className="Cart-itemBtn"
                         checked={value.select}
-                        onChange={() => {
-                          dispatch({
-                            type:"CHANGE_SELECT_CART",
-                            payload: value.id,
-                          });
-                        }}
+                        onChange={() => handleCheckInp(index)}                         
                       />
                       <div className="Cart-itemDes">
                         <div className="Cart-itemImg">
@@ -166,11 +168,8 @@ function Cart() {
                     type="checkbox"
                     id="cbAll"
                     checked={checkedAll}
-                    onChange={() => {
-                      dispatch({
-                        type: "CHANGE_ALL_SELECT_CART",
-                        payload: !checkedAll,
-                      });
+                    onChange={(e) => {
+                      handleCheckInpAll(e.target.checked)
                     }}
                   />
                   <label htmlFor="cbAll"> Chọn Tất Cả({state.cart.length}) </label>

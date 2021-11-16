@@ -40,6 +40,7 @@ function Login() {
                     name="email"
                     onChange={(e) => setName(e.target.value)}
                     autoComplete="off"
+                    value ={name}
                   />
                   <i className="fal fa-user-circle"></i>
                 </div>
@@ -51,6 +52,7 @@ function Login() {
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="off"
+                    value ={password}
                   />
                   <i className="fas fa-lock lock"></i>
                 </div>
