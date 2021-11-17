@@ -33,11 +33,15 @@ Header {
          width: 100%;
          display: block;
      }
+     
      *:hover{
             cursor: pointer;
             color: variables.$Color_purple;
      }
     }
+    img{
+      border-radius: 50%;
+     }
 
   }
   .log_sign {

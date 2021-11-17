@@ -4,7 +4,7 @@ import { AuthState, CartState } from "../context/context";
 import { formatPrice } from "../helper";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
-import { getCart, updateQtyCart } from "../Api";
+import { deleteItemCart, deleteItemsCart, getCart, updateQtyCart } from "../Api";
 
 
 function Cart() {
@@ -24,31 +24,24 @@ function Cart() {
     //   payload: value,
     // });
     
+  };  
+  const handleDelete = (value)=>{
+    const newP = [...productCart.filter(data => !value.some(data2 => data.id === data2[0]))];
+    if(value.length === 1)
+    {
+      const newArr = value[0]; 
+      deleteItemCart(newArr[1],newArr[0]).then(data => console.log(data.status));
+    }else  deleteItemsCart(value).then(data => console.log(data.status))
+    setProductCart(newP);
+  }
+  const handleUpdateQty = ({id},index,qty) => {
+    const newP = [...productCart.map(value => Object.assign({},value))];
+    newP[index].quantity = qty;
+    updateQtyCart(id,newP[index].quantity,auth.username).then(data => console.log(data.status));
+    setProductCart(newP);
+    
   };
-  const handleIncreaseValue = (value) => {
-    value.quantity += 1;
-    // dispatch({
-    //   type: "CHANGE_CART_QTY",
-    //   payload: value,
-    // });
-    // updateQtyCart(value.quantity).then(data => console.log(data.status))
-  };
-  const handleReduceValue = (value) => {
-    if (value.quantity === 1) {
-      window.alert("Muon xoa");
-      value.quantity -= 1;
-      dispatch({
-        type: "CHANGE_CART_QTY",
-        payload: value,
-      });
-    } else {
-      value.quantity -= 1;
-      dispatch({
-        type: "CHANGE_CART_QTY",
-        payload: value,
-      });
-    }
-  };
+
   const handleCheckInp = (index) => {
     const newP = [...productCart.map(value => Object.assign({},value))];
     newP[index].select = !newP[index].select;
@@ -63,6 +56,7 @@ function Cart() {
     setProductCart(newP);
   };
   useEffect(()=>{
+    console.log('effect page Cart');
     if(auth?.username){
       getCart(auth.username)
       .then(data => data.json())
@@ -119,9 +113,12 @@ function Cart() {
                         <div className="Cart-inp">
                           <label
                             onClick={() =>
-                              handleReduceValue({
-                                ...value,
-                              })
+                                {
+                                const qty = value.quantity - 1;
+                                handleUpdateQty({
+                                  ...value,
+                                },index,qty)
+                              }
                             }
                             className="Cart-label"
                           >
@@ -135,9 +132,12 @@ function Cart() {
                           />
                           <label
                             onClick={() =>
-                              handleIncreaseValue({
+                            {
+                              const qty = value.quantity + 1;
+                              handleUpdateQty({
                                 ...value,
-                              })
+                              },index,qty)
+                            }
                             }
                             className="Cart-label"
                           >
@@ -148,11 +148,7 @@ function Cart() {
                           {formatPrice(value.quantity * value.price)}
                         </p>
                         <button
-                          onClick={() =>
-                            dispatch({
-                              type: "REMOVE_FROM_CART",
-                              payload: value,
-                            })
+                          onClick={() => handleDelete([[value.id,auth.username]])
                           }
                         >
                           Xoá
@@ -172,26 +168,29 @@ function Cart() {
                       handleCheckInpAll(e.target.checked)
                     }}
                   />
-                  <label htmlFor="cbAll"> Chọn Tất Cả({state.cart.length}) </label>
+                  <label htmlFor="cbAll"> Chọn Tất Cả({productCart.length}) </label>
                   <button 
                   className="footer-del"
                   onClick={()=>{
-                    if(!state.cart.some(value => value.select)){
+                    if(!productCart.some(value => value.select)){
                       setModal(true);
                       setTimeout(()=> setModal(false),1000);
                     }else {
-                      dispatch({
-                        type: 'REMOVE_SELECT_FROM_CART',
-                        payload: state.cart.filter(value => value.select)
-                      });
+                      const arr = [];
+                      productCart.map(value => {
+                        if(value.select){
+                          arr.push([value.id,auth.username]);
+                        }
+                      })
+                      handleDelete(arr);                     
                     }
                   }}
                   > Xoá </button>
                 </div>
                 <div className="Cart-right">
                   <div className="Cart-right-wrap">
-                    <p> Tổng thanh toán({state.cart.filter(value => value.select).length} Sản Phẩm): </p> 
-                    <p>{formatPrice(state.cart.reduce((prev,curr) => {
+                    <p> Tổng thanh toán({productCart.filter(value => value.select).length} Sản Phẩm): </p> 
+                    <p>{formatPrice(productCart.reduce((prev,curr) => {
                         if(curr.select){
                           return prev+(curr.price*curr.quantity)
                         }

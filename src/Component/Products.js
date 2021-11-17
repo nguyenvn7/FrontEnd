@@ -5,7 +5,7 @@ import animAdd from "../lottie/4914-cart-checkout-fast";
 import Lottie from "react-lottie";
 import { CartState } from "../context/context";
 import { formatPrice } from "../helper";
-import { checkLogged } from "../Api";
+import { addCart, checkLogged } from "../Api";
 
 function Item(props) {
   return <img src={props.link} alt="" />;
@@ -179,7 +179,7 @@ function Products({ Products, total, page, handleSort, params }) {
             <div className="details">
               <div>
                 <p className="details__name">{value.name}</p>
-                <p className="details__genre">{value.genre}</p>
+                <p className="details__genre">{value.genre}</p> 
               </div>
             </div>
             <p className="price">{formatPrice(value.price)}</p>
@@ -188,14 +188,7 @@ function Products({ Products, total, page, handleSort, params }) {
                 onClick={() => {
                   checkLogged().then((data) => {
                     if (data?.user) {
-                      dispatch({
-                        type: "ADD_TO_CART",
-                        payload: {
-                          ...value,
-                          quantity: 1,
-                          select: false,
-                        },
-                      });
+                      addCart(data.user.username,value.id);
                       handleAdd();
                     }else {
                       history.push('/login');

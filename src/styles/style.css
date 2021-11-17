@@ -38,6 +38,9 @@ Header .Avatar-menu *:hover {
   cursor: pointer;
   color: #6C5DD3;
 }
+Header .Avatar img {
+  border-radius: 50%;
+}
 Header .log_sign {
   color: white;
   display: flex;

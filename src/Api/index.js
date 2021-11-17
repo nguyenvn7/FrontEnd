@@ -112,14 +112,43 @@ export async function getCart(username){
   })
   return res;
 }
-export async function updateQtyCart(quantity){
+export async function updateQtyCart(idsp,quantity,username){
   const res = await fetch("http://localhost:3001/apiProducts/updateQty",{
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      idsp,
+      username,
       quantity
+    }),
+    credentials: 'include'
+  })
+  return res;
+}
+export async function deleteItemCart( username,idsp){
+  const res = await fetch("http://localhost:3001/apiProducts/deleteItem",{
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      idsp
+    }),
+    credentials: 'include'
+  })
+  return res;
+}
+export async function deleteItemsCart(listItem){
+  const res = await fetch("http://localhost:3001/apiProducts/deleteItems",{
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      listItem
     }),
     credentials: 'include'
   })

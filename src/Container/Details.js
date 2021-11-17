@@ -3,7 +3,7 @@ import Footer from "../Component/Footer";
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { CartState } from "../context/context";
-import { checkLogged, queryProduct } from "../Api";
+import { addCart, checkLogged, queryProduct } from "../Api";
 import Lottie from "react-lottie";
 import animAdd from "../lottie/4914-cart-checkout-fast";
 import { formatPrice } from "../helper";
@@ -51,14 +51,7 @@ function Details() {
                   onClick={() => {
                     checkLogged().then((data) => {
                       if (data?.user) {
-                        dispatch({
-                          type: "ADD_TO_CART",
-                          payload: {
-                            ...product,
-                            quantity: qty,
-                            select: false,
-                          },
-                        });
+                        addCart(data.user.username,product.id);
                         handleLottie();
                       }else {
                         history.push('/login');

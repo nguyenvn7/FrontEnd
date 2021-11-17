@@ -26,7 +26,7 @@ function Avatar() {
         <div className="Avatar" 
             onClick = {() => setToggle(!toggle)}
         >
-            <img src="https://member.imagineacademy.microsoft.com/sites/all/themes/custom/ita_members/images/microsoft-img.png" alt="" /> 
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXgwX5fY7SKxnVncyKDZcqEKF6hN7JCs1bISjgwkxu9uS6eSvgKwAExoxhg7xVEUl5w8&usqp=CAU" alt="" /> 
            {toggle &&  <div className="Avatar-menu">
                 <ul>
                 <li onClick={()=>{
