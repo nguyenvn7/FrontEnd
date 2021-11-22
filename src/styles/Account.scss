@@ -1,5 +1,25 @@
 .Account{
     padding: 70px 100px 20px;
+    .avatar{
+        width: 0;
+
+    }
+    .label-avatar{
+        cursor: pointer;
+        position: absolute;
+        width: 100%;
+        border-radius: 100%;
+        top: calc(50% - 35px);
+        background: #0000002b;
+        height: 100%;
+        img{
+            object-fit: contain;
+        }
+    }
+    &-name{
+        background: none;
+        border: none;
+    }
     &-wrap{
         background: white;
         padding: 50px;
@@ -7,6 +27,9 @@
         box-shadow: 0 0 20px gray;
     }
     &-tittle{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding-bottom: 20px;
         margin-bottom: 20px;
         border-bottom: 2px solid gray;
@@ -33,6 +56,26 @@
         padding: 8px 20px;
         border-radius: 50px;
     }
+    &-btn-update{
+        display: flex;
+        gap: 10px;
+        *{
+            background: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+        .save{
+            border: 1px solid #1a8917;
+            color: #1a8917;
+        }
+        .cancel{
+            border: 1px solid rgba(0,0,0,.15);
+            color: rgba(0,0,0,.54);
+        }
+        .cancel:hover{
+            border-color: rgba(0,0,0,.54);
+        }
+    }
     &-left{
         h3{
             margin-bottom: 10px;
@@ -40,13 +83,16 @@
     }
     &-wrapimg{
         display: flex;
-        p{
-            flex: 2;
-        }
         &-img{
-            flex: .3;
+            position: relative;
+            cursor: pointer;
+            height: 70px;
+            width: 70px;
+            margin-left: 200px ;
             img{
+                object-fit: cover;
                 border-radius: 100%;
+                height: 100%;
             }
         }
     }

@@ -13,7 +13,7 @@ Header {
   align-items: center;
 }
 Header .Avatar {
-  width: 10%;
+  width: 15%;
   position: relative;
   cursor: pointer;
 }
@@ -67,7 +67,12 @@ Header .logo .img {
 }
 Header nav {
   display: flex;
+  gap: 25px;
   justify-content: space-around;
+}
+Header nav a:hover {
+  color: #6C5DD3;
+  transition: all 0.25s;
 }
 Header .Log_icon:hover + .log {
   transform: translateX(42px);
@@ -970,6 +975,77 @@ main {
 .Admin {
   padding: 100px 100px 40px;
   background: linear-gradient(to bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+  position: relative;
+}
+.Admin-modal {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-height: 600px;
+  overflow: auto;
+  gap: 10px;
+  position: fixed;
+  padding: 40px;
+  border-radius: 10px;
+  top: calc(50% - 250px);
+  left: calc(50% - 200px);
+  background: white;
+  box-shadow: 0 0 20px gray;
+  color: #666666;
+}
+.Admin-modal-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 1px solid gray;
+  padding: 15px 0;
+  max-width: 400px;
+  min-width: 10px;
+}
+.Admin-modal-item .name, .Admin-modal-item .price, .Admin-modal-item .qty {
+  cursor: pointer;
+}
+.Admin-modal-item .name:hover,
+.Admin-modal-item .price:hover,
+.Admin-modal-item .qty:hover {
+  box-shadow: inset 0 0 3px 1px #c92127;
+}
+.Admin-modal-close {
+  width: 100%;
+  text-align: end;
+  font-size: 18px;
+}
+.Admin-modal-close i:hover {
+  cursor: pointer;
+  color: #6C5DD3;
+}
+.Admin-modal-list {
+  display: flex;
+  flex-direction: column;
+}
+.Admin-modal-img {
+  width: 40%;
+}
+.Admin-modal-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+.Admin-modal-btn .update, .Admin-modal-btn .cancel {
+  padding: 10px 20px;
+  border-radius: 7px;
+  background: none;
+  border: 2px solid #c92127;
+  font-weight: 700;
+}
+.Admin-modal-btn .update {
+  background: #c92127;
+  color: white;
+  font-size: 13px;
+}
+.Admin-modal-btn .cancel {
+  color: #c92127;
 }
 .Admin-header {
   margin-bottom: 50px;
@@ -1033,6 +1109,25 @@ main {
 .Account {
   padding: 70px 100px 20px;
 }
+.Account .avatar {
+  width: 0;
+}
+.Account .label-avatar {
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  border-radius: 100%;
+  top: calc(50% - 35px);
+  background: #0000002b;
+  height: 100%;
+}
+.Account .label-avatar img {
+  object-fit: contain;
+}
+.Account-name {
+  background: none;
+  border: none;
+}
 .Account-wrap {
   background: white;
   padding: 50px;
@@ -1040,6 +1135,9 @@ main {
   box-shadow: 0 0 20px gray;
 }
 .Account-tittle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 2px solid gray;
@@ -1065,20 +1163,43 @@ main {
   padding: 8px 20px;
   border-radius: 50px;
 }
+.Account-btn-update {
+  display: flex;
+  gap: 10px;
+}
+.Account-btn-update * {
+  background: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+.Account-btn-update .save {
+  border: 1px solid #1a8917;
+  color: #1a8917;
+}
+.Account-btn-update .cancel {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.54);
+}
+.Account-btn-update .cancel:hover {
+  border-color: rgba(0, 0, 0, 0.54);
+}
 .Account-left h3 {
   margin-bottom: 10px;
 }
 .Account-wrapimg {
   display: flex;
 }
-.Account-wrapimg p {
-  flex: 2;
-}
 .Account-wrapimg-img {
-  flex: 0.3;
+  position: relative;
+  cursor: pointer;
+  height: 70px;
+  width: 70px;
+  margin-left: 200px;
 }
 .Account-wrapimg-img img {
+  object-fit: cover;
   border-radius: 100%;
+  height: 100%;
 }
 
 * {
@@ -1132,6 +1253,15 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.wrap-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.267);
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -10,15 +10,16 @@ import PrivateRouter, {
   PrivateCart,
 } from "./Auth/Authentication";
 import Cart from "./Container/Cart";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { checkLogged } from "./Api";
 import { AuthState } from "./context/context";
 import Load from "./Component/Load";
+import Header from "./Component/Header";
 
 
 function App() {
   const {auth,setAuth} = AuthState();
-
+  const [img,setImg] = useState();
   useEffect(()=>{
       checkLogged()
           .then(data => {     
@@ -27,15 +28,18 @@ function App() {
           });
          return ()=> console.log('unmount app');
         } 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         ,[])
         console.log('app');
   return (
     <>
+    <Header/>
     {auth.isLoad? (<Load/>):(
       <Switch>
         <Route exact path="/">
           <HomePage />
         </Route>
+
         <PrivateRouter path="/admin" name="admin">
           <Admin />
         </PrivateRouter>

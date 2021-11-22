@@ -8,14 +8,14 @@ import Context, { AuthContext } from "./context/context";
 async function RenderApp() {
   ReactDOM.render(
     <Router>
-   <Context>
-    <AuthContext>
-      <App/>
-    </AuthContext>
-   </Context>
- </Router>,
+      <AuthContext>
+        <Context>
+          <App />
+        </Context>
+      </AuthContext>
+    </Router>,
     document.getElementById("root")
   );
-};
+}
 
 (async () => await RenderApp())();

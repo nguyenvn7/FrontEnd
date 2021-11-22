@@ -1,12 +1,22 @@
 import { useState } from "react";
-import { logout } from "../Api";
+import { GetInfor, logout } from "../Api";
 import {  AuthState } from "../context/context";
 import { Link,useHistory } from "react-router-dom";
+import { useEffect } from "react/cjs/react.development";
 
 function Avatar() {
-    const {setAuth} = AuthState();
+    const {auth,setAuth} = AuthState();
     const [toggle,setToggle] = useState(false);
     const history = useHistory();
+    const [infor, setInfor] = useState();
+    useEffect(()=>{
+        GetInfor(auth)
+        .then((data) => data.json())
+        .then((data) => {
+          setInfor(data);
+        });
+        //eslint-disable-next-line
+    },[])
     // const handleWindowClick = () => {
     //     // setToggle(false);
     //     console.log('window click')
@@ -22,11 +32,11 @@ function Avatar() {
     //     }   
     // }, [])
     // console.log(toggle);
-    return ( 
+    return (    
         <div className="Avatar" 
             onClick = {() => setToggle(!toggle)}
         >
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXgwX5fY7SKxnVncyKDZcqEKF6hN7JCs1bISjgwkxu9uS6eSvgKwAExoxhg7xVEUl5w8&usqp=CAU" alt="" /> 
+            <img src={infor?.img || 'https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg'} alt="" /> 
            {toggle &&  <div className="Avatar-menu">
                 <ul>
                 <li onClick={()=>{
@@ -36,7 +46,7 @@ function Avatar() {
                 }} >Logout</li>
  
                 <li><Link to="/settings">
-                    Cái Đặt
+                    Cài Đặt
                 </Link></li>
                 </ul>
             </div>}

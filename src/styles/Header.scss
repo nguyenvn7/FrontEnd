@@ -14,7 +14,7 @@ Header {
   grid-auto-rows: 100%;
   align-items: center;
   .Avatar {
-    width: 10%;
+    width: 15%;
     position: relative;
     cursor: pointer;
     &-menu {
@@ -70,7 +70,12 @@ Header {
   }
   nav {
     display: flex;
+    gap: 25px;
     justify-content: space-around;
+    a:hover{
+      color: variables.$Color_purple;
+      transition: all .25s;
+    }
   }
 
   .Log_icon:hover + .log {

@@ -1,23 +1,6 @@
-import React, { createContext, useReducer, useContext, useState } from 'react';
-import { Reducer } from './Reducer';
-import products from "../Component/FakeProduct";
-
-const Cart = createContext();
+import React, { createContext, useContext, useState } from 'react';
 
 
-const Context = ({children}) => {
-    const [state,dispatch] = useReducer(Reducer,{
-        products,
-        cart:[]
-    })
-    return <Cart.Provider value={{state,dispatch}}>
-        {children}
-    </Cart.Provider>
-}
-export default Context;
-export const CartState = ()=>{
-    return useContext(Cart);
-}
 
 const Authentication = createContext();
 
@@ -34,11 +17,14 @@ export const  AuthContext =  ({children})=>{
     // const [auth,setAuth] = useState(...Object.values(data));
 
     // the second way
-    // Loading component App
+    // Fetch in Component App-Loading component App
+
+    // the third way -- ... 
+    // unchecked
+    // Fetch in context 
 
     const [auth,setAuth] = useState({
         isLoad: true,
-        username: {}
     });
 
     return <Authentication.Provider value = {{auth,setAuth}}>
@@ -49,3 +35,25 @@ export const  AuthContext =  ({children})=>{
 export const AuthState = ()=>{
     return useContext(Authentication);
 }
+
+const Cart = createContext();
+export const CartState = ()=>{
+    return useContext(Cart);
+}
+const Context = ({children}) => {
+    //use the third way --> move to component header
+    // checkLogged().then((data) => {
+    //     if(data?.user){
+             // getLengthCart(data.user.username).then(data => data.json()).then(data => console.log(data));
+    //         console.log(data.user.username);
+    //     }
+    // })
+    // fix set [qty,setQty] = useState(0) ~~
+    const [cartqty,setCartQty] = useState({
+        quantity: 0
+    })
+    return <Cart.Provider value={{cartqty,setCartQty}}>
+        {children}
+    </Cart.Provider>
+}
+export default Context;

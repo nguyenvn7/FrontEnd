@@ -1,11 +1,9 @@
 import { Link,useHistory } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import { signup, validationName } from "../Api";
-import Header from "../Component/Header";
 
 function Signup() {
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
+    const [fullname, setFullName] = useState("");
     const [nameaccount, setNameAccount] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
@@ -18,7 +16,6 @@ function Signup() {
 
       return ( 
           <>
-          <Header/>
           <main>
 
         <section className="Form">
@@ -32,11 +29,8 @@ function Signup() {
               <form onSubmit={handleSubmit} method="POST">
                 <p className="Form-tittle">Member Sign</p>
                 <div className="Form-infor">
-                  <input type="text" name=""  className="Form-infor-inp Form-Inp" placeholder="First Name" 
-                    onChange = {(e) => setFirstname(e.target.value)}
-                  />
-                  <input type="text" name=""  className="Form-infor-inp Form-Inp" placeholder="Last Name" 
-                    onChange = {(e) => setLastname(e.target.value)}
+                  <input type="text" name=""  className="Form-infor-inp Form-Inp" placeholder="Full Name" 
+                    onChange = {(e) => setFullName(e.target.value)}
                   />
                 </div>
                 <div className="Form-wrapIp">
@@ -100,11 +94,11 @@ function Signup() {
                 <button
                   className="Form-btnIp"
                   onClick={() => {
-                    if(!nameaccount || !password || !firstname || !lastname){
+                    if(!nameaccount || !password || !fullname ){
                       setErrEmpty(true);
                     }else
                     {
-                      signup(nameaccount,password,firstname,lastname).then(data => {
+                      signup(nameaccount,password,fullname).then(data => {
                       if(data.status === 200){
                         history.push('/login');
                       }else {

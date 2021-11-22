@@ -1,16 +1,14 @@
-import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { CartState } from "../context/context";
 import { addCart, checkLogged, queryProduct } from "../Api";
 import Lottie from "react-lottie";
 import animAdd from "../lottie/4914-cart-checkout-fast";
 import { formatPrice } from "../helper";
+import { CartState } from "../context/context";
 
 function Details() {
   const [toggleBtn, setToggleBtn] = useState(true);
-  const {  dispatch } = CartState();
   const [toggleLottie, setToggleLottie] = useState(false);
   const nameProduct = useParams();
   const [qty, setQty] = useState(1);
@@ -24,6 +22,11 @@ function Details() {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+  const {
+    cartqty: { quantity },
+    setCartQty
+  } = CartState();
+
   useEffect(() => {
     queryProduct("name", nameProduct.name).then((data) =>
       setProduct(...data.results)
@@ -37,7 +40,6 @@ function Details() {
   };
   return (
     <>
-      <Header />
       <main>
         <div className="Details-wrap">
           <section className="Product">
@@ -51,7 +53,8 @@ function Details() {
                   onClick={() => {
                     checkLogged().then((data) => {
                       if (data?.user) {
-                        addCart(data.user.username,product.id);
+                        addCart(data.user.username,product.id,qty);
+                        setCartQty({quantity: quantity + 1});
                         handleLottie();
                       }else {
                         history.push('/login');

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import animAdd from "../lottie/4914-cart-checkout-fast";
 import Lottie from "react-lottie";
-import { CartState } from "../context/context";
 import { formatPrice } from "../helper";
 import { addCart, checkLogged } from "../Api";
+import { CartState } from "../context/context";
 
 function Item(props) {
   return <img src={props.link} alt="" />;
@@ -25,7 +25,6 @@ function Products({ Products, total, page, handleSort, params }) {
   const [toggleAdd, setToggleAdd] = useState(false);
   const history = useHistory();
 
-  const {  dispatch } = CartState();
 
   const defaultOptions = {
     loop: false,
@@ -35,6 +34,10 @@ function Products({ Products, total, page, handleSort, params }) {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+  const {
+    cartqty: { quantity },
+    setCartQty
+  } = CartState();
 
   const handleAdd = () => {
     setToggleAdd(!toggleAdd);
@@ -188,7 +191,13 @@ function Products({ Products, total, page, handleSort, params }) {
                 onClick={() => {
                   checkLogged().then((data) => {
                     if (data?.user) {
-                      addCart(data.user.username,value.id);
+                      addCart(data.user.username,value.id,1)
+                          .then(data => data.text())
+                          .then(data => {
+                            if(data !== 'update'){
+                                setCartQty({quantity: quantity + 1});
+                            }
+                          })
                       handleAdd();
                     }else {
                       history.push('/login');

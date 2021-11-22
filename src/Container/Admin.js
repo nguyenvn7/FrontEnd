@@ -1,17 +1,117 @@
-import Header from "../Component/Header";
 import Footer from "../Component/Footer";
-import {  CartState } from "../context/context";
+import FakeProduct from "../Component/FakeProduct";
+import { useState } from "react/cjs/react.development";
+import { useEffect } from "react";
+import { getProductUpdate } from "../Api";
+
+// function genres(){
+//   return()
+// }
+
+function Item({ modal, setModal }) {
+
+    const [productModal,setProductModal] = useState("");
+  useEffect(() => { 
+    getProductUpdate(modal.idProduct)
+      .then( ({product,genres}) => setProductModal({
+        product: Object.assign({},...product),
+        genres 
+      }))
+    }, []);
+    const handleUpdate = (e,nameUpdate)=>{
+      if(e.target.textContent !== (productModal.product[nameUpdate]+'')){
+        console.log('update');
+        const newP = {
+          ...productModal.product,
+          [nameUpdate]: e.target.textContent
+        }
+        setProductModal({
+          ...newP,
+          ...productModal.genres
+        });
+      }
+    }
+  return (
+    <>
+      {(productModal && (
+        <div className="wrap-modal">
+          <div className="Admin-modal">
+            <div className="Admin-modal-close">
+              <i
+                onClick={() =>
+                  setModal({
+                    idProduct: "",
+                    toggle: false,
+                  })
+                }
+                className="fas fa-times-circle"
+              ></i>
+            </div>
+            <div className="Admin-modal-list">
+              <div className="Admin-modal-item">
+                <p>Tên:</p>
+                <p contentEditable  suppressContentEditableWarning={true} className="name" onBlur={(e)=>{
+                  handleUpdate(e,'name');
+                }}>{productModal.product.name}</p>
+              </div>
+              <div className="Admin-modal-item">
+                <p>Loại:</p>
+                <select name="genres" id="" defaultValue={productModal.product.genre}>
+                  {productModal.genres.map(value => (
+                    <option 
+                    key={value.genre} value={value.genre}
+                    >{value.genre}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="Admin-modal-item">
+                <p>Số Lượng:</p>
+                <p contentEditable  suppressContentEditableWarning={true} className="qty" 
+                onBlur={(e)=> handleUpdate(e,'quantity')}
+                >{productModal.product.quantity}</p>
+              </div>
+              <div className="Admin-modal-item">
+                <p>Đơn Giá:</p> 
+                <p contentEditable  suppressContentEditableWarning={true} className="price"
+                  onBlur={(e)=> handleUpdate(e,'price')}
+                >{productModal.product.price}</p>
+              </div>
+              <div className="Admin-modal-item">
+                <p>Hình Ảnh</p>
+                <div className="Admin-modal-img">
+                  <img src={productModal.product.link} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="Admin-modal-btn">
+              <button className='update'>Cập Nhật</button>
+              <button className='cancel'
+                onClick={()=> setModal({
+                    idProduct: "",
+                    toggle: false,
+                  })}
+              >Huỷ Bỏ</button>
+            </div>
+          </div>
+        </div>
+      )) ||
+        ""}
+    </>
+  );
+}
 
 function Admin() {
+  const [modal, setModal] = useState({
+    idProduct: "",
+    toggle: false,
+  });
   const formatPrice = (price) => {
     return ("" + price).replace(/(\d)(?=(?:\d{3})+(?:\.|$))/g, (m, p) => {
       return p + ",";
     });
   };
-  const {state} = CartState();
   return (
     <>
-      <Header />
       <main>
         <section className="Admin">
           <div className="Admin-select">
@@ -23,8 +123,7 @@ function Admin() {
             <p> Đơn Giá </p> <button> Thêm Sản Phẩm </button>
           </div>
           <div className="Admin-List">
-            
-            {state.products.map((value) => (
+            {FakeProduct.map((value) => (
               <div className="Admin-Item" key={value.id}>
                 <div className="Admin-product">
                   <div className="Admin-img">
@@ -35,12 +134,22 @@ function Admin() {
                 <p> {value.genre} </p> <div className="Admin-qty">200 </div>
                 <div className="Admin-price"> {formatPrice(100000)} </div>
                 <div className="Admin-btn">
-                  <button> Cập Nhật SP </button> <button> Xoá </button>
+                  <button
+                    onClick={() =>
+                      setModal({
+                        idProduct: value.id,
+                        toggle: !modal.toggle,
+                      })
+                    }
+                  >
+                    Cập Nhật SP
+                  </button>
+                  <button> Xoá </button>
                 </div>
               </div>
             ))}
-           
           </div>
+          {modal.toggle && <Item modal={modal} setModal={setModal} />}
         </section>
       </main>
       <Footer />

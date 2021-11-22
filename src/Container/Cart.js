@@ -1,4 +1,3 @@
-import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import { AuthState, CartState } from "../context/context";
 import { formatPrice } from "../helper";
@@ -8,26 +7,40 @@ import { deleteItemCart, deleteItemsCart, getCart, updateQtyCart } from "../Api"
 
 
 function Cart() {
-  const { state, dispatch } = CartState();
   const [productCart,setProductCart] = useState([]);
   const [modal, setModal] = useState(false);
   const {auth} = AuthState();
+  const {
+    cartqty: { quantity },
+    setCartQty
+  } = CartState();
   const checkedAll = productCart.length && productCart.every(value => value.select);
 
-  const handleChange = (e, value) => {
-    value.quantity = +e.target.value;
-    if (e.target.value === "" || e.target.value === "0") {
-      window.alert("Muon Xoa");
+  const handleBlur =(e,index,value)=>{
+    const regex = new RegExp("\\D");
+    const newQty = +e.target.value; 
+    if(regex.test(e.target.value)){
+      e.target.value = value.quantity;
+      alert('vui Long Chi Nhap So');
+    }else{
+      if(newQty === 0 ){
+        alert('xoa sp');
+        handleDelete([[value.id,auth.username]]);
+        setCartQty({quantity: quantity - 1});
+      }else{
+        if(newQty !== +value.quantity){
+          updateQtyCart(value.id,newQty,auth.username)
+          .then(data => console.log(data.status));
+          const newP = [...productCart.map(value => Object.assign({},value))];
+            newP[index].quantity = newQty;
+          setProductCart(newP);
+        }
+      }
     }
-    // dispatch({
-    //   type: "CHANGE_CART_QTY",
-    //   payload: value,
-    // });
-    
-  };  
+  }
   const handleDelete = (value)=>{
     const newP = [...productCart.filter(data => !value.some(data2 => data.id === data2[0]))];
-    if(value.length === 1)
+    if(value.length === 1)  
     {
       const newArr = value[0]; 
       deleteItemCart(newArr[1],newArr[0]).then(data => console.log(data.status));
@@ -69,7 +82,7 @@ function Cart() {
   },[])
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
         <div className="Cart-wrap">         
           {(productCart?.length && (
@@ -114,10 +127,16 @@ function Cart() {
                           <label
                             onClick={() =>
                                 {
-                                const qty = value.quantity - 1;
-                                handleUpdateQty({
-                                  ...value,
-                                },index,qty)
+                                if(value.quantity > 1){
+                                  const qty = value.quantity - 1;
+                                  handleUpdateQty({
+                                    ...value,
+                                  },index,qty)
+                                }else{
+                                    alert('xoa sp');
+                                    handleDelete([[value.id,auth.username]]);
+                                    setCartQty({quantity: quantity - 1});
+                                }
                               }
                             }
                             className="Cart-label"
@@ -125,10 +144,10 @@ function Cart() {
                             -
                           </label>
                           <input
-                            type="number"
+                            type="text"
                             min="0"
-                            onChange={(e) => handleChange(e, value)}
-                            value={value.quantity}
+                            onBlur={(e) => handleBlur(e,index,value)}
+                            defaultValue={value.quantity}
                           />
                           <label
                             onClick={() =>
@@ -148,7 +167,10 @@ function Cart() {
                           {formatPrice(value.quantity * value.price)}
                         </p>
                         <button
-                          onClick={() => handleDelete([[value.id,auth.username]])
+                          onClick={() => {
+                            handleDelete([[value.id,auth.username]]);
+                            setCartQty({quantity: quantity - 1});
+                          }
                           }
                         >
                           Xoá
@@ -181,7 +203,9 @@ function Cart() {
                         if(value.select){
                           arr.push([value.id,auth.username]);
                         }
+                        return 0;
                       })
+                      setCartQty({quantity: quantity - arr.length});   
                       handleDelete(arr);                     
                     }
                   }}

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CartState } from "../context/context";
-import { queryProduct } from "../Api/index";
+import { queryProduct,getLengthCart } from "../Api/index";
 import { AuthState } from "../context/context";
 import Avatar from "./Avatar";
 
@@ -24,10 +24,21 @@ function Item(props) {
 function Header() {
   const [search, setSearch] = useState([]);
   const {
-    state: { cart },
+    cartqty: { quantity },
+    setCartQty
   } = CartState();
   const {auth} = AuthState();
-  
+  useEffect(()=>
+  {
+             console.log('effect Header');
+             getLengthCart((auth?.username || '')).then(data => data.json()).then(data => {
+               if(data){
+                setCartQty(...data)
+               }else setCartQty({quantity:0});
+             });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[auth.username])
+
   const handleSearch = (nameSearch) => {
     if (nameSearch)
       queryProduct("name", nameSearch).then((data) => setSearch(data.results));
@@ -74,15 +85,18 @@ function Header() {
 
       <nav>
         <Link to="/">TRANG CHỦ</Link>
+        {(auth?.username && <Link to='/admin'>QUẢN LÝ</Link>)}
       </nav>
       <div className="Cart">
         <Link to="/Cart">
           <i className="fad fa-cart-plus icon"></i>
-          {(cart.length && <div className="Cart-total">{cart.length} </div>) ||
+          {(quantity && <div className="Cart-total">{quantity} </div>) ||
             ""}
         </Link>
       </div>
-      {(auth?.username && <Avatar />) || (
+      {(auth?.username && (
+        <Avatar />
+      )) || (
         <div className="log_sign">
           <div className="login l-s">
             <Link to="/login">Đăng Nhập</Link>

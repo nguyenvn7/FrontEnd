@@ -1,4 +1,3 @@
-import Header from "../Component/Header";
 import { useState } from "react";
 import {  Link, useHistory } from "react-router-dom";
 import { AuthState } from "../context/context";
@@ -6,7 +5,7 @@ import {  login } from "../Api";
 import Load from "../Component/Load";
 
 function Login() {
-  const {auth,setAuth} = AuthState();
+  const {setAuth} = AuthState();
   const history = useHistory();
   const [load, setLoad] = useState(false);
   const [name, setName] = useState("");
@@ -18,7 +17,7 @@ function Login() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
        
       { ( load && <Load/>) || (    
