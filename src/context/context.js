@@ -35,6 +35,16 @@ export const  AuthContext =  ({children})=>{
 export const AuthState = ()=>{
     return useContext(Authentication);
 }
+const Avatar = createContext();
+export const AvatarContext = ({children})=>{
+    const [avatar,setAvatar] = useState('https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg');
+    return <Avatar.Provider value={{avatar,setAvatar}}>
+        {children}
+    </Avatar.Provider>
+}
+export const AvatarState = ()=>{
+    return useContext(Avatar);
+}
 
 const Cart = createContext();
 export const CartState = ()=>{

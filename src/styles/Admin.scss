@@ -59,6 +59,7 @@
             display: flex;
             justify-content: space-evenly;
             margin-top: 10px;
+          
             .update,.cancel{
                 padding: 10px 20px;
                 border-radius: 7px;
@@ -127,10 +128,16 @@
     &-btn{
         gap: 10px;
         display: flex;
-        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .delete{
+        color: #c92127;
+    }
+    .delete,.edit{
+        font-size: 18px;
     }
     button{
-        font-size: 12px;
+        background: none;
     }
     &-active{
         background: #6C5DD3;

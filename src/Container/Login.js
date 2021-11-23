@@ -13,6 +13,22 @@ function Login() {
   const [status, setStatus] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoad(true);    
+                    login(name,password)
+                    .then(data => {
+                      if(data.status === 400){
+                        setLoad(false);
+                        setStatus(data.status);
+                        return '';
+                      }
+                      return data.json();
+                    })
+                    .then(data => {         
+                      if(data?.user){
+                      setAuth(Object.assign({isLoad:false},...Object.values(data)));
+                        history.push('/');
+                      }
+                    })
   };
 
   return (
@@ -59,24 +75,6 @@ function Login() {
                   Tên Đăng Nhập Hoặc Mật Khẩu Không Chính Xác
                 </p>}
                 <button className="Form-btnIp"
-                   onClick={() => {
-                    setLoad(true);    
-                    login(name,password)
-                    .then(data => {
-                      if(data.status === 400){
-                        setLoad(false);
-                        setStatus(data.status);
-                        return '';
-                      }
-                      return data.json();
-                    })
-                    .then(data => {                    
-                      if(data?.user){
-                      setAuth(Object.assign({isLoad:false},...Object.values(data)));
-                        history.push('/');
-                      }
-                    })
-                  }}
                 >LOGIN</button>
                 <div className="Form-wrap">
                   <p> <Link to="/signup">Đăng Ký</Link> </p>

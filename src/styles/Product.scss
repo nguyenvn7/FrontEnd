@@ -121,12 +121,15 @@ $Total_SC: calc($Column * 2 * $Spacing)+px;
     }
 
     &-Item {
-        border: 1px solid gray;
-        background: rgba(0, 0, 0, 0.151);
+        background: #996fce;
         padding: 10px 30px;
         border-radius: 50px;
         color: white;
         margin-right: 10px;
+        transition: all .5s ;
+    }
+    &-Item:hover{
+        background: #6c5dd3;
     }
 
     &-Genres {

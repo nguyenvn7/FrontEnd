@@ -13,9 +13,16 @@ Header {
   align-items: center;
 }
 Header .Avatar {
-  width: 15%;
+  height: 30px;
+  width: 30px;
   position: relative;
   cursor: pointer;
+}
+Header .Avatar img {
+  border-radius: 100%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 Header .Avatar-menu {
   width: 200px;
@@ -523,12 +530,15 @@ main {
   margin-bottom: 30px;
 }
 .Products-Item {
-  border: 1px solid gray;
-  background: rgba(0, 0, 0, 0.151);
+  background: #996fce;
   padding: 10px 30px;
   border-radius: 50px;
   color: white;
   margin-right: 10px;
+  transition: all 0.5s;
+}
+.Products-Item:hover {
+  background: #6c5dd3;
 }
 .Products-Genres {
   position: relative;
@@ -1097,10 +1107,16 @@ main {
 .Admin-btn {
   gap: 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
+}
+.Admin .delete {
+  color: #c92127;
+}
+.Admin .delete, .Admin .edit {
+  font-size: 18px;
 }
 .Admin button {
-  font-size: 12px;
+  background: none;
 }
 .Admin-active {
   background: #6C5DD3;

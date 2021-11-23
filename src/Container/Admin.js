@@ -141,10 +141,10 @@ function Admin() {
                         toggle: !modal.toggle,
                       })
                     }
+                    className="fas fa-edit edit"
                   >
-                    Cập Nhật SP
                   </button>
-                  <button> Xoá </button>
+                  <button className="fas fa-trash-alt delete"> </button>
                 </div>
               </div>
             ))}

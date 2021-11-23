@@ -1,52 +1,63 @@
 import { useEffect, useRef, useState } from "react";
 import { GetInfor, updateAvatar, updateInformationUser } from "../Api";
-import { AuthState } from "../context/context";
+import { AuthState, AvatarState } from "../context/context";
 import Load from "./Load";
-import Header from "./Header";
 import Footer from "./Footer";
 
 function SettingsAccount() {
   const { auth } = AuthState();
   const inputRef = useRef({});
   const [infor, setInfor] = useState();
+  const [tmpInfor,setTmpInfor] = useState();
   useEffect(() => {
     GetInfor(auth)
       .then((data) => data.json())
       .then((data) => {
+        setTmpInfor(data);
         setInfor(data);
       });
     //eslint-disable-next-line
   }, []);
   const [update, setUpdate] = useState();
   useEffect(() => {
-    if (update !== "img" && update) {
-      inputRef.current[update].focus();
+    if (inputRef.current && Object.keys(inputRef.current).length) {
+        inputRef.current.focus();
     }
   }, [update]);
-  const handleUpdate = (e, column) => {
-    if (infor[column] !== e.target.value) {
+  const handleChange = (e, column) => {
+   
       const newInfor = {
         ...infor,
         [column]: e.target.value,
       };
       setInfor(newInfor);
-    }
   };
-  const handleSave = (column) => {
+  const handleCancel = (e,column)=>{
+    setInfor(tmpInfor);
+  }
+  const handleSave = (key,column) => {
     updateInformationUser(auth.username,infor[column], column);
-    setUpdate();
+    setTmpInfor(infor)
+    setUpdate({
+      ...update,
+      [key]: ''
+    });
   };
-  const [avatar, setAvatar] = useState();
+  const [settingAvatar, setSettingAvatar] = useState();
+  const {setAvatar} = AvatarState();
   const handleSaveAvatar = ()=>{
-    updateAvatar(avatar.formData)
+    updateAvatar(settingAvatar.formData)
         . then(response => response.text())
-        .then(data => setInfor(
-          {
-            ...infor,
-            img: data
-          }
-        ))
-      setAvatar();
+        .then(data => {
+          setAvatar(data);
+          setInfor(
+            {
+              ...infor,
+              img: data
+            }
+          );
+        })
+      setSettingAvatar();
       setUpdate();
   }
   const handlePreviewAvatar = (e)=>{
@@ -56,14 +67,13 @@ function SettingsAccount() {
       formData.append("avatar",e.target.files[0]);
       preview = URL.createObjectURL(e.target.files[0])   
     }
-    setAvatar({
+    setSettingAvatar({
       formData,
       preview
     });
   }
   return (
     <>
-      <Header />
 
       <main>
         {(infor && (
@@ -76,29 +86,37 @@ function SettingsAccount() {
                 </div>
 
                 <div className="Account-ListInfor">
+
                   <div className="Account-ItemInfor">
                     <div className="Account-left">
                       <h3>Họ Tên</h3>
                       <input
                         type="text"
-                        disabled={update === "name" ? false : true}
-                        ref={(e) => (inputRef.current.name = e)}
+                        disabled={update?.name? false : true}                       
                         className="Account-name"
-                        onBlur={(e) => {
-                          handleUpdate(e, "fullname");
+                        ref={(e) => (update?.name && (inputRef.current=e))}
+                        onChange={(e) => {
+                          handleChange(e, "fullname");
                         }}
-                        defaultValue={infor.fullname}
+                        value={infor.fullname}
                       />
                     </div>
                     <div className="Account-right">
-                      {update === "name" ? (
+                      {update?.name ? (
                         <div className="Account-btn-update">
-                          <button className="save" onClick={()=>handleSave('fullname')}>
+                          <button className="save" onClick={()=>handleSave('name','fullname')}>
                             Lưu
                           </button>
                           <button
                             className="cancel"
-                            onClick={() => setUpdate()}
+                            onClick={() => {                         
+                              setUpdate({
+                              ...update,
+                              name: ''
+                            });
+                            handleCancel();
+                            }}
+                            
                           >
                             Huỷ
                           </button>
@@ -107,7 +125,60 @@ function SettingsAccount() {
                         <button
                           className="Account-btn"
                           onClick={() => {
-                            setUpdate("name");
+                            setUpdate({
+                              ...update,
+                              name: 'name'
+                            });
+                          }}
+                        >
+                          Chỉnh Sửa
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="Account-ItemInfor">
+                    <div className="Account-left">
+                      <h3>Số Điện Thoại</h3>
+                      <input
+                        type="text"
+                        autoFocus
+                        disabled={update?.sdt? false : true}
+                        ref={(e) => (update?.sdt && (inputRef.current=e))}
+                        className="Account-name" //fix scss
+                        onChange={(e) => {
+                          handleChange(e, "sdt");
+                        }}
+                        value={infor?.sdt || ' '}
+                      />
+                    </div>
+                    <div className="Account-right">
+                      {update?.sdt ? (
+                        <div className="Account-btn-update">
+                          <button className="save" onClick={()=>handleSave('sdt','sdt')}>
+                            Lưu
+                          </button>
+                          <button
+                            className="cancel"
+                            onClick={() => {
+                              setUpdate({
+                              ...update,
+                              sdt: ''
+                            });
+                            handleCancel();
+                            }}
+                          >
+                            Huỷ
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          className="Account-btn"
+                          onClick={() => {
+                            setUpdate({
+                              ...update,
+                              sdt: 'sdt'
+                            });
                           }}
                         >
                           Chỉnh Sửa
@@ -127,10 +198,13 @@ function SettingsAccount() {
                         <div
                           className="Account-wrapimg-img"
                           onClick={() => {
-                            setUpdate("img");
+                            setUpdate({
+                              ...update,
+                              img: 'img'
+                            });
                           }}
                         >
-                          {update === "img" ? (
+                          {update?.img? (
                             <label htmlFor="avatar" className="label-avatar">
                               <img
                                 src="https://fullstack.edu.vn/assets/icon/camera.png"
@@ -141,6 +215,7 @@ function SettingsAccount() {
                                 id="avatar"
                                 className="avatar"
                                 onChange={(e)=>handlePreviewAvatar(e)}
+                                ref = {()=> inputRef.current = {}}
                               />
                             </label>
                           ) : (
@@ -148,7 +223,7 @@ function SettingsAccount() {
                           )}
                           <img
                             src={
-                              avatar?.preview ||
+                              settingAvatar?.preview ||
                               (infor.img || "https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg")
                             }
                             alt=""
@@ -157,7 +232,7 @@ function SettingsAccount() {
                       </div>
                     </div>
                     <div className="Account-right">
-                      {update === "img" ? (
+                      {update?.img ? (
                         <div className="Account-btn-update">
                           <button 
                           className="save"
@@ -166,8 +241,11 @@ function SettingsAccount() {
                           <button
                             className="cancel"
                             onClick={() => {
-                              setUpdate();
-                              setAvatar();
+                              setUpdate({
+                                ...update,
+                                img: ''
+                              });
+                              setSettingAvatar();
                             }}
                           >
                             Huỷ
@@ -177,7 +255,10 @@ function SettingsAccount() {
                         <button
                           className="Account-btn"
                           onClick={() => {
-                            setUpdate("img");
+                            setUpdate({
+                              ...update,
+                              img: 'img'
+                            });
                           }}
                         >
                           Chỉnh Sửa
@@ -185,6 +266,7 @@ function SettingsAccount() {
                       )}
                     </div>
                   </div>
+               
                 </div>
               </div>
             </section>
