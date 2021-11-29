@@ -25,7 +25,7 @@ function Login() {
                     })
                     .then(data => {         
                       if(data?.user){
-                      setAuth(Object.assign({isLoad:false},...Object.values(data)));
+                        setAuth(Object.assign({isLoad:false},...Object.values(data)));
                         history.push('/');
                       }
                     })

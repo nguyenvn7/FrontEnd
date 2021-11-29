@@ -32,7 +32,7 @@ function Header() {
   {
              console.log('effect Header');
              getLengthCart((auth?.username || '')).then(data => data.json()).then(data => {
-               if(data){
+               if(data){  
                 setCartQty(...data)
                }else setCartQty({quantity:0});
              });
@@ -85,7 +85,7 @@ function Header() {
 
       <nav>
         <Link to="/">TRANG CHỦ</Link>
-        {(auth?.username && <Link to='/admin'>QUẢN LÝ</Link>)}
+        {(auth?.role === '1' && <Link to='/admin'>QUẢN LÝ</Link>)}
       </nav>
       <div className="Cart">
         <Link to="/Cart">

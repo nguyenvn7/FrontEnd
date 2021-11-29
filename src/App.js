@@ -8,9 +8,10 @@ import SettingsAccount from "./Component/SettingsAccount";
 import PrivateRouter, {
   PrivateLogin,
   PrivateCart,
+  PrivateAdmin,
 } from "./Auth/Authentication";
 import Cart from "./Container/Cart";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { checkLogged } from "./Api";
 import { AuthState } from "./context/context";
 import Load from "./Component/Load";
@@ -19,11 +20,10 @@ import Header from "./Component/Header";
 
 function App() {
   const {auth,setAuth} = AuthState();
-  const [img,setImg] = useState();
   useEffect(()=>{
+      console.log('Effect App');
       checkLogged()
           .then(data => {     
-            console.log('fetch app');
               setAuth(Object.assign({isLoad:false},...Object.values(data)));
           });
          return ()=> console.log('unmount app');
@@ -39,10 +39,9 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
-
-        <PrivateRouter path="/admin" name="admin">
+        <PrivateAdmin path="/admin" name="admin">
           <Admin />
-        </PrivateRouter>
+        </PrivateAdmin>
         <PrivateRouter path="/Settings" name="settings">
           <SettingsAccount />
         </PrivateRouter>

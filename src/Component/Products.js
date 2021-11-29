@@ -10,12 +10,36 @@ import { CartState } from "../context/context";
 function Item(props) {
   return <img src={props.link} alt="" />;
 }
+function Pag({endPage,page,genre,order}){
+  let listPags = [];
+  if(page >= endPage - 2 && endPage > 3){
+    page = endPage - 3;
+    for(let i = page ; i <= endPage; i++){
+      listPags.push(<Link 
+      className="Products-pagItem" 
+      to={`/?page=${i}${genre}${order}`}
+      key={i}
+      >{i}</Link>)
+    }
+  }else
+  { page = (page<3? 1:page);
+    for(let i = page ; i < page+3 && i <= endPage; i++){
+      listPags.push(<Link 
+      to={`/?page=${i}${genre}${order}`}
+      className="Products-pagItem" 
+      key={i}>{i}</Link>);
+    }}
+  return(
+    listPags
+  )
+}
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 function Products({ Products, total, page, handleSort, params }) {
   const endPage = Math.ceil(+total / 15);
+  // console.log(total);
   let genre = useQuery().get("genre");
   let order = useQuery().get("order");
   genre = (genre && `&genre=${genre}`) || "";
@@ -216,87 +240,22 @@ function Products({ Products, total, page, handleSort, params }) {
           </div>
         ))}
         <div className="Products-pag">
-          <ul className="Products-pagList">
-            <Link className="Products-pagItem" to={`/?page=1${genre}${order}`}>
-              1
-            </Link>
-            {+page > 2 ? (
+
+           <ul className="Products-pagList">
+            {+page >= 3 &&(
               <>
-                <li className="Products-pagItem">...</li>
-              </>
-            ) : (
-              endPage >= 4 && (
-                <>
-                  <Link
-                    className="Products-pagItem"
-                    to={`/?page=${endPage - (endPage - 2)}${genre}${order}`}
-                  >
-                    {endPage - (endPage - 2)}
-                  </Link>
-                  <Link
-                    className="Products-pagItem"
-                    to={`/?page=${endPage - (endPage - 3)}${genre}${order}`}
-                  >
-                    {endPage - (endPage - 3)}
-                  </Link>
-                </>
-              )
-            )}
-            {+page > 2 && +page <= endPage - 2 && (
-              <>
-                <Link
-                  className="Products-pagItem"
-                  to={`/?page=${+page - 1}${genre}${order}`}
-                >
-                  {+page - 1}
-                </Link>
-                <Link
-                  className="Products-pagItem"
-                  to={`/?page=${+page}${genre}${order}`}
-                >
-                  {page}
-                </Link>
-                <Link
-                  className="Products-pagItem"
-                  to={`/?page=${+page + 1}${genre}${order}`}
-                >
-                  {+page + 1}
-                </Link>
+              <Link className="Products-pagItem" to={`/?page=1${genre}${order}`} >1</Link>
+              <li className="Products-pagItem"  >...</li>
               </>
             )}
-            {endPage >= 4 && (
+              <Pag endPage={endPage} page={+page} genre={genre} order={order}/>
+            {+page < (endPage - 2) && (
               <>
-                {+page >= endPage - 1 ? (
-                  <>
-                    <Link
-                      className="Products-pagItem"
-                      to={`/?page=${endPage - 2}${genre}${order}`}
-                    >
-                      {endPage - 2}
-                    </Link>
-                    <Link
-                      className="Products-pagItem"
-                      to={`/?page=${endPage - 1}${genre}${order}`}
-                    >
-                      {endPage - 1}
-                    </Link>
-                  </>
-                ) : (
-                  endPage > 4 && (
-                    <>
-                      <li className="Products-pagItem">...</li>
-                    </>
-                  )
-                )}
-                <Link
-                  className="Products-pagItem"
-                  to={`/?page=${endPage}${genre}${order}`}
-                >
-                  {endPage}
-                </Link>
+              <li className="Products-pagItem"  >...</li>
+              <Link className="Products-pagItem"  to={`/?page=${endPage}${genre}${order}`} >{endPage}</Link>
               </>
             )}
-          </ul>
+           </ul>
         </div>
         {toggleAdd && (
           <div className="Products-Toast">

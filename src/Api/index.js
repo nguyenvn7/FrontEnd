@@ -18,6 +18,19 @@ export async function queryProduct(nameQuery, value) {
 }
 // fix 2 cai tren
 
+export async function addProduct(formData){
+  const res = await fetch("http://localhost:3001/apiProducts/addProduct",{
+    method: "POST",
+    body: formData,
+    credentials: 'include'
+  })
+  return res;
+}
+export async function getAllProduct(){
+  const res = await fetch("http://localhost:3001/apiProducts/AllProduct");
+  return res;
+}
+
 export async function getProductUpdate(idProduct){
   const query = await fetch(`http://localhost:3001/apiProducts/product`,{
     method: "POST",
@@ -29,11 +42,16 @@ export async function getProductUpdate(idProduct){
     })
   });
   const product = await query.json();
-  const query2 = await fetch(
+  
+  return product;
+}
+export async function getGenres(){
+  
+  const query = await fetch(
     `http://localhost:3001/apiProducts/genres `
   );
-  const genres = await query2.json();
-  return {product,genres};
+  const genres = await query.json();
+  return genres;
 }
 
 export async function login(name, pass) {
@@ -160,6 +178,31 @@ export async function updateQtyCart(idsp,quantity,username){
   })
   return res;
 }
+export async function updateProduct(formData){
+  const res = await fetch("http://localhost:3001/apiProducts/UpdateProduct",{
+    method: "POST",
+    body: formData,
+    credentials: 'include'
+  })
+  return res;
+}
+export async function getProductPage(page){
+  const res = await fetch(`http://localhost:3001/apiProducts/getProductPage?page=${page}`)
+  return res;
+}
+export async function deleteProduct(idsp){
+  const res = await fetch("http://localhost:3001/apiProducts/deleteProduct",
+  {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      idsp
+    })
+  })
+  return res;
+}
 export async function deleteItemCart( username,idsp){
   const res = await fetch("http://localhost:3001/apiProducts/deleteItem",{
     method: "DELETE",
@@ -188,7 +231,7 @@ export async function deleteItemsCart(listItem){
   return res;
 }
 export async function updateInformationUser(username,value,column){
-  const res = await fetch("http://localhost:3001/apiTaiKhoan/updateInformationUser",{
+   await fetch("http://localhost:3001/apiTaiKhoan/updateInformationUser",{
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -201,6 +244,12 @@ export async function updateInformationUser(username,value,column){
     credentials: 'include'
   })
 }
+
+export async function getUsers(){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getUsers");                   
+  return res;
+}
+
 export async function updateAvatar(formData){
   const res = fetch("http://localhost:3001/apiTaiKhoan/updateAvatar",{
     method: "POST",

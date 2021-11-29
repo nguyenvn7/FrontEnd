@@ -32,8 +32,13 @@ function SettingsAccount() {
       };
       setInfor(newInfor);
   };
-  const handleCancel = (e,column)=>{
-    setInfor(tmpInfor);
+  const handleCancel = (column)=>{
+    const newTemp = {
+      ...infor,
+      [column]: ''
+    }
+    
+    setInfor(newTemp);
   }
   const handleSave = (key,column) => {
     updateInformationUser(auth.username,infor[column], column);
@@ -64,6 +69,9 @@ function SettingsAccount() {
     const formData = new FormData();
     let preview;
     if(e.target.files[0]){
+      formData.append("type",'img');
+      formData.append("nameUser",auth.username);
+      formData.append("action","UPDATE_IMG_USER");
       formData.append("avatar",e.target.files[0]);
       preview = URL.createObjectURL(e.target.files[0])   
     }
@@ -114,7 +122,7 @@ function SettingsAccount() {
                               ...update,
                               name: ''
                             });
-                            handleCancel();
+                            handleCancel("fullname");
                             }}
                             
                           >
@@ -165,7 +173,7 @@ function SettingsAccount() {
                               ...update,
                               sdt: ''
                             });
-                            handleCancel();
+                            handleCancel('sdt');
                             }}
                           >
                             Huỷ
@@ -186,6 +194,58 @@ function SettingsAccount() {
                       )}
                     </div>
                   </div>
+
+                  
+                  <div className="Account-ItemInfor">
+                    <div className="Account-left">
+                      <h3>Địa Chỉ</h3>
+                      <input
+                        type="text"
+                        disabled={update?.diachi? false : true}                       
+                        className="Account-name"
+                        ref={(e) => (update?.diachi && (inputRef.current=e))}
+                        onChange={(e) => {
+                          handleChange(e, "diachi");
+                        }}
+                        value={infor.diachi || ' '}
+                      />
+                    </div>
+                    <div className="Account-right">
+                      {update?.diachi ? (
+                        <div className="Account-btn-update">
+                          <button className="save" onClick={()=>handleSave('diachi','diachi')}>
+                            Lưu
+                          </button>
+                          <button
+                            className="cancel"
+                            onClick={() => {                         
+                              setUpdate({
+                              ...update,
+                              diachi: ''
+                            });
+                            handleCancel('diachi');
+                            }}
+                            
+                          >
+                            Huỷ
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          className="Account-btn"
+                          onClick={() => {
+                            setUpdate({
+                              ...update,
+                              diachi: 'diachi'
+                            });
+                          }}
+                        >
+                          Chỉnh Sửa
+                        </button>
+                      )}
+                    </div>
+                  </div>
+          
 
                   <div className="Account-ItemInfor">
                     <div className="Account-left">
@@ -222,10 +282,7 @@ function SettingsAccount() {
                             ""
                           )}
                           <img
-                            src={
-                              settingAvatar?.preview ||
-                              (infor.img || "https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg")
-                            }
+                            src={settingAvatar?.preview || infor.img}
                             alt=""
                           />
                         </div>

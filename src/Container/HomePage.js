@@ -17,24 +17,30 @@ function HomePage() {
   useEffect(() => {
     getProduct(searchParams)
       .then((data) =>
-        setProduct({
-          results: data.results,
-          ...Object.assign({}, ...data.total),
-        })
+     {
+      setProduct({
+        results: data.results,
+        ...Object.assign({}, ...data.total),
+      })
+     }
       )
       .catch((err) => console.log(err));
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-  const handleSort = useCallback(
-    (nameSort, value) => {
-      queryProduct(nameSort, value)
-        .then((data) => setProduct(data))
-        .catch((err) => console.log(err));
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [Product]
-  );
-
+  const handleSort = (nameSort, value) => {
+    // console.log(nameSort,value);
+    queryProduct(nameSort, value)
+      .then((data) => {
+        setProduct({
+          results: data.results,
+        ...Object.assign({}, ...data.total),
+        })
+      })
+      .catch((err) => console.log(err));
+  }
+    
+  
+    // console.log(Product)
   return (
     <>
       {/* <Header /> */}

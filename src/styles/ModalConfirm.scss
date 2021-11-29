@@ -1,0 +1,36 @@
+.modalConfirm{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,.26);
+    &-wrap{
+        background: white;
+        padding: 45px 90px;
+        border-radius: 10px;
+    }
+    &-btn{
+        margin-top: 60px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        *{
+            padding: 13px 25px;
+            border-radius: 10px;
+            font-weight: 900;
+        }
+        .confirm{
+            background: #c91217;
+            color: white;
+        }
+        .unConfirm{
+            border: 1px solid #c91217;
+            color: #c91217;
+        }
+    }
+
+}

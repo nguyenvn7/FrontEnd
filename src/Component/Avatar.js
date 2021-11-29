@@ -10,10 +10,11 @@ function Avatar() {
     const [toggle,setToggle] = useState(false);
     const history = useHistory();
     useEffect(()=>{
+        console.log('Effect Avatar');
         GetInfor(auth)
         .then((data) => data.json())
         .then((data) => {
-            setAvatar((data.img || 'https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg'));
+            setAvatar(data.img);
         });
         //eslint-disable-next-line
     },[])

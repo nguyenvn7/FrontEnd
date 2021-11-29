@@ -37,6 +37,16 @@ export function PrivateLogin({children,name}){
     )
 }
 
+export function PrivateAdmin({children,name}){
+  console.log('PrivateLogin')
+  const {auth} = CheckLogin(name);
+  return (
+    <Route
+      render={()=> auth.isLoad? (<Load/>):(auth?.role==='1'?  (children):(<Page404/>))}
+    />
+  )
+}
+
 export function PrivateCart({children,name}){
   // cart van con vao duoc do async
   console.log('PrivateCart');
