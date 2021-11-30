@@ -35,9 +35,8 @@ function SettingsAccount() {
   const handleCancel = (column)=>{
     const newTemp = {
       ...infor,
-      [column]: ''
+      [column]: tmpInfor[column]
     }
-    
     setInfor(newTemp);
   }
   const handleSave = (key,column) => {

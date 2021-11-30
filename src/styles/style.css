@@ -1259,6 +1259,72 @@ main {
   color: #c91217;
 }
 
+.Admin-fullname {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.Admin-fullname p {
+  max-width: 140px;
+}
+.Admin-fullname .Users-img {
+  height: 35px;
+  width: 35px;
+}
+.Admin-fullname .Users-img img {
+  border-radius: 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.ModalUpdate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.267);
+}
+.ModalUpdate .close {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+.ModalUpdate-img {
+  width: 70px;
+  margin: 25px auto 0;
+  height: 70px;
+}
+.ModalUpdate-img img {
+  border-radius: 100%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.ModalUpdate-wrap {
+  max-height: 600px;
+  padding: 40px;
+  border-radius: 10px;
+  background: white;
+}
+.ModalUpdate-col2 {
+  margin-bottom: 25px;
+}
+.ModalUpdate-col2 .item {
+  border-bottom: 1px solid gray;
+  padding: 25px 0;
+}
+.ModalUpdate-col2 .flex {
+  display: flex;
+  gap: 10px;
+}
+.ModalUpdate-col2 .flex input {
+  flex: 2;
+}
+
 * {
   padding: 0;
   margin: 0;

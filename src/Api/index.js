@@ -250,6 +250,38 @@ export async function getUsers(){
   return res;
 }
 
+export async function getUser(username){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getUser",{
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username
+    })
+  })                   
+  return res;
+}
+
+export async function updateUser({username,fullname,diachi,sdt,role}){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/updateUser",{
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      fullname,
+      diachi,
+      sdt,
+      role
+    })
+  })                   
+  return res;
+}
+
 export async function updateAvatar(formData){
   const res = fetch("http://localhost:3001/apiTaiKhoan/updateAvatar",{
     method: "POST",
