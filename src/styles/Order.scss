@@ -1,0 +1,41 @@
+.Order{
+    padding: 100px 100px 40px;
+    &-header{
+        background: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px gray;
+        margin-bottom: 70px;
+        &-tittle{
+            color: #c92127;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }   
+    }
+    &-infor{
+        display: flex;
+        gap: 20px;
+    }
+    &-NP{
+        font-weight: 700;
+    }
+    &-item{
+        grid-template-columns: 800px repeat(3, auto);
+    }
+    &-List{
+        &-tittle{
+            display: grid;
+            grid-template-columns: 800px repeat(3,auto);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+    }
+    &-name{
+        display: flex;
+        align-items: center;
+    }
+    &-img{
+        height: 80px;
+        width: 80px;
+    }
+}

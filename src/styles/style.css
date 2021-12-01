@@ -1069,8 +1069,10 @@ main {
   box-shadow: 0 0 20px gray;
   background: white;
   display: grid;
-  grid-template-columns: repeat(4, 22%) 8%;
+}
+.Admin-header-P-U {
   grid-gap: 10px;
+  grid-template-columns: repeat(4, 22%) 8%;
 }
 .Admin-select {
   display: flex;
@@ -1092,12 +1094,14 @@ main {
 }
 .Admin-Item {
   display: grid;
-  grid-template-columns: repeat(4, 22%) 8%;
   align-items: center;
-  grid-gap: 10px;
   margin-bottom: 10px;
   border: 1px solid black;
   padding: 5px;
+}
+.Admin-Item-P-U {
+  grid-gap: 10px;
+  grid-template-columns: repeat(4, 22%) 8%;
 }
 .Admin-product {
   display: flex;
@@ -1323,6 +1327,65 @@ main {
 }
 .ModalUpdate-col2 .flex input {
   flex: 2;
+}
+.ModalUpdate-err {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  color: #c92127;
+}
+
+.Admin-header-O {
+  grid-template-columns: repeat(3, 125.84px) 170px 170px repeat(2, 125.84px) 250px;
+  grid-gap: 10px;
+}
+.Admin-state-O {
+  display: flex;
+  gap: 10px;
+}
+.Admin-Item-O {
+  grid-template-columns: repeat(3, 125.84px) 180px 180px repeat(2, 125.84px) auto;
+  grid-gap: 10px;
+}
+
+.Order {
+  padding: 100px 100px 40px;
+}
+.Order-header {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px gray;
+  margin-bottom: 70px;
+}
+.Order-header-tittle {
+  color: #c92127;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.Order-infor {
+  display: flex;
+  gap: 20px;
+}
+.Order-NP {
+  font-weight: 700;
+}
+.Order-item {
+  grid-template-columns: 800px repeat(3, auto);
+}
+.Order-List-tittle {
+  display: grid;
+  grid-template-columns: 800px repeat(3, auto);
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+.Order-name {
+  display: flex;
+  align-items: center;
+}
+.Order-img {
+  height: 80px;
+  width: 80px;
 }
 
 * {

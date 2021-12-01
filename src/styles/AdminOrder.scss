@@ -1,0 +1,18 @@
+.Admin{
+    &-header{
+        &-O{
+            grid-template-columns: repeat(3,(629.2px / 5)) 170px 170px repeat(2,(629.2px / 5)) 250px;
+            grid-gap: 10px;
+        }
+    }
+    &-state-O{
+        display: flex;
+        gap: 10px;
+    }
+    &-Item{
+        &-O{
+            grid-template-columns:repeat(3,(629.2px / 5)) 180px 180px repeat(2,(629.2px / 5)) auto;
+            grid-gap: 10px;
+        }
+    }
+}

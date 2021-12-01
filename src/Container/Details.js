@@ -53,7 +53,7 @@ function Details() {
                   onClick={() => {
                     checkLogged().then((data) => {
                       if (data?.user) {
-                        addCart(data.user.username,product.id,qty);
+                        addCart(data.user.username,product.idsp,qty);
                         setCartQty({quantity: quantity + 1});
                         handleLottie();
                       }else {

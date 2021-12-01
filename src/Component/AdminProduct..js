@@ -241,13 +241,13 @@ function AdminProduct() {
         setProducts({
           ...data,
           total: Math.ceil(data.total[0].total / 15),
-        });
+        }); 
       });
   }, [page, isLoadEffect]);
   return (
     <>
 
-          <div className="Admin-header">
+          <div className="Admin-header Admin-header-P-U">
             <p> Sản Phẩm </p>
             <p> Thể Loại </p>
             <p> Số Lượng </p>
@@ -264,9 +264,9 @@ function AdminProduct() {
               Thêm Sản Phẩm
             </button>
           </div>
-          <div className="Admin-List">
+          <div className="Admin-List Admin-List-P-U">
             {products?.results.map((value) => (
-              <div className="Admin-Item" key={value.id}>
+              <div className="Admin-Item Admin-Item-P-U"  key={value.idsp}>
                 <div className="Admin-product">
                   <div className="Admin-img">
                     <img src={value.link} alt="" />
@@ -279,7 +279,7 @@ function AdminProduct() {
                   <button
                     onClick={() =>
                       setModal({
-                        idProduct: value.id,
+                        idProduct: value.idsp,
                         action: "Cập Nhật",
                         toggle: !modal.toggle,
                       })
@@ -289,7 +289,7 @@ function AdminProduct() {
                   <button 
                   className="fas fa-trash-alt delete"
                   onClick={()=> {
-                    setStateModalConfirm(value.id);
+                    setStateModalConfirm(value.idsp);
                   }}
                   > </button>
                 </div>

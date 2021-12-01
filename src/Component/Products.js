@@ -197,7 +197,7 @@ function Products({ Products, total, page, handleSort, params }) {
 
       <div className="Products__List">
         {Products.map((value, index) => (
-          <div className="Item" key={value.id}>
+          <div className="Item" key={value.idsp}>
             <Link to={`/Details/${value.name}`} className="img">
               <div className="Rote">
                 <Item link={value.link} />
@@ -215,7 +215,7 @@ function Products({ Products, total, page, handleSort, params }) {
                 onClick={() => {
                   checkLogged().then((data) => {
                     if (data?.user) {
-                      addCart(data.user.username,value.id,1)
+                      addCart(data.user.username,value.idsp,1)
                           .then(data => data.text())
                           .then(data => {
                             if(data !== 'update'){

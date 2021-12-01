@@ -1,90 +1,107 @@
 import Footer from "../Component/Footer";
 import { AuthState, CartState } from "../context/context";
 import { formatPrice } from "../helper";
-import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import { deleteItemCart, deleteItemsCart, getCart, updateQtyCart } from "../Api";
-
+import { Link,useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  deleteItemCart,
+  deleteItemsCart,
+  getCart,
+  updateQtyCart,
+} from "../Api";
 
 function Cart() {
-  const [productCart,setProductCart] = useState([]);
+  const [productCart, setProductCart] = useState([]);
   const [modal, setModal] = useState(false);
-  const {auth} = AuthState();
+  const { auth } = AuthState();
+  const history = useHistory();
   const {
     cartqty: { quantity },
-    setCartQty
+    setCartQty,
   } = CartState();
-  const checkedAll = productCart.length && productCart.every(value => value.select);
+  const checkedAll =
+    productCart.length && productCart.every((value) => value.select);
 
-  const handleBlur =(e,index,value)=>{
+  const handleBlur = (e, index, value) => {
     const regex = new RegExp("\\D");
-    const newQty = +e.target.value; 
-    if(regex.test(e.target.value)){
+    const newQty = +e.target.value;
+    if (regex.test(e.target.value)) {
       e.target.value = value.quantity;
-      alert('vui Long Chi Nhap So');
-    }else{
-      if(newQty === 0 ){
-        alert('xoa sp');
-        handleDelete([[value.id,auth.username]]);
-        setCartQty({quantity: quantity - 1});
-      }else{
-        if(newQty !== +value.quantity){
-          updateQtyCart(value.id,newQty,auth.username)
-          .then(data => console.log(data.status));
-          const newP = [...productCart.map(value => Object.assign({},value))];
-            newP[index].quantity = newQty;
+      alert("vui Long Chi Nhap So");
+    } else {
+      if (newQty === 0) {
+        alert("xoa sp");
+        handleDelete([[value.id, auth.username]]);
+        setCartQty({ quantity: quantity - 1 });
+      } else {
+        if (newQty !== +value.quantity) {
+          updateQtyCart(value.id, newQty, auth.username).then((data) =>
+            console.log(data.status)
+          );
+          const newP = [
+            ...productCart.map((value) => Object.assign({}, value)),
+          ];
+          newP[index].quantity = newQty;
           setProductCart(newP);
         }
       }
     }
-  }
-  const handleDelete = (value)=>{
-    const newP = [...productCart.filter(data => !value.some(data2 => data.id === data2[0]))];
-    if(value.length === 1)  
-    {
-      const newArr = value[0]; 
-      deleteItemCart(newArr[1],newArr[0]).then(data => console.log(data.status));
-    }else  deleteItemsCart(value).then(data => console.log(data.status))
+  };
+  const handleDelete = (value) => {
+    const newP = [
+      ...productCart.filter(
+        (data) => !value.some((data2) => data.id === data2[0])
+      ),
+    ];
+    if (value.length === 1) {
+      const newArr = value[0];
+      deleteItemCart(newArr[1], newArr[0]).then((data) =>
+        console.log(data.status)
+      );
+    } else deleteItemsCart(value).then((data) => console.log(data.status));
     setProductCart(newP);
-  }
-  const handleUpdateQty = ({id},index,qty) => {
-    const newP = [...productCart.map(value => Object.assign({},value))];
+  };
+  const handleUpdateQty = ({ id }, index, qty) => {
+    const newP = [...productCart.map((value) => Object.assign({}, value))];
     newP[index].quantity = qty;
-    updateQtyCart(id,newP[index].quantity,auth.username).then(data => console.log(data.status));
+    updateQtyCart(id, newP[index].quantity, auth.username).then((data) =>
+      console.log(data.status)
+    );
     setProductCart(newP);
-    
   };
 
   const handleCheckInp = (index) => {
-    const newP = [...productCart.map(value => Object.assign({},value))];
+    const newP = [...productCart.map((value) => Object.assign({}, value))];
     newP[index].select = !newP[index].select;
     setProductCart(newP);
   };
   const handleCheckInpAll = (stateSelect) => {
-    const newP = [...productCart.map(value => {
-      const newSelect = Object.assign({},value);
-      newSelect.select = stateSelect;
-      return newSelect;
-    })];
+    const newP = [
+      ...productCart.map((value) => {
+        const newSelect = Object.assign({}, value);
+        newSelect.select = stateSelect;
+        return newSelect;
+      }),
+    ];
     setProductCart(newP);
   };
-  useEffect(()=>{
-    console.log('effect page Cart');
-    if(auth?.username){
+  useEffect(() => {
+    console.log("effect page Cart");
+    if (auth?.username) {
       getCart(auth.username)
-      .then(data => data.json())
-      .then(data => {
-        setProductCart(data.map(value => ({...value,select: false})));
-      } );
+        .then((data) => data.json())
+        .then((data) => {
+          setProductCart(data.map((value) => ({ ...value, select: false })));
+        });
     }
-    return ()=>setProductCart();
+    return () => setProductCart();
     //eslint-disable-next-line
-  },[])
+  }, []);
   return (
     <>
       {/* <Header /> */}
       <main>
-        <div className="Cart-wrap">         
+        <div className="Cart-wrap">
           {(productCart?.length && (
             <>
               <div className="Cart-header">
@@ -93,7 +110,7 @@ function Cart() {
                     type="checkbox"
                     checked={checkedAll}
                     onChange={(e) => {
-                      handleCheckInpAll(e.target.checked)
+                      handleCheckInpAll(e.target.checked);
                     }}
                   />
                   <label htmlFor=""> Sản Phẩm </label>
@@ -105,13 +122,13 @@ function Cart() {
               </div>
               <div className="Cart-Products">
                 {(productCart?.length &&
-                  productCart.map((value,index) => (
-                    <div className="Cart-item" key={value.id}>
+                  productCart.map((value, index) => (
+                    <div className="Cart-item" key={value.idsp}>
                       <input
                         type="checkbox"
                         className="Cart-itemBtn"
                         checked={value.select}
-                        onChange={() => handleCheckInp(index)}                         
+                        onChange={() => handleCheckInp(index)}
                       />
                       <div className="Cart-itemDes">
                         <div className="Cart-itemImg">
@@ -125,20 +142,22 @@ function Cart() {
                         </p>
                         <div className="Cart-inp">
                           <label
-                            onClick={() =>
-                                {
-                                if(value.quantity > 1){
-                                  const qty = value.quantity - 1;
-                                  handleUpdateQty({
+                            onClick={() => {
+                              if (value.quantity > 1) {
+                                const qty = value.quantity - 1;
+                                handleUpdateQty(
+                                  {
                                     ...value,
-                                  },index,qty)
-                                }else{
-                                    alert('xoa sp');
-                                    handleDelete([[value.id,auth.username]]);
-                                    setCartQty({quantity: quantity - 1});
-                                }
+                                  },
+                                  index,
+                                  qty
+                                );
+                              } else {
+                                alert("xoa sp");
+                                handleDelete([[value.id, auth.username]]);
+                                setCartQty({ quantity: quantity - 1 });
                               }
-                            }
+                            }}
                             className="Cart-label"
                           >
                             -
@@ -146,18 +165,20 @@ function Cart() {
                           <input
                             type="text"
                             min="0"
-                            onBlur={(e) => handleBlur(e,index,value)}
+                            onBlur={(e) => handleBlur(e, index, value)}
                             defaultValue={value.quantity}
                           />
                           <label
-                            onClick={() =>
-                            {
+                            onClick={() => {
                               const qty = value.quantity + 1;
-                              handleUpdateQty({
-                                ...value,
-                              },index,qty)
-                            }
-                            }
+                              handleUpdateQty(
+                                {
+                                  ...value,
+                                },
+                                index,
+                                qty
+                              );
+                            }}
                             className="Cart-label"
                           >
                             +
@@ -168,10 +189,9 @@ function Cart() {
                         </p>
                         <button
                           onClick={() => {
-                            handleDelete([[value.id,auth.username]]);
-                            setCartQty({quantity: quantity - 1});
-                          }
-                          }
+                            handleDelete([[value.id, auth.username]]);
+                            setCartQty({ quantity: quantity - 1 });
+                          }}
                         >
                           Xoá
                         </button>
@@ -187,41 +207,63 @@ function Cart() {
                     id="cbAll"
                     checked={checkedAll}
                     onChange={(e) => {
-                      handleCheckInpAll(e.target.checked)
+                      handleCheckInpAll(e.target.checked);
                     }}
                   />
-                  <label htmlFor="cbAll"> Chọn Tất Cả({productCart.length}) </label>
-                  <button 
-                  className="footer-del"
-                  onClick={()=>{
-                    if(!productCart.some(value => value.select)){
-                      setModal(true);
-                      setTimeout(()=> setModal(false),1000);
-                    }else {
-                      const arr = [];
-                      productCart.map(value => {
-                        if(value.select){
-                          arr.push([value.id,auth.username]);
-                        }
-                        return 0;
-                      })
-                      setCartQty({quantity: quantity - arr.length});   
-                      handleDelete(arr);                     
-                    }
-                  }}
-                  > Xoá </button>
+                  <label htmlFor="cbAll">
+                    {" "}
+                    Chọn Tất Cả({productCart.length}){" "}
+                  </label>
+                  <button
+                    className="footer-del"
+                    onClick={() => {
+                      if (!productCart.some((value) => value.select)) {
+                        setModal(true);
+                        setTimeout(() => setModal(false), 1000);
+                      } else {
+                        const arr = [];
+                        productCart.map((value) => {
+                          if (value.select) {
+                            arr.push([value.id, auth.username]);
+                          }
+                          return 0;
+                        });
+                        setCartQty({ quantity: quantity - arr.length });
+                        handleDelete(arr);
+                      }
+                    }}
+                  >
+                    {" "}
+                    Xoá{" "}
+                  </button>
                 </div>
                 <div className="Cart-right">
                   <div className="Cart-right-wrap">
-                    <p> Tổng thanh toán({productCart.filter(value => value.select).length} Sản Phẩm): </p> 
-                    <p>{formatPrice(productCart.reduce((prev,curr) => {
-                        if(curr.select){
-                          return prev+(curr.price*curr.quantity)
-                        }
-                        return prev;
-                    } ,0))}</p>
+                    <p>
+                      {" "}
+                      Tổng thanh toán(
+                      {productCart.filter((value) => value.select).length} Sản
+                      Phẩm):{" "}
+                    </p>
+                    <p>
+                      {formatPrice(
+                        productCart.reduce((prev, curr) => {
+                          if (curr.select) {
+                            return prev + curr.price * curr.quantity;
+                          }
+                          return prev;
+                        }, 0)
+                      )}
+                    </p>
                   </div>
-                  <button className="Cart-buy"> MUA HÀNG </button>
+                  <button 
+                  onClick={()=> {
+                    let listIdsp = [];
+                    productCart.map(value => {
+                      if(value.select) listIdsp.push(value.idsp)
+                    })
+                    history.push("/Order",{username:auth.username,idsp : listIdsp })
+                  }} className="Cart-buy"> MUA HÀNG </button>
                 </div>
               </div>
             </>
@@ -235,15 +277,18 @@ function Cart() {
                   />
                 </div>
                 <p>Giỏ Hàng Của Bạn Còn Trống</p>
-                <Link to="/" className="Cart-buy">Mua Ngay</Link>
+                <Link to="/" className="Cart-buy">
+                  Mua Ngay
+                </Link>
               </div>
             </>
           )}
         </div>
-       {modal &&  
-       <div className="Cart-modal">
-          <p>Vui Lòng Chọn Sản Phẩm</p>
-        </div>}
+        {modal && (
+          <div className="Cart-modal">
+            <p>Vui Lòng Chọn Sản Phẩm</p>
+          </div>
+        )}
       </main>
       <Footer />
     </>

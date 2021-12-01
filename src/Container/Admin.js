@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AdminOrder from "../Component/AdminOrder";
 import AdminProduct from "../Component/AdminProduct.";
 import AdminUser from "../Component/AdminUser";
 import Footer from "../Component/Footer";
@@ -16,11 +17,21 @@ function Admin() {
             >
               Sản Phẩm
             </div>
-            <div className={`Admin-KH ${state==='Users' && 'Admin-active'}`} onClick={() => setState("Users")}>
+            <div className={`Admin-KH ${state==='users' && 'Admin-active'}`} onClick={() => setState("users")}>
               Khách Hàng
             </div>
+            <div className={`Admin-KH ${state==='order' && 'Admin-active'}`} onClick={() => setState("order")}>
+              Dơn Đặt Hàng
+            </div>
           </div>
-          {state === "products" ? <AdminProduct /> : <AdminUser/>}
+        
+          {
+            {
+              "products": <AdminProduct />,
+              "users": <AdminUser/>,
+              "order": <AdminOrder/>
+            }[state]
+          }
         </section>
       </main>
       <Footer />

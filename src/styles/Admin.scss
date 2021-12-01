@@ -89,8 +89,10 @@
         box-shadow: 0 0 20px gray;
         background: white;
         display: grid;
-        grid-template-columns: repeat(4,22%) 8%;
-        grid-gap: 10px;
+        &-P-U{
+            grid-gap: 10px;
+            grid-template-columns: repeat(4,22%) 8%;
+        }
     }
     &-select{
         display: flex;
@@ -112,12 +114,14 @@
     }
     &-Item{
         display: grid;
-        grid-template-columns:repeat(4, 22%) 8%;
         align-items: center;
-        grid-gap: 10px;
         margin-bottom: 10px;
         border: 1px solid black;
         padding: 5px;
+        &-P-U{
+            grid-gap: 10px;
+            grid-template-columns:repeat(4, 22%) 8%;
+        }
     }
     &-product{
         display: flex;

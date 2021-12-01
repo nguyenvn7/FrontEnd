@@ -16,6 +16,7 @@ import { checkLogged } from "./Api";
 import { AuthState } from "./context/context";
 import Load from "./Component/Load";
 import Header from "./Component/Header";
+import Order from "./Container/Order";
 
 
 function App() {
@@ -42,8 +43,12 @@ function App() {
         <PrivateAdmin path="/admin" name="admin">
           <Admin />
         </PrivateAdmin>
+
         <PrivateRouter path="/Settings" name="settings">
           <SettingsAccount />
+        </PrivateRouter>
+        <PrivateRouter path="/Order" name="Order">
+          <Order />
         </PrivateRouter>
 
         <PrivateLogin path="/Signup" name="signup">

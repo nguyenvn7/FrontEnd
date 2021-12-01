@@ -30,6 +30,19 @@ export async function getAllProduct(){
   const res = await fetch("http://localhost:3001/apiProducts/AllProduct");
   return res;
 }
+export async function getProducts(username,idsp){
+  const res = await fetch("http://localhost:3001/apiProducts/getProducts",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({            
+      username,            
+        idsp
+    })
+  })
+  return res;
+}
 
 export async function getProductUpdate(idProduct){
   const query = await fetch(`http://localhost:3001/apiProducts/product`,{
@@ -286,6 +299,37 @@ export async function updateAvatar(formData){
   const res = fetch("http://localhost:3001/apiTaiKhoan/updateAvatar",{
     method: "POST",
     body: formData,
+    credentials: 'include'
+  })
+  return res;
+}
+export async function addUser({username,fullname,pass,diachi,sdt,role}){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/addUser",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      fullname,
+      pass,
+      diachi,
+      sdt,
+      role
+    }),
+    credentials: 'include'
+  })
+  return res;
+}
+export async function deleteUser(username){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/deleteUser",{
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+    }),
     credentials: 'include'
   })
   return res;
