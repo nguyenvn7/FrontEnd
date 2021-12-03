@@ -49,6 +49,10 @@ function Avatar() {
                 <li><Link to="/settings">
                     Cài Đặt
                 </Link></li>
+                <li><Link to="/Purchase">
+                    Đơn Mua
+                </Link></li>
+
                 </ul>
             </div>}
         </div>

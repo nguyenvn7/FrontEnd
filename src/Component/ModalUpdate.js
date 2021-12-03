@@ -6,7 +6,9 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
   useEffect(() => {
     getUser(id)
       .then((data) => data.json())
-      .then((data) => setState(...data));
+      .then((data) => {
+        setState(...data)
+      });
     //eslint-disable-next-line
   }, []);
 
@@ -39,19 +41,7 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
                 <img src={state?.img} alt="" />
               </div>
             </div>
-            <div className="ModalUpdate-address item flex">
-              <label htmlFor="">Địa Chỉ: </label>
-              <input
-                type="text"
-                defaultValue={state?.diachi}
-                onChange={(e) =>
-                  setState({
-                    ...state,
-                    diachi: e.target.value,
-                  })
-                }
-              />
-            </div>
+            
             <div className="ModalUpdate-sdt item flex">
               <label htmlFor="">Số Điện Thoại: </label>
               <input

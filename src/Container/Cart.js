@@ -1,7 +1,7 @@
 import Footer from "../Component/Footer";
 import { AuthState, CartState } from "../context/context";
 import { formatPrice } from "../helper";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   deleteItemCart,
@@ -31,26 +31,22 @@ function Cart() {
     } else {
       if (newQty === 0) {
         alert("xoa sp");
-        handleDelete([[value.id, auth.username]]);
+        handleDelete([[value.idsp, auth.username]]);
         setCartQty({ quantity: quantity - 1 });
       } else {
-        if (newQty !== +value.quantity) {
-          updateQtyCart(value.id, newQty, auth.username).then((data) =>
-            console.log(data.status)
-          );
-          const newP = [
-            ...productCart.map((value) => Object.assign({}, value)),
-          ];
-          newP[index].quantity = newQty;
-          setProductCart(newP);
-        }
+        updateQtyCart(value.idsp, newQty, auth.username).then((data) =>
+          console.log(data.status)
+        );
+        const newP = [...productCart.map((value) => Object.assign({}, value))];
+        newP[index].quantity = newQty;
+        setProductCart(newP);
       }
     }
   };
   const handleDelete = (value) => {
     const newP = [
       ...productCart.filter(
-        (data) => !value.some((data2) => data.id === data2[0])
+        (data) => !value.some((data2) => data.idsp === data2[0])
       ),
     ];
     if (value.length === 1) {
@@ -61,10 +57,10 @@ function Cart() {
     } else deleteItemsCart(value).then((data) => console.log(data.status));
     setProductCart(newP);
   };
-  const handleUpdateQty = ({ id }, index, qty) => {
+  const handleUpdateQty = ({ idsp }, index, qty) => {
     const newP = [...productCart.map((value) => Object.assign({}, value))];
     newP[index].quantity = qty;
-    updateQtyCart(id, newP[index].quantity, auth.username).then((data) =>
+    updateQtyCart(idsp, newP[index].quantity, auth.username).then((data) =>
       console.log(data.status)
     );
     setProductCart(newP);
@@ -154,7 +150,7 @@ function Cart() {
                                 );
                               } else {
                                 alert("xoa sp");
-                                handleDelete([[value.id, auth.username]]);
+                                handleDelete([[value.idsp, auth.username]]);
                                 setCartQty({ quantity: quantity - 1 });
                               }
                             }}
@@ -166,7 +162,16 @@ function Cart() {
                             type="text"
                             min="0"
                             onBlur={(e) => handleBlur(e, index, value)}
-                            defaultValue={value.quantity}
+                            onChange={(e) => {
+                              const newP = [
+                                ...productCart.map((value) =>
+                                  Object.assign({}, value)
+                                ),
+                              ];
+                              newP[index].quantity = e.target.value;
+                              setProductCart(newP);
+                            }}
+                            value={value.quantity}
                           />
                           <label
                             onClick={() => {
@@ -189,7 +194,7 @@ function Cart() {
                         </p>
                         <button
                           onClick={() => {
-                            handleDelete([[value.id, auth.username]]);
+                            handleDelete([[value.idsp, auth.username]]);
                             setCartQty({ quantity: quantity - 1 });
                           }}
                         >
@@ -211,8 +216,7 @@ function Cart() {
                     }}
                   />
                   <label htmlFor="cbAll">
-                    {" "}
-                    Chọn Tất Cả({productCart.length}){" "}
+                    Chọn Tất Cả({productCart.length})
                   </label>
                   <button
                     className="footer-del"
@@ -224,7 +228,7 @@ function Cart() {
                         const arr = [];
                         productCart.map((value) => {
                           if (value.select) {
-                            arr.push([value.id, auth.username]);
+                            arr.push([value.idsp, auth.username]);
                           }
                           return 0;
                         });
@@ -233,17 +237,15 @@ function Cart() {
                       }
                     }}
                   >
-                    {" "}
-                    Xoá{" "}
+                    Xoá
                   </button>
                 </div>
                 <div className="Cart-right">
                   <div className="Cart-right-wrap">
                     <p>
-                      {" "}
                       Tổng thanh toán(
                       {productCart.filter((value) => value.select).length} Sản
-                      Phẩm):{" "}
+                      Phẩm):
                     </p>
                     <p>
                       {formatPrice(
@@ -256,14 +258,22 @@ function Cart() {
                       )}
                     </p>
                   </div>
-                  <button 
-                  onClick={()=> {
-                    let listIdsp = [];
-                    productCart.map(value => {
-                      if(value.select) listIdsp.push(value.idsp)
-                    })
-                    history.push("/Order",{username:auth.username,idsp : listIdsp })
-                  }} className="Cart-buy"> MUA HÀNG </button>
+                  <button
+                    onClick={() => {
+                      let listIdsp = [];
+                      productCart.map((value) => {
+                        if (value.select) listIdsp.push(value.idsp);
+                      });
+                      history.push("/Order", {
+                        username: auth.username,
+                        idsp: listIdsp,
+                      });
+                    }}
+                    className="Cart-buy"
+                  >
+                    {" "}
+                    MUA HÀNG{" "}
+                  </button>
                 </div>
               </div>
             </>

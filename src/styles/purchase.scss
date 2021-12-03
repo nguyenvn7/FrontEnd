@@ -1,0 +1,73 @@
+@use './variables';
+
+.Purchase {
+    &-wrap {
+        padding: 100px 100px 40px;
+    }
+
+    &-header {
+        background: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px gray;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        justify-items: center;
+        grid-gap: 10px;
+
+        * {
+            padding: 7px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all .35s;
+        }
+
+        p:hover {
+            background: #7266c1;
+            color: white;
+        }
+    }
+    &-list{
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 0 20px grey;
+        background: white;
+    }
+    &-item{
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(2,50%);
+        margin-bottom: 10px;
+        border: 1px solid black;
+        padding: 10px;
+        &-list{
+            display: grid;
+            grid-template-columns: auto auto ;
+            gap: 10px;
+        }
+    }
+    &-name{
+        display: flex;
+    }
+    &-img{
+        width: 50px;
+        height: 50px;
+    }
+    &-state{
+        color: #c92127;
+        grid-column: 2 / 3;
+    }
+    &-price{
+        grid-column: 2 / 3;
+        span{
+            color: #c92127;
+            font-size: 18px;
+        }
+    }
+}
+
+.Purchase-active {
+    background: variables.$Color_purple;
+    color: white;
+}

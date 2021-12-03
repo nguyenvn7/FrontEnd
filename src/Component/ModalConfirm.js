@@ -1,4 +1,4 @@
-function modalConfirm({cb,setModal,title,confirm,unConfirm}) {
+function ModalConfirm({cb,setModal,title,confirm,unConfirm}) {
     return ( 
         <section className="modalConfirm">
           <div className="modalConfirm-wrap">
@@ -20,4 +20,4 @@ function modalConfirm({cb,setModal,title,confirm,unConfirm}) {
      );
 }
 
-export default modalConfirm;
+export default ModalConfirm;

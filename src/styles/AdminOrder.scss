@@ -1,18 +1,35 @@
 .Admin{
     &-header{
         &-O{
-            grid-template-columns: repeat(3,(629.2px / 5)) 170px 170px repeat(2,(629.2px / 5)) 250px;
+            grid-template-columns: repeat(8,auto) ;
+            margin-bottom: 30px;
             grid-gap: 10px;
         }
-    }
-    &-state-O{
-        display: flex;
-        gap: 10px;
     }
     &-Item{
         &-O{
-            grid-template-columns:repeat(3,(629.2px / 5)) 180px 180px repeat(2,(629.2px / 5)) auto;
+            grid-template-columns: repeat(9,auto);
             grid-gap: 10px;
         }
     }
+   &-listPrice-O,&-listProducts-O{
+       line-height: 1.6;
+   }
+   &-select-order{
+        background: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 0 20px grey;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        justify-items: center;
+        grid-gap: 10px;
+       *{
+            padding: 7px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.35s;
+       }
+   }
 }

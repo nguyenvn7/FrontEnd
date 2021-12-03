@@ -17,6 +17,7 @@ import { AuthState } from "./context/context";
 import Load from "./Component/Load";
 import Header from "./Component/Header";
 import Order from "./Container/Order";
+import Purchase from "./Container/Purchase";
 
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
         </PrivateRouter>
         <PrivateRouter path="/Order" name="Order">
           <Order />
+        </PrivateRouter>
+        <PrivateRouter path="/Purchase" name="Purchase">
+          <Purchase />
         </PrivateRouter>
 
         <PrivateLogin path="/Signup" name="signup">

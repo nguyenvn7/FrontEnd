@@ -1167,9 +1167,16 @@ main {
   margin-bottom: 20px;
   border-bottom: 2px solid gray;
 }
+.Account-tittle-left {
+  display: flex;
+  gap: 15px;
+}
 .Account-tittle h2 {
-  font-size: 19px;
+  cursor: pointer;
+  font-size: 17px;
   margin-top: 20px;
+  padding: 5px 10px;
+  border-radius: 40px;
 }
 .Account-ItemInfor {
   display: flex;
@@ -1207,6 +1214,12 @@ main {
 }
 .Account-btn-update .cancel:hover {
   border-color: rgba(0, 0, 0, 0.54);
+}
+.Account-left {
+  flex: 1;
+}
+.Account-left input {
+  width: 100%;
 }
 .Account-left h3 {
   margin-bottom: 10px;
@@ -1334,18 +1347,39 @@ main {
   padding: 15px 0;
   color: #c92127;
 }
-
-.Admin-header-O {
-  grid-template-columns: repeat(3, 125.84px) 170px 170px repeat(2, 125.84px) 250px;
-  grid-gap: 10px;
-}
-.Admin-state-O {
+.ModalUpdate .UpdateOrder {
   display: flex;
   gap: 10px;
 }
-.Admin-Item-O {
-  grid-template-columns: repeat(3, 125.84px) 180px 180px repeat(2, 125.84px) auto;
+
+.Admin-header-O {
+  grid-template-columns: repeat(8, auto);
+  margin-bottom: 30px;
   grid-gap: 10px;
+}
+.Admin-Item-O {
+  grid-template-columns: repeat(9, auto);
+  grid-gap: 10px;
+}
+.Admin-listPrice-O, .Admin-listProducts-O {
+  line-height: 1.6;
+}
+.Admin-select-order {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px grey;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-items: center;
+  grid-gap: 10px;
+}
+.Admin-select-order * {
+  padding: 7px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.35s;
 }
 
 .Order {
@@ -1363,15 +1397,57 @@ main {
   font-weight: 700;
   margin-bottom: 20px;
 }
-.Order-infor {
+.Order-top {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+}
+.Order-top button {
+  background: none;
+  transition: all 0.25s;
+}
+.Order-top button:hover {
+  color: #6C5DD3;
+}
+.Order-infor {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: max-content max-content max-content;
 }
 .Order-NP {
   font-weight: 700;
 }
+.Order-NP p:nth-child(2) {
+  margin-top: 10px;
+}
 .Order-item {
   grid-template-columns: 800px repeat(3, auto);
+}
+.Order-listAddress {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Order-listAddress-item {
+  display: flex;
+  gap: 10px;
+}
+.Order-listAddress-btn {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+.Order-listAddress-btn button {
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.Order-listAddress-btn-x {
+  background: #c92127;
+  color: white;
+}
+.Order-listAddress-btn-h {
+  background: none;
+  border: 1px solid #c92127;
+  color: #c92127;
 }
 .Order-List-tittle {
   display: grid;
@@ -1386,6 +1462,223 @@ main {
 .Order-img {
   height: 80px;
   width: 80px;
+}
+.Order-footer {
+  background: white;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+.Order-footer-col1 {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid gray;
+}
+.Order-footer-col1 .pttt {
+  font-size: 20px;
+}
+.Order-footer-col2 {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  padding-bottom: 25px;
+  border-bottom: 1px solid gray;
+}
+.Order-footer-col2 * {
+  grid-column: 2/3;
+  font-size: 14px;
+  color: #000000A8;
+  margin-top: 10px;
+}
+.Order-footer-col2 .totalPrice {
+  font-size: 18px;
+  color: #c92127;
+}
+.Order-footer-col3 {
+  display: flex;
+  justify-content: flex-end;
+}
+.Order-btn {
+  margin-top: 25px;
+  padding: 15px 70px;
+  background: #c92127;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+.Order-notice {
+  position: fixed;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 15px;
+  top: 50%;
+  left: 50%;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px gray;
+}
+.Order-notice i {
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.Order-notice i:hover {
+  color: #6C5DD3;
+}
+
+.Purchase-wrap {
+  padding: 100px 100px 40px;
+}
+.Purchase-header {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px gray;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-items: center;
+  grid-gap: 10px;
+}
+.Purchase-header * {
+  padding: 7px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.35s;
+}
+.Purchase-header p:hover {
+  background: #7266c1;
+  color: white;
+}
+.Purchase-list {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 20px grey;
+  background: white;
+}
+.Purchase-item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 50%);
+  margin-bottom: 10px;
+  border: 1px solid black;
+  padding: 10px;
+}
+.Purchase-item-list {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+}
+.Purchase-name {
+  display: flex;
+}
+.Purchase-img {
+  width: 50px;
+  height: 50px;
+}
+.Purchase-state {
+  color: #c92127;
+  grid-column: 2/3;
+}
+.Purchase-price {
+  grid-column: 2/3;
+}
+.Purchase-price span {
+  color: #c92127;
+  font-size: 18px;
+}
+
+.Purchase-active {
+  background: #6C5DD3;
+  color: white;
+}
+
+.AddressBook-btn {
+  border: 1px solid gray;
+  text-align: center;
+  padding: 9px;
+  cursor: pointer;
+}
+.AddressBook-list {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.AddressBook-item {
+  border: 1px solid gray;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+.AddressBook-item .right {
+  display: flex;
+  gap: 15px;
+}
+.AddressBook-item .right * {
+  background: none;
+  font-size: 15px;
+}
+.AddressBook-item .right .delete {
+  color: #c92127;
+}
+.AddressBook-name span {
+  margin-left: 15px;
+  font-size: 13px;
+  color: #26bc4e;
+}
+.AddressBook-add, .AddressBook-sdt {
+  font-size: 15px;
+}
+.AddressBook-add {
+  margin: 5px 0;
+}
+
+.addAddress {
+  background: white;
+  padding: 50px 30px;
+  border-radius: 5px;
+}
+.addAddress-wrap {
+  position: fixed;
+  background-color: rgba(48, 47, 47, 0.35);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addAddress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.addAddress .state {
+  flex-direction: row;
+  align-items: center;
+}
+.addAddress-btn {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.addAddress-btn * {
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.addAddress-btn .u {
+  background: #c92127;
+  color: white;
+}
+.addAddress-btn .c {
+  border: 1px solid #c92127;
+  background: none;
+  color: #c92127;
 }
 
 * {

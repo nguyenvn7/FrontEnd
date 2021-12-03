@@ -277,7 +277,7 @@ export async function getUser(username){
   return res;
 }
 
-export async function updateUser({username,fullname,diachi,sdt,role}){
+export async function updateUser({username,fullname,sdt,role}){
   const res = fetch("http://localhost:3001/apiTaiKhoan/updateUser",{
     method: "PUT",
     credentials: "include",
@@ -287,7 +287,6 @@ export async function updateUser({username,fullname,diachi,sdt,role}){
     body: JSON.stringify({
       username,
       fullname,
-      diachi,
       sdt,
       role
     })
@@ -303,7 +302,7 @@ export async function updateAvatar(formData){
   })
   return res;
 }
-export async function addUser({username,fullname,pass,diachi,sdt,role}){
+export async function addUser({username,fullname,pass,sdt,role}){
   const res = fetch("http://localhost:3001/apiTaiKhoan/addUser",{
     method: "POST",
     headers: {
@@ -313,7 +312,6 @@ export async function addUser({username,fullname,pass,diachi,sdt,role}){
       username,
       fullname,
       pass,
-      diachi,
       sdt,
       role
     }),
@@ -332,5 +330,140 @@ export async function deleteUser(username){
     }),
     credentials: 'include'
   })
+  return res;
+} 
+export async function getAddress(column,value){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getAddress",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      value,
+      column
+    }),
+    credentials: 'include'
+  })
+  return res;
+} 
+export async function addAddress(username,name,sdt,address){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/addAddress",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      name,
+      sdt,
+      address
+    }),
+    credentials: 'include'
+  })
+  return res;
+} 
+export async function updateAddress({ fullname,sdt,diachi,state,iddc }){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/updateAddress",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      fullname,
+      sdt,
+      diachi,
+      state,
+      iddc
+    }),
+    credentials: 'include'
+  })
+  return res;
+} 
+export async function deleteAddress(iddc){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/deleteAddress",{
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      iddc
+    }),
+    credentials: 'include'
+  })
+  return res;
+} 
+export async function getAds(iddc){
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getAds",{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      iddc
+    }),
+    credentials: 'include'
+  })
+  return res;
+} 
+//Oder
+export async function addOrder(username,listIdsp,date,{fullname,sdt,diachi}){
+  const res = await fetch("http://localhost:3001/apiOrder/addOrder",{
+    method: "POST",
+    headers:  {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username,
+      listIdsp,
+      date,
+      fullname,
+      sdt,
+      diachi
+    })
+  })
+  return res;
+  
+}
+export async function getOrder(username){
+  const res = await fetch("http://localhost:3001/apiOrder/getOrder",{
+    method: "POST",
+    headers:  {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username
+    })
+  })
+  return res;
+}
+export async function deleteOrder(iddh){
+  const res = await fetch("http://localhost:3001/apiOrder/deleteOrder",{
+    method: "DELETE",
+    headers:  {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      iddh
+    })
+  })
+  return res;
+}
+export async function getOrderToUpdate(iddh){
+  const res = await fetch("http://localhost:3001/apiOrder/getOrderToUpdate",{
+    method: "POST",
+    headers:  {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      iddh
+    })
+  })
+  return res;
+}
+export async function updateOrder(iddh,trangthai){
+  const res = await fetch("http://localhost:3001/apiOrder/updateOrder",{
+    method: "PATCH",
+    headers:  {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      iddh,
+      trangthai
+    })
+  })
+  return res;
+}
+export async function adminGetOrder(){
+  const res = await fetch("http://localhost:3001/apiOrder/adminGetOrder");
   return res;
 }

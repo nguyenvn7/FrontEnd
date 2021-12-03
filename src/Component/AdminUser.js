@@ -41,8 +41,8 @@ function AdminUser() {
     <>
       <div className="Admin-header Admin-header-P-U">
         <p> Họ Tên </p>
-        <p> Địa Chỉ </p>
         <p> Số Điện Thoại </p>
+        <p> Ngày Lập </p>
         <p> Quyền </p>
         <button
           onClick={() =>
@@ -57,15 +57,15 @@ function AdminUser() {
       </div>
       <div className="Admin-List Admin-List-P-U">
         {users?.map((value) => (
-          <div className="Admin-Item Admin-Item-P-U" key={value.username}>
+          <div className="Admin-Item Admin-Item-P-U" key={value.fullname}>
             <div className="Admin-fullname">
               <p>{value.fullname}</p>
               <div className="Users-img">
                 <img src={value.img} alt="img" />
               </div>
             </div>
-            <div className="Admin-address">{value.diachi}</div>
             <div className="Admin-sdt">{value.sdt}</div>
+            <div className="Admin-address">{value.ngaylap}</div>
             <div className="Admin-role">{value.role}</div>
             <div className="Admin-btn">
               <button
@@ -91,7 +91,7 @@ function AdminUser() {
         <ModalConfirm
           cb={handleDelete}
           setModal={setStateModalConfirm}
-          title="Bạn Có Muốn Xoá Sản Phẩm Này Không?"
+          title="Bạn Có Muốn Xoá User Này Không?"
           confirm="Xoá!"
           unConfirm="Huỷ!"
         />

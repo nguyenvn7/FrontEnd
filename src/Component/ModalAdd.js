@@ -61,18 +61,7 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
                 }
               />
             </div>
-            <div className="ModalUpdate-address item flex">
-              <label htmlFor="">Địa Chỉ: </label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  setState({
-                    ...state,
-                    diachi: e.target.value,
-                  })
-                }
-              />
-            </div>
+    
             <div className="ModalUpdate-sdt item flex">
               <label htmlFor="">Số Điện Thoại: </label>
               <input

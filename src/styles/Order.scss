@@ -1,3 +1,4 @@
+@use './variables';
 .Order{
     padding: 100px 100px 40px;
     &-header{
@@ -12,15 +13,57 @@
             margin-bottom: 20px;
         }   
     }
-    &-infor{
+    &-top{
         display: flex;
-        gap: 20px;
+        justify-content: space-between;
+        button{
+            background: none;
+            transition: all .25s;
+        }
+        button:hover{
+            color: variables.$Color_purple;
+        }
+    }
+    &-infor{
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: max-content max-content max-content;
     }
     &-NP{
         font-weight: 700;
+        p:nth-child(2){
+            margin-top: 10px;
+        }
     }
     &-item{
         grid-template-columns: 800px repeat(3, auto);
+    }
+    &-listAddress{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        &-item{
+            display: flex;
+            gap: 10px;
+        }
+        &-btn{
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            button{
+                padding: 10px 20px;
+                border-radius: 5px;
+            }
+            &-x{
+                background: #c92127;
+                color: white;
+            }
+            &-h{
+                background: none;
+                border: 1px solid #c92127;
+                color: #c92127;
+            }
+        }
     }
     &-List{
         &-tittle{
@@ -37,5 +80,70 @@
     &-img{
         height: 80px;
         width: 80px;
+    }
+    &-footer{
+        background: white;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        &-col1{
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid gray;
+            .pttt{
+                font-size: 20px;
+            }
+        }
+        &-col2{
+            display: grid;
+            grid-template-columns: 1fr max-content;
+            padding-bottom: 25px;
+            border-bottom: 1px solid gray;
+            *{
+                grid-column: 2 / 3;
+                font-size: 14px;
+                color: #000000A8;
+                margin-top: 10px;
+            }
+            .totalPrice{
+                font-size: 18px;
+                color: #c92127;
+            }
+        }
+        &-col3{
+            display: flex;
+            // grid-template-columns: 1fr max-content;
+            justify-content: flex-end;
+        }
+    }
+    &-btn{
+        margin-top: 25px;
+        padding: 15px 70px;
+        background: #c92127;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    &-notice{
+        position: fixed;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        gap: 15px;
+        top: 50%;
+        left: 50%;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px gray;
+        i{
+            transition: all .25s;
+            cursor: pointer;
+        }
+        i:hover{
+            color: variables.$Color_purple;
+        }
     }
 }
