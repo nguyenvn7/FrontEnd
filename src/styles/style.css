@@ -1581,6 +1581,18 @@ main {
 .Purchase-state {
   color: #c92127;
   grid-column: 2/3;
+  display: flex;
+  gap: 20px;
+}
+.Purchase-state p:nth-child(2), .Purchase-state i {
+  cursor: pointer;
+}
+.Purchase-state p:nth-child(2) {
+  color: black;
+  transition: all 0.25s;
+}
+.Purchase-state p:nth-child(2):hover {
+  color: #c92127;
 }
 .Purchase-price {
   grid-column: 2/3;
@@ -1705,6 +1717,7 @@ button {
   outline: none;
   border: none;
   cursor: pointer;
+  background: none;
 }
 
 input[type=number] input::-webkit-outer-spin-button,

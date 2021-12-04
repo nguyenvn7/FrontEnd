@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addOrder, getAddress, getProducts } from "../Api";
 import { formatPrice } from "../helper";
+import { useHistory } from "react-router";
 import { AuthState, CartState } from "../context/context";
 
 function Order() {
@@ -12,6 +13,7 @@ function Order() {
   const [modal, setModal] = useState();
   const [listAddress, setListAddress] = useState();
   const [stateOfAddress, setStateOfAddress] = useState();
+  const history = useHistory();
   const {
     cartqty: { quantity },
     setCartQty,
@@ -48,7 +50,7 @@ function Order() {
 
     setCartQty({ quantity: quantity - products.length });
     addOrder(auth.username, listIdsp, newdate, user[0]).then((data) =>
-      console.log("order", data.status)
+      history.push("/Purchase")
     );
   };
 

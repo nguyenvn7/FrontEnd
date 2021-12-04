@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
-import { getOrder } from "../Api";
+import { deleteOrder, getOrder } from "../Api";
 import { AuthState } from "../context/context";
 import { formatPrice } from "../helper/index";
 import Footer from "../Component/Footer";
+import ModalConfirm from "../Component/ModalConfirm";
 
 function Purchase() {
   const [active, setActive] = useState("0");
   const { auth } = AuthState();
   const [products, setProducts] = useState();
+  const [confirm, setConfirm] = useState({
+    open: false,
+  });
+  const [isLoad, setIsLoad] = useState(false);
 
+  const handleDelete = (iddh) => {
+    deleteOrder(iddh).then(()=> {
+      setConfirm({open: false});
+      setIsLoad(!isLoad);
+    })
+  };
   const switchState = (trangthai) => {
     switch (trangthai) {
       case "1":
@@ -26,7 +37,8 @@ function Purchase() {
     getOrder(auth.username)
       .then((data) => data.json())
       .then((data) => setProducts(data));
-  }, []);
+      //eslint-disable-next-line
+  }, [isLoad]);
 
   return (
     <>
@@ -93,9 +105,44 @@ function Purchase() {
                           )}
                         </span>
                       </p>
-                      <p className="Purchase-state">
-                        {switchState(value.trangthai)}
-                      </p>
+                      <div className="Purchase-state">
+                        <p>{switchState(value.trangthai)}</p>
+                        {
+                          {
+                            1: (
+                              <p
+                                onClick={() =>
+                                  setConfirm({
+                                    open: true,
+                                    cb: () => handleDelete(value.idDH),
+                                    setModal: setConfirm,
+                                    title: "Bạn Có Muốn Huỷ Đơn Hàng Không?",
+                                    confirm: "Huỷ Đơn",
+                                    unConfirm: "Trở Về",
+                                  })
+                                }
+                              >
+                                Huỷ Đơn Hàng
+                              </p>
+                            ),
+                            3: (
+                              <i
+                                className="fas fa-trash-alt delete"
+                                onClick={() =>
+                                  setConfirm({
+                                    open: true,
+                                    cb:() => handleDelete(value.idDH),
+                                    setModal: setConfirm,
+                                    title: "Bạn Có Muốn Xoá Đơn Hàng Không?",
+                                    confirm: "Xoá",
+                                    unConfirm: "Huỷ",
+                                  })
+                                }
+                              ></i>
+                            ),
+                          }[value.trangthai]
+                        }
+                      </div>
                     </section>
                   );
                 }
@@ -103,6 +150,15 @@ function Purchase() {
             </section>
           </section>
         </section>
+        {confirm?.open && (
+          <ModalConfirm
+            cb={confirm.cb}
+            setModal={confirm.setModal}
+            title={confirm.title}
+            confirm={confirm.confirm}
+            unConfirm={confirm.unConfirm}
+          />
+        )}
       </main>
       <Footer />
     </>

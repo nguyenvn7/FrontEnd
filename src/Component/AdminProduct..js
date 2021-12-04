@@ -223,14 +223,12 @@ function AdminProduct() {
   const page = useQuery().get("page") || "1";
   const [products, setProducts] = useState();
   const [isLoadEffect, setIsLoadEffect] = useState(false);
-  const [stateModalConfirm, setStateModalConfirm] = useState();
+  const [stateModalConfirm, setStateModalConfirm] = useState(false);
   const handleDelete  = ()=>{
     deleteProduct(stateModalConfirm)
-    .then(res => {
-      if(res.status === 200){
+    .then(() => {
         setIsLoadEffect(!isLoadEffect);
         setStateModalConfirm();
-      }
     })
   }
   useEffect(() => {
@@ -325,7 +323,7 @@ function AdminProduct() {
          {
            stateModalConfirm &&  <ModalConfirm 
             cb={handleDelete}
-            setModal   = {setStateModalConfirm}
+            setModal = {setStateModalConfirm}
             title='Bạn Có Muốn Xoá Sản Phẩm Này Không?'
             confirm='Xoá!'
             unConfirm='Huỷ!'

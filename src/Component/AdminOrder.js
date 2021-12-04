@@ -229,10 +229,10 @@ function AdminOrder() {
             ),
             update: (
               <UpdateOrder
-                iddh={modal.iddh}
+                iddh={modal?.iddh}
                 setModalUpdate={setModal}
                 handle={handleUpdate}
-                tt={modal.tt}
+                tt={modal?.tt}
               />
             ),
           }[modal?.name]

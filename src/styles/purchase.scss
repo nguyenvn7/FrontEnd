@@ -57,6 +57,19 @@
     &-state{
         color: #c92127;
         grid-column: 2 / 3;
+        display: flex;
+        gap: 20px;
+        p:nth-child(2),i{
+            cursor: pointer;   
+        }
+        p:nth-child(2){
+            color: black;
+            transition: all .25s;
+        }
+        p:nth-child(2):hover{
+            color: #c92127;
+        }
+
     }
     &-price{
         grid-column: 2 / 3;

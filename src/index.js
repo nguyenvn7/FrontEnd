@@ -5,8 +5,7 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import Context, { AuthContext, AvatarContext } from "./context/context";
 
-async function RenderApp() {
-  
+function RenderApp() {
   ReactDOM.render(
     <Router>
       <AuthContext>
@@ -21,4 +20,4 @@ async function RenderApp() {
   );
 }
 
-(async () => await RenderApp())();
+( () =>  RenderApp())();
