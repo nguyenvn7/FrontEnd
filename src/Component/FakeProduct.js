@@ -1,11 +1,11 @@
 const Products = [
     {
         id: 1,
-        link_background: 'https://reviewsach.net/wp-content/uploads/2016/11/de-thi-dam-mau-1.jpg',
-        link:'https://salt.tikicdn.com/cache/400x400/ts/product/32/13/bc/a195fe8af22c6d529681eaaaf7de31ac.jpg.webp',
-        name: 'De Thi Dam Mau',
-        genre:'Horror',
-        description: 'De Thi Dam Mau',
+        link_background: 'https://cf.shopee.vn/file/9535798451a0166e4de4eba61ab10b04',
+        link:'https://www.khaitam.com/Data/Sites/1/Product/16315/stephen-king-hoc-vien.png',
+        name: 'Học viện – The institude',
+        genre:'Truyện Trinh Thám - Kiếm Hiệp',
+        description: 'Học viện – The institude',
         nha_cc:'',
         nha_xb:'',
         price:100000,
@@ -13,8 +13,8 @@ const Products = [
     },
     {
         id: 2,
-        link_background: 'https://c4.wallpaperflare.com/wallpaper/289/89/271/sherlock-holmes-wallpaper-preview.jpg',
-        link:'https://salt.tikicdn.com/cache/400x400/ts/product/71/d8/63/a6298aa92c70c30f9cb0079c5e4d913d.jpg.webp',
+        link_background: 'https://salt.tikicdn.com/cache/w444/ts/product/3d/81/18/03ca0f8d944b56ee2cab17040242ade7.jpg',
+        link:'https://cdn0.fahasa.com/media/catalog/product/t/h/thien_mon_chi_tam_10_2018_08_07_10_54_55.JPG',
         name: 'Sherlock Holmes',
         genre:'Truyen Trinh Tham',
         description: 'Truyen Trinh Tham',
@@ -23,8 +23,8 @@ const Products = [
     },
     {
         id: 3,
-        link_background: 'https://cadimi.files.wordpress.com/2020/03/maxresdefault.jpg?w=1200',
-        link:'https://salt.tikicdn.com/cache/400x400/ts/product/f5/38/3f/6ce388fc1314314a69d4b87d6fb4bffa.jpg.webp',
+        link_background: 'https://salt.tikicdn.com/cache/280x280/ts/product/4e/fa/b5/18ab585ed6212e976b6ceb47970c5f1a.jpg',
+        link:'https://salt.tikicdn.com/cache/280x280/ts/product/4e/fa/b5/18ab585ed6212e976b6ceb47970c5f1a.jpg',
         name: 'Án mạng trên chuyến tàu tốc hành Phương Đông',
         genre:'Detective novel',
         description: 'Truyen Trinh Tham',

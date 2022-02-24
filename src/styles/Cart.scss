@@ -140,3 +140,140 @@
     }
 
 }
+
+@media screen and (max-width: 1024px) {
+    .Cart{
+        &-item{
+         grid-template-columns: 2% 29% auto;
+        }
+        &-itemImg{
+         width: 23%;
+        }
+        &-itemWrap{
+         grid-template-columns: 10% 26% 18% 5%;
+        }
+        &-buy{
+         padding: 7px 19px;
+        }
+    }
+ }
+ @media screen and (max-width: 768px) {
+    .Cart{
+        &-wrap{
+         padding: 100px 25px 20px;
+        }
+        &-item,&-header{
+         font-size: 14px;
+         grid-template-columns: 2% 29% auto;
+        }
+        &-itemWrap{
+         grid-template-columns: 7% 17% 18% 5%;
+        }
+        &-itemImg{
+         width: 23%;
+        }
+        &-buy{
+         padding: 7px 19px;
+        }
+        &-footer{
+            font-size: 14px;
+        }
+        &-right{
+            gap: 50px;
+        }
+        .footer-del{
+            margin-left: 22px;
+        }
+    }
+ }
+ @media screen and (max-width: 426px) {
+    .Cart{
+        &-wrap{
+         padding: 100px 10px 20px;
+        }
+        &-tittle{
+            gap: 10px;
+        }
+        &-item,&-header{
+         font-size: 13px;
+         grid-template-columns: max-content .5fr 1fr;
+        }
+        &-itemWrap{
+            gap: 17px;
+            grid-template-columns: max-content 17% max-content max-content;
+        }
+        &-itemImg{
+         width: 40%;
+        }
+        &-label{
+            display: none;
+        }
+        &-buy{
+         padding: 7px 19px;
+        }
+        &-footer{
+            font-size: 14px;
+        }
+        &-btn,&-right{
+            flex: 1;
+        }
+        &-btn{
+            gap: 5px;
+            input{
+                margin: 0;
+            }
+            .footer-del{
+                margin-left: 0;
+            }
+        }
+        &-right{
+            
+            gap: 20px;
+            flex-direction: column;
+        }
+        
+    }
+ }
+ @media screen and (max-width: 426px) {
+    .Cart{
+        &-wrap{
+         padding: 100px 5px 20px;
+        }
+        &-itemWrap{
+            gap: 13px;
+        }
+        &-itemDes{
+            flex-direction: column;
+        }
+        &-header{
+            padding: 20px 10px;
+        }
+       &-footer{
+           font-size: 13px;
+           .footer-del{
+            font-size: 15px;
+        }
+       }
+    }
+ }
+ @media screen and (max-width: 321px) {
+    .Cart{
+        &-Products{
+            padding: 20px 5px;
+        }
+        &-item{
+            font-size: 11px;
+        }
+        &-itemWrap{
+            align-items: center;
+        }
+        &-header{
+            font-size: 11px;
+        }
+       &-footer{
+           font-size: 12px;
+           gap: 10px;
+           padding: 20px 10px;
+       }
+    }
+ }

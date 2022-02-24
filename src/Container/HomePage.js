@@ -16,16 +16,15 @@ function HomePage() {
   const page = useQuery().get("page") || "1";
   useEffect(() => {
     getProduct(searchParams)
-      .then((data) =>
-     {
-      setProduct({
-        results: data.results,
-        ...Object.assign({}, ...data.total),
-      })
-     }
+      .then((data) => {
+        setProduct({
+          results: data.results,
+          ...Object.assign({}, ...data.total),
+        })
+      }
       )
       .catch((err) => console.log(err));
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
   const handleSort = (nameSort, value) => {
     // console.log(nameSort,value);
@@ -33,14 +32,14 @@ function HomePage() {
       .then((data) => {
         setProduct({
           results: data.results,
-        ...Object.assign({}, ...data.total),
+          ...Object.assign({}, ...data.total),
         })
       })
       .catch((err) => console.log(err));
   }
-    
-  
-    // console.log(Product)
+
+
+  // console.log(Product)
   return (
     <>
       {/* <Header /> */}

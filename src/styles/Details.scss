@@ -211,3 +211,90 @@
     max-height: 700px;
   }
 }
+@media screen and (max-width: 1024px) {
+  .Product{
+    &-tittle,&-content{
+      font-size: 13px;
+    }
+    &-tittle{
+      margin-bottom: 20px;
+    }
+    &-btnCart {
+      *{
+        padding: 2px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .Details-wrap{
+    padding: 100px 25px 16px;
+  }
+  .Product{
+    &-tittle,&-content{
+      font-size: 12px;
+    }
+    &-price{
+      font-size: 20px;
+    }
+    &-qty{
+      width: 83%;
+    }
+    &-tittle{
+      margin-bottom: 10px;  
+      gap: 10px;
+      h1{
+        font-size: 15px;
+      }
+    }
+    &-btnCart {
+      *{
+        padding: 2px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 426px) {
+  .Details-wrap{
+    padding: 100px 9px 16px;
+  }
+  .Product{
+    flex-direction: column;
+    gap: 10px;
+    &-btnCart{
+      *{
+        padding: 8px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 376px) {
+
+  .Product{
+    padding: 18px;
+    gap: 16px;
+    &-qty{
+      width: 80%;
+    }
+    input{
+      width: 11%;
+    }
+  }
+}
+@media screen and (max-width: 321px) {
+
+  .Product{
+    padding: 18px;
+    gap: 16px;
+    &-btnCart * {
+      font-size: 12px;
+      padding: 1px 5px;
+    }
+    &-qty{
+      width: 75%;
+    }
+    input{
+      width: 11%;
+    }
+  }
+}

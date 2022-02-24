@@ -39,7 +39,6 @@ function useQuery() {
 
 function Products({ Products, total, page, handleSort, params }) {
   const endPage = Math.ceil(+total / 15);
-  // console.log(total);
   let genre = useQuery().get("genre");
   let order = useQuery().get("order");
   genre = (genre && `&genre=${genre}`) || "";
@@ -176,7 +175,6 @@ function Products({ Products, total, page, handleSort, params }) {
             </div>
           )}
         </div>
-        <p className="Products-Item Products-TittleGenres">Hàng Mới</p>
         <Link
           to={`/?${(page && `page=${page}`) || ""}${
             (genre && `${genre}&`) || "&"
@@ -198,18 +196,21 @@ function Products({ Products, total, page, handleSort, params }) {
       <div className="Products__List">
         {Products.map((value, index) => (
           <div className="Item" key={value.idsp}>
-            <Link to={`/Details/${value.name}`} className="img">
+            <Link to={{
+              pathname: `/Details/${value.tenSach}`,
+              query: {idsp: value.idsp}
+            }} className="img">
               <div className="Rote">
                 <Item link={value.link} />
               </div>
             </Link>
             <div className="details">
               <div>
-                <p className="details__name">{value.name}</p>
-                <p className="details__genre">{value.genre}</p> 
+                <p className="details__name">{value.tenSach}</p>
+                <p className="details__genre">{value.theLoai}</p> 
               </div>
             </div>
-            <p className="price">{formatPrice(value.price)}</p>
+            <p className="price">{formatPrice(value.gia)}</p>
             <div className="details-add">
               <MdOutlineAddShoppingCart
                 onClick={() => {

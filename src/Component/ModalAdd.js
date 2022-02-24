@@ -4,6 +4,7 @@ import { validationName } from "../Api";
 function ModalUpdate({ id, setModalUpdate, handle }) {
   const [state, setState] = useState();
   const [check, setCheck] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <>
@@ -41,7 +42,7 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
                   })
                 }
                 onBlur={() =>
-                  validationName(state.username).then((data) => {
+                  validationName(state?.username).then((data) => {
                     if (data !== 200) {
                       setCheck("isset");
                     } else setCheck(false);
@@ -72,8 +73,14 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
                     sdt: e.target.value,
                   })
                 }
+                onBlur={(e)=>{
+                  if(state.sdt.length !== 10){
+                    setError(true);
+                  }else setError(false)
+                }}
               />
             </div>
+            {error && <p className="Form-wrong">Vui Lòng Nhập Lại SĐT!</p>}
             <div className="ModalUpdate-role item flex">
               <label htmlFor="">Quyền: </label>
               <select
@@ -96,10 +103,14 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
           </div>
           <div className="ModalUpdate-col">
             <div className="Admin-modal-btn">
-              <button className="update" onClick={() => {
-                if(!state.username || !state.pass){
+              <button className={`update ${error && 'no-drop'}`} onClick={() => {
+                if(state?.username && state?.pass && state?.sdt && state?.fullname && state?.role){
+                  if(!error){
+                  handle(state)
+                }
+                }else {
                   setCheck("Empty");
-                }else handle(state);
+                }
               }}>
                 Thêm
               </button>
@@ -117,7 +128,7 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
               ),
               "Empty": (
                 <div className="ModalUpdate-err">
-                  <p>Vui Lòng Nhập Đầy Đủ TK MK!</p>
+                  <p>Vui Lòng Nhập Đầy Đủ Thông Tin!</p>
                 </div>
               ),
             }[check]

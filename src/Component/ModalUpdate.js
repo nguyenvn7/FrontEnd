@@ -3,6 +3,7 @@ import { getUser } from "../Api";
 
 function ModalUpdate({ id, setModalUpdate, handle }) {
   const [state, setState] = useState();
+  const [error, setError] = useState(false);
   useEffect(() => {
     getUser(id)
       .then((data) => data.json())
@@ -53,8 +54,14 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
                     sdt: e.target.value,
                   })
                 }
+                onBlur={(e)=>{
+                  if(state.sdt.length !== 10){
+                    setError(true);
+                  }else setError(false)
+                }}
               />
             </div>
+              {error && <p className="Form-wrong">Vui Lòng Nhập Lại SĐT!</p>}
             <div className="ModalUpdate-role item flex">
               <label htmlFor="">Quyền: </label>
               <select name="role" value={state?.role} onChange={(e) =>
@@ -70,7 +77,11 @@ function ModalUpdate({ id, setModalUpdate, handle }) {
           </div>
           <div className="ModalUpdate-col">
             <div className="Admin-modal-btn">
-              <button className="update" onClick={() => handle(state)}>
+              <button className={`update ${error && 'no-drop'}`} onClick={() => {
+                if(!error){
+                  handle(state)
+                }
+              }}>
                 Cập Nhật
               </button>
               <button className="cancel" onClick={() => setModalUpdate(false)}>

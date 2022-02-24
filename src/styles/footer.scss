@@ -105,3 +105,70 @@ footer {
         grid-gap: 30px;
     }
 }
+
+@media screen and (max-width: 1024px) {
+    footer{
+        .wrap{
+            padding: 45px;
+        }
+    }
+    .right{
+        &-infor{
+            font-size: 13px;
+        }
+        &-grcol{
+            gap: 13px;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    footer{
+        padding: 30px 20px 20px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    footer{
+        .wrap{
+            padding: 20px;
+            flex-direction: column;
+            gap: 30px;
+            .left{
+                border-right: none;
+            }
+        }
+    }
+
+    .right{
+        &-tittle{
+            font-size: 13px;
+        }
+        &-infor{
+            font-size: 13px;
+        }
+        &-grcol{
+            gap: 13px;
+        }
+    }
+}
+@media screen and (max-width: 376px) {
+    footer{
+        .wrap{
+            padding: 10px;
+        }
+    }
+}
+@media screen and (max-width: 321px) {
+    footer{
+        padding: 30px 5px 20px;
+        .wrap{
+            padding: 10px;
+        }
+        .right-infor p {
+            font-size: 12px;
+        }
+        .right-address {
+            gap: 21px;
+        }
+    }
+}

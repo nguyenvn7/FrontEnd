@@ -9,8 +9,8 @@ import { AuthState } from "../context/context";
 export  function  CheckLogin(name){
 
     const {auth,setAuth} = AuthState();
-    console.log('CheckLogin',name);
-      useEffect(() => { 
+    useEffect(() => { 
+        console.log('CheckLogin',name);
         if(auth?.username){
           checkLogged()
           .then(data => {

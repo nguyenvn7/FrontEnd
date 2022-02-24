@@ -1,124 +1,155 @@
 @use './variables';
-.Order{
+
+.Order {
     padding: 100px 100px 40px;
-    &-header{
+
+    &-header {
         background: white;
         padding: 10px 20px;
         border-radius: 10px;
         box-shadow: 0 0 20px gray;
         margin-bottom: 70px;
-        &-tittle{
+
+        &-tittle {
             color: #c92127;
             font-weight: 700;
             margin-bottom: 20px;
-        }   
+        }
     }
-    &-top{
+
+    &-default {
+        color: rgb(38, 188, 78);
+        font-size: 13px;
+    }
+
+    &-top {
         display: flex;
         justify-content: space-between;
-        button{
+
+        button {
             background: none;
             transition: all .25s;
         }
-        button:hover{
+
+        button:hover {
             color: variables.$Color_purple;
         }
     }
-    &-infor{
-        display: grid;
+
+    &-infor {
+        display: flex;
         grid-gap: 20px;
-        grid-template-columns: max-content max-content max-content;
     }
-    &-NP{
+
+    &-NP {
         font-weight: 700;
-        p:nth-child(2){
+
+        p:nth-child(2) {
             margin-top: 10px;
         }
     }
-    &-item{
+
+    &-item {
         grid-template-columns: 800px repeat(3, auto);
     }
-    &-listAddress{
+
+    &-listAddress {
         display: flex;
         flex-direction: column;
         gap: 30px;
-        &-item{
+
+        &-item {
             display: flex;
             gap: 10px;
         }
-        &-btn{
+
+        &-btn {
             margin-top: 10px;
             display: flex;
             gap: 10px;
-            button{
+
+            button {
                 padding: 10px 20px;
                 border-radius: 5px;
             }
-            &-x{
+
+            &-x {
                 background: #c92127;
                 color: white;
             }
-            &-h{
+
+            &-h {
                 background: none;
                 border: 1px solid #c92127;
                 color: #c92127;
             }
         }
     }
-    &-List{
-        &-tittle{
+
+    &-List {
+        &-tittle {
             display: grid;
-            grid-template-columns: 800px repeat(3,auto);
+            grid-template-columns: 800px repeat(3, auto);
             grid-gap: 10px;
             margin-bottom: 20px;
         }
     }
-    &-name{
+
+    &-name {
         display: flex;
         align-items: center;
     }
-    &-img{
+
+    &-img {
         height: 80px;
         width: 80px;
     }
-    &-footer{
+
+    &-footer {
         background: white;
         margin-top: 20px;
         padding: 20px;
         border-radius: 10px;
-        &-col1{
+
+        &-col1 {
             display: flex;
             justify-content: space-between;
             padding-bottom: 25px;
             margin-bottom: 25px;
             border-bottom: 1px solid gray;
-            .pttt{
+
+            .pttt {
                 font-size: 20px;
             }
         }
-        &-col2{
+
+        &-col2 {
             display: grid;
             grid-template-columns: 1fr max-content;
             padding-bottom: 25px;
             border-bottom: 1px solid gray;
-            *{
+
+            * {
                 grid-column: 2 / 3;
                 font-size: 14px;
                 color: #000000A8;
                 margin-top: 10px;
             }
-            .totalPrice{
+
+            .totalPrice {
                 font-size: 18px;
                 color: #c92127;
             }
         }
-        &-col3{
+
+        &-col3 {
             display: flex;
             // grid-template-columns: 1fr max-content;
             justify-content: flex-end;
         }
     }
-    &-btn{
+
+    &-btn {
         margin-top: 25px;
         padding: 15px 70px;
         background: #c92127;
@@ -126,7 +157,8 @@
         font-weight: 700;
         font-size: 14px;
     }
-    &-notice{
+
+    &-notice {
         position: fixed;
         display: flex;
         align-items: flex-end;
@@ -138,12 +170,87 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 20px gray;
-        i{
+
+        i {
             transition: all .25s;
             cursor: pointer;
         }
-        i:hover{
+
+        i:hover {
             color: variables.$Color_purple;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .Order {
+        &-List-tittle {
+            grid-gap: 33px;
+            grid-template-columns: 1fr repeat(3, auto);
+        }
+
+        &-item {
+            grid-gap: 70px;
+            grid-template-columns: 1fr repeat(3, auto);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Order {
+        padding: 100px 20px 40px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .Order {
+        &-header {
+            font-size: 13px;
+        }
+
+        &-List {
+            font-size: 13px;
+        }
+
+        &-item {
+            grid-gap: 38px;
+        }
+
+        .pttt {
+            font-size: 15px;
+        }
+
+        .name-pttt {
+            font-size: 13px;
+        }
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .Order {
+        padding: 100px 5px 40px;
+
+        &-name {
+            align-items: center;
+            flex-direction: column;
+            gap: 7px;
+        }
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .Order {
+        &-List-tittle {
+            grid-gap: 20px;
+        }
+
+        &-item {
+            grid-gap: 15px;
+            grid-template-columns: auto repeat(3, auto);
+        }
+
+        &-footer-col2 * {
+            font-size: 11px;
         }
     }
 }

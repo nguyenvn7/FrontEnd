@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 
 
@@ -34,7 +34,7 @@ function Banner(props) {
       >
         {props.Products.map((value, index) => {
           if (index <= 2) {
-            return ( <div className="Slide__Details" key={value.id}>
+            return (<div className="Slide__Details" key={value.id}>
               <div className="warp">
                 <div className="detail">
                   <div className="detail_content">
@@ -45,9 +45,9 @@ function Banner(props) {
                 </div>
               </div>
               <Item link={value.link_background} />
-            </div>)  
-          } 
-           return '';
+            </div>)
+          }
+          return '';
         })}
       </div>
       <div className="Banner__SubSlide">
@@ -60,13 +60,13 @@ function Banner(props) {
         </div>
         <div className="SubSlide__Wrap">
           {props.Products.map((value, index) => {
-            if (index <= 2) {
-             return ( <div
-                className = {`${toggle === index ? "Img_shadow" : ""} Wrap__img`}
+            if (index <= 2  ) {
+              return (<div
+                className={`${toggle === index ? "Img_shadow" : ""} Wrap__img`}
                 onClick={() => handleClickImg(index)}
                 key={value.id}
               >
-                <Item link={value.link_background}  />
+                <Item link={value.link} />
               </div>)
             }
             return '';

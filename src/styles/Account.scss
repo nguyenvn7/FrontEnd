@@ -1,12 +1,13 @@
 @use './variables';
 
-.Account{
+.Account {
     padding: 70px 100px 20px;
-    .avatar{
-        width: 0;
 
+    .avatar {
+        width: 0;
     }
-    .label-avatar{
+
+    .label-avatar {
         cursor: pointer;
         position: absolute;
         width: 100%;
@@ -14,32 +15,38 @@
         top: calc(50% - 35px);
         background: #0000002b;
         height: 100%;
-        img{
+
+        img {
             object-fit: contain;
         }
     }
-    &-name{
+
+    &-name {
         background: none;
         border: none;
     }
-    &-wrap{
+
+    &-wrap {
         background: white;
         padding: 50px;
         border-radius: 20px;
         box-shadow: 0 0 20px gray;
     }
-    &-tittle{
+
+    &-tittle {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding-bottom: 20px;
         margin-bottom: 20px;
         border-bottom: 2px solid gray;
-        &-left{
+
+        &-left {
             display: flex;
             gap: 15px;
         }
-        h2{
+
+        h2 {
             cursor: pointer;
             font-size: 17px;
             margin-top: 20px;
@@ -47,65 +54,185 @@
             border-radius: 40px;
         }
     }
-    &-ItemInfor{
+
+    &-ItemInfor {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin: 40px 0;
-        h3{
+
+        h3 {
             font-size: 16px;
         }
-        *{
+
+        * {
             font-size: 14px;
-        }   
+        }
 
     }
-    &-btn{
+
+    &-btn {
         border: 1px solid gray;
         padding: 8px 20px;
         border-radius: 50px;
     }
-    &-btn-update{
+
+    &-btn-update {
         display: flex;
         gap: 10px;
-        *{
+
+        * {
             background: none;
             padding: 10px 20px;
             border-radius: 50px;
         }
-        .save{
+
+        .save {
             border: 1px solid #1a8917;
             color: #1a8917;
         }
-        .cancel{
-            border: 1px solid rgba(0,0,0,.15);
-            color: rgba(0,0,0,.54);
+
+        .cancel {
+            border: 1px solid rgba(0, 0, 0, .15);
+            color: rgba(0, 0, 0, .54);
         }
-        .cancel:hover{
-            border-color: rgba(0,0,0,.54);
+
+        .cancel:hover {
+            border-color: rgba(0, 0, 0, .54);
         }
     }
-    &-left{
-        flex: 1;
-        input{
+
+    &-left {
+        flex: .8;
+
+        input {
             width: 100%;
         }
-        h3{
+
+        h3 {
             margin-bottom: 10px;
         }
     }
-    &-wrapimg{
+
+    &-wrapimg {
         display: flex;
-        &-img{
+
+        &-img {
             position: relative;
             cursor: pointer;
             height: 70px;
             width: 70px;
-            margin-left: 200px ;
-            img{
+            margin-left: 200px;
+
+            img {
                 object-fit: cover;
                 border-radius: 100%;
                 height: 100%;
+            }
+        }
+    }
+}
+.settingAccModal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    gap: 10px;
+    padding: 10px;
+    .close-s{
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .Account {
+        &-wrapimg-img {
+            height: 37px;
+            width: auto;
+            margin-left: 25px;
+        }
+
+        .label-avatar {
+            top: calc(50% - 19px);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Account {
+        padding: 70px 20px 20px;
+
+        &-left {
+            flex: 1 1;
+        }
+
+        &-wrapimg {
+            gap: 10px;
+            &-img {
+                margin-left: 0;
+            }
+        }
+
+    }
+}
+@media screen and (max-width: 426px) {
+    .Account {
+        padding: 70px 9px 20px;
+        &-wrap{
+            padding: 25px;
+        }
+        &-wrapimg{
+            flex-direction: column;
+            align-items: center;
+        }
+        &-tittle{
+            h2{
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+        }
+
+    }
+}
+@media screen and (max-width: 376px) {
+    .Account {
+        &-wrap{
+            padding: 15px;
+        }
+        &-wrapimg{
+            flex-direction: column;
+            align-items: center;
+        }
+        &-tittle{
+            font-size: 11px;
+            gap: 10px;
+            h2{
+                font-size: 14px;
+                padding: 8px 10px;
+                margin: 0;
+            }
+        }
+    }
+}
+@media screen and (max-width: 321px) {
+    .Account {
+        &-wrap{
+            padding: 15px;
+        }
+        &-wrapimg{
+            flex-direction: column;
+            align-items: center;
+        }
+        &-tittle{
+            gap: 10px;
+            &-left{
+                gap: 9px;
+                padding: 8px 10px;
+                margin: 0;
+            }
+            h2{
+                font-size: 11px;
+                padding: 8px 4px;
             }
         }
     }

@@ -1,21 +1,24 @@
 @use 'variables';
 
-.Admin{
+.Admin {
     padding: 100px 100px 40px;
     background: linear-gradient(to bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
     position: relative;
-    &-pag{
+
+    &-pag {
         display: flex;
         gap: 20px;
         justify-content: center;
-        *{
+
+        * {
             color: black;
             border: 1px solid black;
             padding: 10px;
             border-radius: 3px;
         }
     }
-    &-modal{
+
+    &-modal {
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -30,75 +33,88 @@
         background: white;
         box-shadow: 0 0 20px gray;
         color: #666666;
-        &-item{
+
+        &-item {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;  
+            gap: 15px;
             border-bottom: 1px solid gray;
             padding: 15px 0;
             max-width: 400px;
-            .name{
+
+            .name {
                 width: 300px;
             }
         }
-        &-close{
+
+        &-close {
             width: 100%;
             text-align: end;
             font-size: 18px;
-            i:hover{
+
+            i:hover {
                 cursor: pointer;
                 color: variables.$Color_purple;
             }
         }
-        &-list{
+
+        &-list {
             display: flex;
             flex-direction: column;
             // gap: 30px;
         }
-        &-img{
+
+        &-img {
             width: 40%;
         }
-        &-btn{
+
+        &-btn {
             width: 100%;
             display: flex;
             justify-content: space-evenly;
             margin-top: 10px;
-          
-            .update,.cancel{
+
+            .update,
+            .cancel {
                 padding: 10px 20px;
                 border-radius: 7px;
                 background: none;
                 border: 2px solid #c92127;
                 font-weight: 700;
             }
-            .update{
+
+            .update {
                 background: #c92127;
                 color: white;
                 font-size: 13px;
             }
-            .cancel{
+
+            .cancel {
                 color: #c92127;
             }
         }
     }
-    
-    &-header{
+
+    &-header {
         margin-bottom: 50px;
         padding: 15px;
         border-radius: 6px;
         box-shadow: 0 0 20px gray;
         background: white;
         display: grid;
-        &-P-U{
+
+        &-P-U {
             grid-gap: 10px;
-            grid-template-columns: repeat(4,22%) 8%;
+            grid-template-columns: repeat(4, 22%) 8%;
         }
     }
-    &-select{
+
+    &-select {
         display: flex;
         margin-bottom: 30px;
         gap: 20px;
-        *{
+
+        * {
             border: 1px solid gray;
             padding: 10px;
             border-radius: 50px;
@@ -106,48 +122,188 @@
             cursor: pointer;
         }
     }
-    &-List{
+
+    &-List {
         padding: 10px;
         border-radius: 6px;
         box-shadow: 0 0 20px gray;
         background: white;
     }
-    &-Item{
+
+    &-Item {
         display: grid;
         align-items: center;
         margin-bottom: 10px;
         border: 1px solid black;
         padding: 5px;
-        &-P-U{
+
+        &-P-U {
             grid-gap: 10px;
-            grid-template-columns:repeat(4, 22%) 8%;
+            grid-template-columns: repeat(4, 22%) 8%;
         }
     }
-    &-product{
+
+    &-product {
         display: flex;
         align-items: center;
     }
-    &-img{
+
+    &-img {
         flex: 1;
     }
-    &-name{
+
+    &-name {
         flex: 3;
     }
-    &-btn{
+
+    &-btn {
         gap: 10px;
         display: flex;
         justify-content: space-evenly;
     }
-    .delete{
+
+    .delete {
         color: #c92127;
     }
-    .delete,.edit{
+
+    .delete,
+    .edit {
         font-size: 18px;
     }
-    button{
+
+    button {
         background: none;
     }
-    &-active{
+
+    &-active {
         background: #6C5DD3;
     }
+}
+
+@media screen and (max-width: 1024px) {
+    .Admin {
+        padding: 100px 50px 40px;
+
+        &-header-P-U {
+            grid-template-columns: repeat(5, 1fr) ;
+        }
+
+        &-Item-O,
+        &-select-order {
+            font-size: 14px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Admin {
+        padding: 100px 20px 40px;
+
+        &-header-P-U {
+            font-size: 12px;
+        }
+
+
+        &-Item {
+            &-P-U {
+                grid-gap: 6px;
+                font-size: 14px;
+            }
+        }
+
+        .delete,
+        .edit {
+            font-size: 14px;
+        }
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .Admin {
+        padding: 100px 9px 40px;
+        &-header-P-U {
+            align-items: center;
+            grid-gap: 9px;
+        }
+
+        &-select{
+            gap: 11px;
+            font-size: 13px;
+            *{
+                padding: 10px 3px;
+            }
+        }
+        &-fullname{
+            flex-direction: column;
+        }
+        &-modal {
+            width: 385px;
+        }
+
+
+        &-Item {
+            font-size: 11px;
+
+            &-P-U {
+                grid-gap: 10px;
+                grid-template-columns: repeat(4, calc(22% - 10px)) max-content;
+                word-break: break-all;
+            }
+        }
+
+        &-product {
+            flex-direction: column;
+        }
+    }
+}
+@media screen and (max-width: 321px) {
+    .Admin {
+        &-header-P-U {
+            font-size: 11px;
+            gap: 1px;
+            padding: 15px 7px;
+            button{
+                font-size: 12px;
+            }
+        }
+        &-select{
+            gap: 5px;
+            *{
+                font-size: 11px;
+                padding: 7px 3px;
+            }
+
+        }
+        &-fullname{
+            flex-direction: column;
+        }
+        &-modal {
+            width: 309px;
+            font-size: 13px;
+            left: calc(50% - 153px);
+            &-item{
+                .name{
+                    width: 267px
+                }
+            }
+            &-btn .update{
+                padding: 10px 10px;
+            }
+        }
+
+
+        &-Item {
+            font-size: 12px;
+
+            &-P-U {
+                grid-gap: 10px;
+                grid-template-columns: 22% auto max-content max-content max-content;
+            }
+        }
+
+        &-product {
+            flex-direction: column;
+        }
+    }
+   
 }

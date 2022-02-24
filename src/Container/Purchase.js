@@ -34,7 +34,8 @@ function Purchase() {
   };
 
   useEffect(() => {
-    getOrder(auth.username)
+    console.log("Effect purchase")
+    getOrder(auth?.username)
       .then((data) => data.json())
       .then((data) => setProducts(data));
       //eslint-disable-next-line
@@ -84,7 +85,7 @@ function Purchase() {
                                 <img src={value2.link} alt="" />
                               </div>
                               <p>
-                                {value2.name}
+                                {value2.tenSach}
                                 <span className="Purchase-qty">
                                   x{value2.quantity}
                                 </span>

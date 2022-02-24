@@ -18,48 +18,48 @@ export async function queryProduct(nameQuery, value) {
 }
 // fix 2 cai tren
 
-export async function addProduct(formData){
-  const res = await fetch("http://localhost:3001/apiProducts/addProduct",{
+export async function addProduct(formData) {
+  const res = await fetch("http://localhost:3001/apiProducts/addProduct", {
     method: "POST",
     body: formData,
     credentials: 'include'
   })
   return res;
 }
-export async function getAllProduct(){
+export async function getAllProduct() {
   const res = await fetch("http://localhost:3001/apiProducts/AllProduct");
   return res;
 }
-export async function getProducts(username,idsp){
-  const res = await fetch("http://localhost:3001/apiProducts/getProducts",{
+export async function getProducts(username, idsp) {
+  const res = await fetch("http://localhost:3001/apiProducts/getProducts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({            
-      username,            
-        idsp
+    body: JSON.stringify({
+      username,
+      idsp
     })
   })
   return res;
 }
 
-export async function getProductUpdate(idProduct){
-  const query = await fetch(`http://localhost:3001/apiProducts/product`,{
+export async function getProductUpdate(idProduct) {
+  const query = await fetch(`http://localhost:3001/apiProducts/product`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({                        
-        idProduct
+    body: JSON.stringify({
+      idProduct
     })
   });
   const product = await query.json();
-  
+
   return product;
 }
-export async function getGenres(){
-  
+export async function getGenres() {
+
   const query = await fetch(
     `http://localhost:3001/apiProducts/genres `
   );
@@ -69,89 +69,89 @@ export async function getGenres(){
 
 export async function login(name, pass) {
   const res = await fetch("http://localhost:3001/apiTaikhoan/login", {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            credentials: 'include',
-                            body: JSON.stringify({                        
-                                name,
-                                pass
-                            }),
-                          });
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      name,
+      pass
+    }),
+  });
   return res;
 }
-export async function signup(name,pass,fullname){
-  const res = await fetch("http://localhost:3001/apiTaikhoan/signup",{
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                name,
-                                pass,
-                                fullname
-                            }),
-                          });
-  return res;           
-           
+export async function signup(name, pass, fullname) {
+  const res = await fetch("http://localhost:3001/apiTaikhoan/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      pass,
+      fullname
+    }),
+  });
+  return res;
+
 }
-export async function logout(name,pass){
-  const res = await fetch("http://localhost:3001/apiTaiKhoan/logout",{
+export async function logout(name, pass) {
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/logout", {
     method: "DELETE",
     credentials: 'include'
-  })  
+  })
   return res;
 }
-export async function checkLogged(){
-  const res = await fetch("http://localhost:3001/apiTaiKhoan/checklogged",{
+export async function checkLogged() {
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/checklogged", {
     credentials: 'include'
   });
   const data = await res.json();
   return data;
 }
-export async function validationName(name){
-  const res = await fetch("http://localhost:3001/apiTaiKhoan/validationName",{
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                name
-                            }),
-                          });
+export async function validationName(name) {
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/validationName", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name
+    }),
+  });
   return res.status;
 }
-export async function GetInfor({username}){
-  const res = await fetch("http://localhost:3001/apiTaiKhoan/GetInfor",{
+export async function GetInfor({ username }) {
+  const res = await fetch("http://localhost:3001/apiTaiKhoan/GetInfor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        username
+      username
     }),
     credentials: 'include'
   })
   return res;
 }
-export async function addCart(username,idsp,quantity){
-    const res = await fetch("http://localhost:3001/apiProducts/addCart",{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        idsp,
-        quantity
-      }),
-      credentials: 'include'
-    })
-    return res;
+export async function addCart(username, idsp, quantity) {
+  const res = await fetch("http://localhost:3001/apiProducts/addCart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      idsp,
+      quantity
+    }),
+    credentials: 'include'
+  })
+  return res;
 }
-export async function getCart(username){
-  const res = await fetch("http://localhost:3001/apiProducts/getCart",{
+export async function getCart(username) {
+  const res = await fetch("http://localhost:3001/apiProducts/getCart", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -163,8 +163,8 @@ export async function getCart(username){
   })
   return res;
 }
-export async function getLengthCart(username){
-  const res = await fetch("http://localhost:3001/apiProducts/getLengthCart",{
+export async function getLengthCart(username) {
+  const res = await fetch("http://localhost:3001/apiProducts/getLengthCart", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -176,8 +176,8 @@ export async function getLengthCart(username){
   })
   return res;
 }
-export async function updateQtyCart(idsp,quantity,username){
-  const res = await fetch("http://localhost:3001/apiProducts/updateQty",{
+export async function updateQtyCart(idsp, quantity, username) {
+  const res = await fetch("http://localhost:3001/apiProducts/updateQty", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -191,33 +191,33 @@ export async function updateQtyCart(idsp,quantity,username){
   })
   return res;
 }
-export async function updateProduct(formData){
-  const res = await fetch("http://localhost:3001/apiProducts/UpdateProduct",{
+export async function updateProduct(formData) {
+  const res = await fetch("http://localhost:3001/apiProducts/UpdateProduct", {
     method: "POST",
     body: formData,
     credentials: 'include'
   })
   return res;
 }
-export async function getProductPage(page){
+export async function getProductPage(page) {
   const res = await fetch(`http://localhost:3001/apiProducts/getProductPage?page=${page}`)
   return res;
 }
-export async function deleteProduct(idsp){
+export async function deleteProduct(idsp) {
   const res = await fetch("http://localhost:3001/apiProducts/deleteProduct",
-  {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      idsp
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idsp
+      })
     })
-  })
   return res;
 }
-export async function deleteItemCart( username,idsp){
-  const res = await fetch("http://localhost:3001/apiProducts/deleteItem",{
+export async function deleteItemCart(username, idsp) {
+  const res = await fetch("http://localhost:3001/apiProducts/deleteItem", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -230,8 +230,8 @@ export async function deleteItemCart( username,idsp){
   })
   return res;
 }
-export async function deleteItemsCart(listItem){
-  const res = await fetch("http://localhost:3001/apiProducts/deleteItems",{
+export async function deleteItemsCart(listItem) {
+  const res = await fetch("http://localhost:3001/apiProducts/deleteItems", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -243,8 +243,8 @@ export async function deleteItemsCart(listItem){
   })
   return res;
 }
-export async function updateInformationUser(username,value,column){
-   await fetch("http://localhost:3001/apiTaiKhoan/updateInformationUser",{
+export async function updateInformationUser(username, value, column) {
+  await fetch("http://localhost:3001/apiTaiKhoan/updateInformationUser", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -258,13 +258,13 @@ export async function updateInformationUser(username,value,column){
   })
 }
 
-export async function getUsers(){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/getUsers");                   
+export async function getUsers() {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getUsers");
   return res;
 }
 
-export async function getUser(username){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/getUser",{
+export async function getUser(username) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getUser", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -273,12 +273,12 @@ export async function getUser(username){
     body: JSON.stringify({
       username
     })
-  })                   
+  })
   return res;
 }
 
-export async function updateUser({username,fullname,sdt,role}){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/updateUser",{
+export async function updateUser({ username, fullname, sdt, role }) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/updateUser", {
     method: "PUT",
     credentials: "include",
     headers: {
@@ -290,20 +290,20 @@ export async function updateUser({username,fullname,sdt,role}){
       sdt,
       role
     })
-  })                   
+  })
   return res;
 }
 
-export async function updateAvatar(formData){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/updateAvatar",{
+export async function updateAvatar(formData) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/updateAvatar", {
     method: "POST",
     body: formData,
     credentials: 'include'
   })
   return res;
 }
-export async function addUser({username,fullname,pass,sdt,role}){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/addUser",{
+export async function addUser({ username, fullname, pass, sdt, role }) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/addUser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -319,8 +319,8 @@ export async function addUser({username,fullname,pass,sdt,role}){
   })
   return res;
 }
-export async function deleteUser(username){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/deleteUser",{
+export async function deleteUser(username) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/deleteUser", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -331,9 +331,9 @@ export async function deleteUser(username){
     credentials: 'include'
   })
   return res;
-} 
-export async function getAddress(column,value){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/getAddress",{
+}
+export async function getAddress(column, value) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getAddress", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -345,9 +345,9 @@ export async function getAddress(column,value){
     credentials: 'include'
   })
   return res;
-} 
-export async function addAddress(username,name,sdt,address){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/addAddress",{
+}
+export async function addAddress(username, name, sdt, city, district, ward) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/addAddress", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -356,31 +356,29 @@ export async function addAddress(username,name,sdt,address){
       username,
       name,
       sdt,
-      address
+      city,
+      district,
+      ward
     }),
     credentials: 'include'
   })
   return res;
-} 
-export async function updateAddress({ fullname,sdt,diachi,state,iddc }){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/updateAddress",{
+}
+export async function updateAddress({ fullname, sdt, city, district, ward, state, iddc, username }) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/updateAddress", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      fullname,
-      sdt,
-      diachi,
-      state,
-      iddc
+      fullname, sdt, city, district, ward, state, iddc, username
     }),
     credentials: 'include'
   })
   return res;
-} 
-export async function deleteAddress(iddc){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/deleteAddress",{
+}
+export async function deleteAddress(iddc) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/deleteAddress", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -391,9 +389,9 @@ export async function deleteAddress(iddc){
     credentials: 'include'
   })
   return res;
-} 
-export async function getAds(iddc){
-  const res = fetch("http://localhost:3001/apiTaiKhoan/getAds",{
+}
+export async function getAds(iddc) {
+  const res = fetch("http://localhost:3001/apiTaiKhoan/getAds", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -404,12 +402,13 @@ export async function getAds(iddc){
     credentials: 'include'
   })
   return res;
-} 
+}
 //Oder
-export async function addOrder(username,listIdsp,date,{fullname,sdt,diachi}){
-  const res = await fetch("http://localhost:3001/apiOrder/addOrder",{
+export async function addOrder(username, listIdsp, date,  fullname, sdt, city, district, ward ) {
+  const diachi = `${city} ${district} ${ward}`;
+  const res = await fetch("http://localhost:3001/apiOrder/addOrder", {
     method: "POST",
-    headers:  {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       username,
       listIdsp,
@@ -420,42 +419,52 @@ export async function addOrder(username,listIdsp,date,{fullname,sdt,diachi}){
     })
   })
   return res;
-  
 }
-export async function getOrder(username){
-  const res = await fetch("http://localhost:3001/apiOrder/getOrder",{
+export async function checkBuyProduct(username,idsp) {
+  const res = await fetch("http://localhost:3001/apiOrder/checkBuyProduct", {
     method: "POST",
-    headers:  {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username,
+      idsp
+    })
+  })
+  return res;
+}
+export async function getOrder(username) {
+  const res = await fetch("http://localhost:3001/apiOrder/getOrder", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       username
     })
   })
   return res;
 }
-export async function deleteOrder(iddh){
-  const res = await fetch("http://localhost:3001/apiOrder/deleteOrder",{
+export async function deleteOrder(iddh) {
+  const res = await fetch("http://localhost:3001/apiOrder/deleteOrder", {
     method: "DELETE",
-    headers:  {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       iddh
     })
   })
   return res;
 }
-export async function getOrderToUpdate(iddh){
-  const res = await fetch("http://localhost:3001/apiOrder/getOrderToUpdate",{
+export async function getOrderToUpdate(iddh) {
+  const res = await fetch("http://localhost:3001/apiOrder/getOrderToUpdate", {
     method: "POST",
-    headers:  {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       iddh
     })
   })
   return res;
 }
-export async function updateOrder(iddh,trangthai){
-  const res = await fetch("http://localhost:3001/apiOrder/updateOrder",{
+export async function updateOrder(iddh, trangthai) {
+  const res = await fetch("http://localhost:3001/apiOrder/updateOrder", {
     method: "PATCH",
-    headers:  {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       iddh,
       trangthai
@@ -463,7 +472,7 @@ export async function updateOrder(iddh,trangthai){
   })
   return res;
 }
-export async function adminGetOrder(){
+export async function adminGetOrder() {
   const res = await fetch("http://localhost:3001/apiOrder/adminGetOrder");
   return res;
 }

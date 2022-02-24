@@ -68,7 +68,7 @@
     &__Wrap {
         display: flex;
         position: relative;
-
+        height: 55px;
         .Wrap__img {
             width: calc(100% / 3);
             display: flex;
@@ -108,4 +108,69 @@
 .Img_shadow {
     border-radius: 15px;
     box-shadow: 0 0 6px 2px #ffffff;
+}
+
+@media screen and (max-width: 768px){
+    .Banner {
+        .Slide__Details {
+          .warp {
+            .detail {
+              font-size: 15px;
+              width: 42%;
+              padding: 50px 0 0 33px;
+    
+              .link {
+                font-size: 14px;
+                margin-top: 45px;
+                width: 37%;
+              }
+            }
+          }
+    
+          img {
+            max-height: 266px;
+          }
+        }
+    
+        .Banner__SubSlide {
+          width: 25%;
+        }
+      }
+}
+@media screen and (max-width: 426px){
+    .Banner {
+        .Slide__Details {
+          .warp {
+            .detail {
+              font-size: 13px;
+              width: 70%;    
+              .link {
+                margin-top: 13px;
+                font-size: 12px;
+              }
+            }
+          }
+          img {
+            max-height: 181px;
+          }
+
+        }
+    
+        .Banner__SubSlide {
+          width: 35%;
+          bottom: 19px;
+        }
+      }
+}
+@media screen and (max-width: 376px){
+  .Banner {
+      .Slide__Details {
+        .warp {
+          .detail {
+            padding: 27px 0 0 33px;
+          }
+        }
+      }
+  
+    }
 }

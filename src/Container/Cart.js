@@ -59,11 +59,10 @@ function Cart() {
   };
   const handleUpdateQty = ({ idsp }, index, qty) => {
     const newP = [...productCart.map((value) => Object.assign({}, value))];
-    newP[index].quantity = qty;
-    updateQtyCart(idsp, newP[index].quantity, auth.username).then((data) =>
-      console.log(data.status)
+    newP[index].soLuong = qty;
+    updateQtyCart(idsp, newP[index].soLuong, auth.username).then((data) =>
+      setProductCart(newP)
     );
-    setProductCart(newP);
   };
 
   const handleCheckInp = (index) => {
@@ -130,17 +129,17 @@ function Cart() {
                         <div className="Cart-itemImg">
                           <img src={value.link} alt="" />
                         </div>
-                        <p className="Cart-itemName"> {value.name} </p>
+                        <p className="Cart-itemName"> {value.tenSach} </p>
                       </div>
                       <div className="Cart-itemWrap">
                         <p className="Cart-itemPrice">
-                          {formatPrice(value.price)}
+                          {formatPrice(value.gia)}
                         </p>
                         <div className="Cart-inp">
                           <label
                             onClick={() => {
-                              if (value.quantity > 1) {
-                                const qty = value.quantity - 1;
+                              if (value.soLuong > 1) {
+                                const qty = value.soLuong - 1;
                                 handleUpdateQty(
                                   {
                                     ...value,
@@ -168,14 +167,14 @@ function Cart() {
                                   Object.assign({}, value)
                                 ),
                               ];
-                              newP[index].quantity = e.target.value;
+                              newP[index].soLuong = e.target.value;
                               setProductCart(newP);
                             }}
-                            value={value.quantity}
+                            value={value?.soLuong}
                           />
                           <label
                             onClick={() => {
-                              const qty = value.quantity + 1;
+                              const qty = value.soLuong + 1;
                               handleUpdateQty(
                                 {
                                   ...value,
@@ -190,7 +189,7 @@ function Cart() {
                           </label>
                         </div>
                         <p className="Cart-itemTotal">
-                          {formatPrice(value.quantity * value.price)}
+                          {formatPrice(value.soLuong * value.gia)}
                         </p>
                         <button
                           onClick={() => {
@@ -251,7 +250,7 @@ function Cart() {
                       {formatPrice(
                         productCart.reduce((prev, curr) => {
                           if (curr.select) {
-                            return prev + curr.price * curr.quantity;
+                            return prev + curr.gia * curr.soLuong;
                           }
                           return prev;
                         }, 0)
@@ -264,41 +263,51 @@ function Cart() {
                       productCart.map((value) => {
                         if (value.select) listIdsp.push(value.idsp);
                       });
-                      history.push("/Order", {
-                        username: auth.username,
-                        idsp: listIdsp,
-                      });
+                      if (!listIdsp.length) {
+                        setModal(!modal)
+                      } else {
+                        history.push("/Order", {
+                          username: auth.username,
+                          idsp: listIdsp
+                        });
+                      }
                     }}
                     className="Cart-buy"
                   >
-                    {" "}
-                    MUA HÀNG{" "}
+                    MUA HÀNG
                   </button>
                 </div>
               </div>
             </>
           )) || (
-            <>
-              <div className="Cart-empty">
-                <div className="Cart-img">
-                  <img
-                    src="https://chicken1000.com/images/img-empty.png"
-                    alt=""
-                  />
+              <>
+                <div className="Cart-empty">
+                  <div className="Cart-img">
+                    <img
+                      src="https://chicken1000.com/images/img-empty.png"
+                      alt=""
+                    />
+                  </div>
+                  <p>Giỏ Hàng Của Bạn Còn Trống</p>
+                  <Link to="/" className="Cart-buy">
+                    Mua Ngay
+                  </Link>
                 </div>
-                <p>Giỏ Hàng Của Bạn Còn Trống</p>
-                <Link to="/" className="Cart-buy">
-                  Mua Ngay
-                </Link>
-              </div>
-            </>
-          )}
+              </>
+            )}
         </div>
         {modal && (
-          <div className="Cart-modal">
+          <div className="Cart-modal settingAccModal">
+            <div className="close-s">
+            <i
+              onClick={() => setModal(!modal)}
+              className="fas fa-times-circle "
+            ></i>
+            </div>
             <p>Vui Lòng Chọn Sản Phẩm</p>
           </div>
         )}
+      
       </main>
       <Footer />
     </>

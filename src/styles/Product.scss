@@ -8,14 +8,16 @@ $Total_SC: calc($Column * 2 * $Spacing)+px;
     padding: 70px 100px 20px;
     background: variables.$BG_Product;
     overflow: hidden;
-    &-Toast{
+
+    &-Toast {
         position: absolute;
         top: 0;
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.23);
         display: flex;
-        .wrap{
+
+        .wrap {
             position: relative;
             margin: auto;
             width: 30%;
@@ -28,13 +30,14 @@ $Total_SC: calc($Column * 2 * $Spacing)+px;
             flex-direction: column;
             background: rgba(0, 0, 0, 0.6);
 
-            p{
+            p {
                 color: white;
                 margin-top: 10px;
                 font-weight: 700;
             }
         }
     }
+
     &__List {
         display: grid;
         position: relative;
@@ -126,9 +129,10 @@ $Total_SC: calc($Column * 2 * $Spacing)+px;
         border-radius: 50px;
         color: white;
         margin-right: 10px;
-        transition: all .5s ;
+        transition: all .5s;
     }
-    &-Item:hover{
+
+    &-Item:hover {
         background: #6c5dd3;
     }
 
@@ -196,4 +200,96 @@ $Total_SC: calc($Column * 2 * $Spacing)+px;
         border-radius: 5px;
         color: black;
     }
+}
+
+@media screen and (max-width: 1024px) {
+    .Products {
+        &__List {
+            display: grid;
+            grid-template-columns: repeat(3, (100% / 3));
+        }
+
+        &-pag {
+            grid-column: 1 / 4;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Products {
+        padding: 70px 20px 20px;
+
+        &__List {
+            grid-template-columns: repeat(4, 25%);
+
+            .Item {
+                margin: 30px 15px 0;
+            }
+        }
+
+        &-Item {
+            font-size: 13px;
+            padding: 10px 15px;
+        }
+
+        &-pag {
+            grid-column: 1/5;
+        }
+    }
+
+}
+
+@media screen and (max-width: 426px) {
+    .Products {
+        &-ListGenres {
+            width: 296px;
+        }
+
+        &__List {
+            grid-template-columns: repeat(3, (100% / 3));
+
+            .Item {
+                margin: 30px 3px 0;
+                font-size: 13px;
+
+                .price {
+                    font-size: 16px;
+                }
+
+                .details-add {
+                    font-size: 19px;
+                }
+            }
+        }
+
+        &-pag {
+            grid-column: 1 / 4;
+        }
+    }
+
+}
+
+@media screen and (max-width: 376px) {
+    .Products {
+        padding: 70px 5px 20px;
+
+        &-Item {
+            font-size: 11px;
+            padding: 10px 13px;
+        }
+    }
+}
+@media screen and (max-width: 321px) {
+    .Products {
+        &-Item {
+            padding: 10px 9px;
+        }
+        &__List{
+            grid-template-columns: repeat(2,50%);
+        }
+        &-pag{
+            grid-column: 1 / 3;
+        }
+    }
+
 }

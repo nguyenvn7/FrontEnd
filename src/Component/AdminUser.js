@@ -17,10 +17,22 @@ function AdminUser() {
 
 
   const handleUpdate = (value) => {
-    updateUser(value).then(() => setIsLoad(!isLoad));
+    updateUser(value).then(() => {
+      setIsLoad(!isLoad);
+      setModalUpdate({
+        isOpen: false,
+        id: "",
+      })
+    });
   };
   const handleAdd = (value) => {
-    addUser(value).then(() => setIsLoad(!isLoad));
+    addUser(value).then(() => {
+      setModalUpdate({
+        isOpen: false,
+        id: ""
+      });
+      setIsLoad(!isLoad);
+    });
   };
   const handleDelete = ()=>{
    deleteUser(stateModalConfirm)

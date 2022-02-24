@@ -1,0 +1,80 @@
+.comment{
+    padding: 20px 100px 70px;
+    background: #5efaf1;
+    &-wrap{
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px gray;
+        padding: 20px;
+    }
+    &-box{
+        form{
+            display: flex;
+            grid-gap: 20px;
+            gap: 20px;
+            width: 100%;
+        }
+        button{
+            padding: 5px 20px;
+            border: 2px solid #c92127;
+            border-radius: 10px;
+            color: #c92127;
+            font-weight: 700;
+            height: max-content;
+        }
+        .input{
+            width: 50%;
+            resize: none;
+            border-bottom: 1px solid gray;
+            outline: none;
+        }
+    }
+    &-listComment{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-size: 13px;
+        &-item{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            .left{
+                width: 28px;
+            }
+            .right{
+                font-size: 1em;
+                p:nth-child(2){
+                    margin-top: 5px;
+                    font-size: .9em;
+                    color: gray;
+                }
+            }
+            img{
+                border-radius: 100%;
+            }
+        }
+        .content{
+            font-size: .99em;
+        }
+    }
+    &-delete{
+        color: #c92127;
+        font-size: .9em;
+    }
+}
+@media screen and (max-width: 769px) {
+    .comment{
+        padding: 20px 25px 70px;
+    }
+}
+@media screen and (max-width: 426px) {
+    .comment{
+        padding: 20px 9px 70px;
+    }
+}

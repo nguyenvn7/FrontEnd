@@ -40,20 +40,19 @@ function Avatar() {
             <img src={avatar} alt="" /> 
            {toggle &&  <div className="Avatar-menu">
                 <ul>
-                <li onClick={()=>{
-                    logout();
-                    setAuth({isLoad: false});
-                    history.push('/');
-                }} >Logout</li>
- 
                 <li><Link to="/settings">
                     Cài Đặt
                 </Link></li>
                 <li><Link to="/Purchase">
                     Đơn Mua
                 </Link></li>
-
+               {(auth?.role === '1' && <li><Link to='/admin'>Quản Lý</Link></li> )}
                 </ul>
+                <li onClick={()=>{
+                    logout();
+                    setAuth({isLoad: false});
+                    history.push('/');
+                }} >Thoát</li>
             </div>}
         </div>
      );

@@ -6,14 +6,27 @@
             grid-gap: 10px;
         }
     }
+    &-billCodes{
+        word-break: break-word;
+    }
     &-Item{
         &-O{
-            grid-template-columns: repeat(9,auto);
-            grid-gap: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: calc((100% - 30px) / 4);
+            align-items: stretch;
+            font-size: 15px;
+            gap: 10px;
         }
     }
    &-listPrice-O,&-listProducts-O{
        line-height: 1.6;
+   }
+   &-List-Order{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
    }
    &-select-order{
         background: white;
@@ -32,4 +45,63 @@
             transition: all 0.35s;
        }
    }
+}
+@media screen and (max-width: 768px) {
+    .Admin-Item-O{
+        width: calc((100% - 20px) / 3);
+    }
+}
+@media screen and (max-width: 426px) {
+    .Admin{
+        &-List-Order{
+           
+        }
+        &-Item-O{
+           display: flex;
+           flex-direction: column;
+           width: calc(50% - 5px);
+           *{
+               width: 100%;
+           }
+        }
+        &-btn{
+            p{
+                flex: 2;
+            }
+            button{
+                flex: 1;
+            }
+        }
+        &-select-order{
+            *{
+                padding: 7px 12px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 376px) {
+    .Admin{
+        &-select-order{
+            *{
+                padding: 7px 6px;
+                font-size: 13px;
+            }
+        }
+        &-Item-O{
+            font-size: 13px;
+        }
+    }
+}
+@media screen and (max-width: 321px) {
+    .Admin{
+        &-select-order{
+            padding: 10px 8px;
+            grid-gap: 5px;
+            *{
+                padding: 10px 6px;
+                grid-gap: 2px;
+            }
+        }
+      
+    }
 }

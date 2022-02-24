@@ -81,10 +81,10 @@ function AdminOrder() {
     iddh: "",
     name: "",
   });
-
+  console.log(products)
   const handleUpdate = (value) => {
     if (value?.trangthai) {
-      updateOrder(value.idDH, value.trangthai).then(() => {
+      updateOrder(modal.iddh, value.trangthai).then(() => {
         setModal({
           iddh: "",
           name: "",
@@ -92,6 +92,7 @@ function AdminOrder() {
         setIsLoad(!isLoad);
       });
     }
+ 
   };
   const handleDelete = () => {
     deleteOrder(modal.iddh).then(() => {
@@ -150,70 +151,63 @@ function AdminOrder() {
           Đã Giao
         </div>
       </div>
-      <div className="Admin-header Admin-header-O">
-        <p> Mã Đơn Hàng </p>
-        <p> Người Đặt </p>
-        <p> Số Điện Thoại </p>
-        <p> Địa Chỉ </p>
-        <p> Sản Phẩm </p>
-        <p> Giá </p>
-        <p>Tổng thanh toán</p>
-        <p>Ngày Đặt</p>
-      </div>
-      <div className="Admin-List">
+      
+      <div className="Admin-List Admin-List-Order">
         {products?.map((value) => {
-          if ( select === value.trangthai || select === "0" ) {
+          if (select === value.trangthai || select === "0") {
             return (
               <div className="Admin-Item Admin-Item-O" key={value.idDH}>
-            <p className="Admin-billCodes">{value.idDH}</p>
-            <p className="Admin-name">{value.hoten}</p>
-            <p className="Admin-phone">{value.sdt}</p>
-            <p> {value.diachi} </p>
-            <div className="Admin-listProducts-O">
-              {value.listDH?.map((value2) => (
-                <p className="Admin-item-O" key={value2.idsp}>
-                  {value2.name} x{value2.quantity}
-                </p>
-              ))}
-            </div>
-            <div className="Admin-listPrice-O">
-              {value.listDH?.map((value2) => (
-                <p key={value2.idsp}>{formatPrice(value2.price)}</p>
-              ))}
-            </div>
-            <div className="Admin-price">
-              {formatPrice(
-                value.listDH?.reduce(
-                  (pre, curr) => pre + curr.price * curr.quantity,
-                  0
-                )
-              )}
-            </div>
-            <p>{value.ngay}</p>
-            <div className="Admin-btn">
-              <p>{switchState(value.trangthai)}</p>
-              <button
-                className="fas fa-edit edit"
-                onClick={() =>
-                  setModal({
-                    iddh: value.idDH,
-                    name: "update",
-                    tt: value.trangthai,
-                  })
-                }
-              ></button>
-              <button
-                className="fas fa-trash-alt delete"
-                onClick={() => {
-                  setModal({
-                    iddh: value.idDH,
-                    name: "confirm",
-                  });
-                }}
-              ></button>
-            </div>
-          </div>
-            )
+                <p className="Admin-billCodes">Mã Đơn Hàng: {value.idDH}</p>
+                <p >Người Đặt: {value.hoten}</p>
+                <p className="Admin-phone">Số Điện Thoại: {value.sdt}</p>
+                <p>Địa Chỉ: {value.diachi} </p>
+                <div className="Admin-listProducts-O">
+                  Sản Phẩm:
+                  {value.listDH?.map((value2) => (
+                    <p className="Admin-item-O" key={value2.idsp}>
+                      {value2.tenSach} x{value2.quantity}
+                    </p>
+                  ))}
+                </div>
+                <div className="Admin-listPrice-O">
+                  {value.listDH?.map((value2) => (
+                    <p key={value2.idsp}>Giá: {formatPrice(value2.price)}</p>
+                  ))}
+                </div>
+                <div className="Admin-price">
+                  Tổng thanh toán: 
+                  {formatPrice(
+                    value.listDH?.reduce(
+                      (pre, curr) => pre + curr.price * curr.quantity,
+                      0
+                    )
+                  )}
+                </div>
+                <p>Ngày Đặt: {value.ngay}</p>
+                <div className="Admin-btn">
+                  <p>{switchState(value.trangthai)}</p>
+                  <button
+                    className="fas fa-edit edit"
+                    onClick={() =>
+                      setModal({
+                        iddh: value.idDH,
+                        name: "update",
+                        tt: value.trangthai,
+                      })
+                    }
+                  ></button>
+                  <button
+                    className="fas fa-trash-alt delete"
+                    onClick={() => {
+                      setModal({
+                        iddh: value.idDH,
+                        name: "confirm",
+                      });
+                    }}
+                  ></button>
+                </div>
+              </div>
+            );
           }
         })}
         {

@@ -55,3 +55,11 @@
         gap: 10px;
     }
 }
+@media screen and (max-width: 321px) {
+    .ModalUpdate-wrap{
+        max-height: 600px;
+        padding: 27px;
+        font-size: 12px;
+        width: 296px;
+    }
+}

@@ -26,6 +26,7 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
   const [check, setCheck] = useState();
   const [previewImg, setPreviewImg] = useState();
   const [status, setStatus] = useState();
+
   useEffect(() => {
     if (modal?.idProduct) {
       getProductUpdate(modal.idProduct).then((data) => {
@@ -36,20 +37,20 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
     //eslint-disable-next-line
   }, []);
   const handleUpdate = () => {
-    const { name, price, quantity, genre, img, id } = productModal;
+    const { tenSach, gia, soLuong, theLoai, link, idsp } = productModal;
     const formData = new FormData();
     formData.append("type", "products");
     formData.append("action", "UPDATE_IMG_PRODUCT");
-    formData.append("id", id);
-    formData.append("nameProduct", name);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    formData.append("genre", genre);
-    if(img){
-      formData.append("product", img);
+    formData.append("id", idsp);
+    formData.append("tenSach", tenSach);
+    formData.append("gia", gia);
+    formData.append("soLuong", soLuong);
+    formData.append("theLoai", theLoai);
+    if (link) {
+      formData.append("link", link);
     }
     updateProduct(formData).then((data) => setIsLoadEffect(!isLoadEffect));
-    
+
   };
   const handleAdd = () => {
     const { name, price, quantity, genre, img } = productModal;
@@ -78,7 +79,7 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
     setPreviewImg(preview);
     setProductModal({
       ...productModal,
-      img: e.target.files[0],
+      link: e.target.files[0],
     });
   };
   return (
@@ -104,10 +105,10 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
                 onChange={(e) =>
                   setProductModal({
                     ...productModal,
-                    name: e.target.value,
+                    tenSach: e.target.value,
                   })
                 }
-                defaultValue={productModal?.name}
+                defaultValue={productModal?.tenSach}
               />
             </div>
             <div className="Admin-modal-item">
@@ -116,17 +117,17 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
                 onChange={(e) =>
                   setProductModal({
                     ...productModal,
-                    genre: e.target.value,
+                    theLoai: e.target.value,
                   })
                 }
                 name="genres"
                 id=""
-                value={productModal?.genre}
+                value={productModal?.theLoai}
               >
                 {productModal?.genre || <option> Chọn Thể Loại </option>}
                 {genres?.map((value) => (
-                  <option key={value.genre} value={value.genre}>
-                    {value.genre}
+                  <option key={value.theLoai} value={value.theLoai}>
+                    {value.theLoai}
                   </option>
                 ))}
               </select>
@@ -138,10 +139,10 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
                 onChange={(e) =>
                   setProductModal({
                     ...productModal,
-                    quantity: e.target.value,
+                    soLuong: e.target.value,
                   })
                 }
-                defaultValue={productModal?.quantity}
+                defaultValue={productModal?.soLuong}
               />
             </div>
             <div className="Admin-modal-item">
@@ -151,10 +152,10 @@ function Modal({ modal, setModal, isLoadEffect, setIsLoadEffect }) {
                 onChange={(e) =>
                   setProductModal({
                     ...productModal,
-                    price: e.target.value,
+                    gia: e.target.value,
                   })
                 }
-                defaultValue={productModal?.price}
+                defaultValue={productModal?.gia}
               />
             </div>
             <div className="Admin-modal-item">
@@ -224,111 +225,110 @@ function AdminProduct() {
   const [products, setProducts] = useState();
   const [isLoadEffect, setIsLoadEffect] = useState(false);
   const [stateModalConfirm, setStateModalConfirm] = useState(false);
-  const handleDelete  = ()=>{
+  const handleDelete = () => {
     deleteProduct(stateModalConfirm)
-    .then(() => {
+      .then(() => {
         setIsLoadEffect(!isLoadEffect);
         setStateModalConfirm();
-    })
+      })
   }
   useEffect(() => {
     console.log("EFFECT ADMINNNNNNNNNN");
     getProductPage(page)
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((data) => {
         setProducts({
           ...data,
           total: Math.ceil(data.total[0].total / 15),
-        }); 
+        });
       });
   }, [page, isLoadEffect]);
   return (
     <>
-
-          <div className="Admin-header Admin-header-P-U">
-            <p> Sản Phẩm </p>
-            <p> Thể Loại </p>
-            <p> Số Lượng </p>
-            <p> Đơn Giá </p>
-            <button
-              onClick={() =>
-                setModal({
-                  idProduct: "",
-                  action: "Thêm Sản Phẩm",
-                  toggle: !modal.toggle,
-                })
-              }
-            >
-              Thêm Sản Phẩm
-            </button>
-          </div>
-          <div className="Admin-List Admin-List-P-U">
-            {products?.results.map((value) => (
-              <div className="Admin-Item Admin-Item-P-U"  key={value.idsp}>
-                <div className="Admin-product">
-                  <div className="Admin-img">
-                    <img src={value.link} alt="" />
-                  </div>
-                  <p className="Admin-name"> {value.name} </p>
-                </div>
-                <p> {value.genre} </p> <div className="Admin-qty">200 </div>
-                <div className="Admin-price"> {formatPrice(value.price)} </div>
-                <div className="Admin-btn">
-                  <button
-                    onClick={() =>
-                      setModal({
-                        idProduct: value.idsp,
-                        action: "Cập Nhật",
-                        toggle: !modal.toggle,
-                      })
-                    }
-                    className="fas fa-edit edit"
-                  ></button>
-                  <button 
-                  className="fas fa-trash-alt delete"
-                  onClick={()=> {
-                    setStateModalConfirm(value.idsp);
-                  }}
-                  > </button>
-                </div>
+      <div className="Admin-header Admin-header-P-U">
+        <p> Sản Phẩm </p>
+        <p> Thể Loại </p>
+        <p> Số Lượng </p>
+        <p> Đơn Giá </p>
+        <button
+          onClick={() =>
+            setModal({
+              idProduct: "",
+              action: "Thêm Sản Phẩm",
+              toggle: !modal.toggle,
+            })
+          }
+        >
+          Thêm Sản Phẩm
+        </button>
+      </div>
+      <div className="Admin-List Admin-List-P-U">
+        {products?.results.map((value) => (
+          <div className="Admin-Item Admin-Item-P-U" key={value.idsp}>
+            <div className="Admin-product">
+              <div className="Admin-img">
+                <img src={value.link} alt="" />
               </div>
-            ))}
-            <div className="Admin-pag">
-              {+page > 2 && (
-                <>
-                  <Link to="/admin/?page=1">1</Link>
-                  <li>...</li>
-                </>
-              )}
-              <Pag page={+page} total={products?.total} />
-              {+page < products?.total - 1 && (
-                <>
-                  <li>...</li>
-                  <Link to={`/admin/?page=${products?.total}`}>
-                    {products?.total}
-                  </Link>
-                </>
-              )}
+              <p className="Admin-name"> {value.tenSach} </p>
+            </div>
+            <p> {value.theLoai} </p> <div className="Admin-qty">{value.soLuong}</div>
+            <div className="Admin-price"> {formatPrice(value.gia)} </div>
+            <div className="Admin-btn">
+              <button
+                onClick={() =>
+                  setModal({
+                    idProduct: value.idsp,
+                    action: "Cập Nhật",
+                    toggle: !modal.toggle,
+                  })
+                }
+                className="fas fa-edit edit"
+              ></button>
+              <button
+                className="fas fa-trash-alt delete"
+                onClick={() => {
+                  setStateModalConfirm(value.idsp);
+                }}
+              > </button>
             </div>
           </div>
-
-          {modal.toggle && (
-            <Modal
-              modal={modal}
-              setModal={setModal}
-              isLoadEffect={isLoadEffect}
-              setIsLoadEffect={setIsLoadEffect}
-            />
+        ))}
+        <div className="Admin-pag">
+          {+page > 2 && (
+            <>
+              <Link to="/admin/?page=1">1</Link>
+              <li>...</li>
+            </>
           )}
-         {
-           stateModalConfirm &&  <ModalConfirm 
-            cb={handleDelete}
-            setModal = {setStateModalConfirm}
-            title='Bạn Có Muốn Xoá Sản Phẩm Này Không?'
-            confirm='Xoá!'
-            unConfirm='Huỷ!'
-            />
-            }
+          <Pag page={+page} total={products?.total} />
+          {+page < products?.total - 1 && (
+            <>
+              <li>...</li>
+              <Link to={`/admin/?page=${products?.total}`}>
+                {products?.total}
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+
+      {modal.toggle && (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          isLoadEffect={isLoadEffect}
+          setIsLoadEffect={setIsLoadEffect}
+        />
+      )}
+      {
+        stateModalConfirm && <ModalConfirm
+          cb={handleDelete}
+          setModal={setStateModalConfirm}
+          title='Bạn Có Muốn Xoá Sản Phẩm Này Không?'
+          confirm='Xoá!'
+          unConfirm='Huỷ!'
+        />
+      }
 
     </>
   );

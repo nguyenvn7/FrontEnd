@@ -11,6 +11,7 @@ function SettingsAccount() {
   const [infor, setInfor] = useState();
   const [tmpInfor, setTmpInfor] = useState();
   const [page, setPage] = useState("1");
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     GetInfor(auth)
@@ -163,7 +164,7 @@ function SettingsAccount() {
                         <div className="Account-left">
                           <h3>Số Điện Thoại</h3>
                           <input
-                            type="text"
+                            type="number"
                             autoFocus
                             disabled={update?.sdt ? false : true}
                             ref={(e) => update?.sdt && (inputRef.current = e)}
@@ -179,7 +180,11 @@ function SettingsAccount() {
                             <div className="Account-btn-update">
                               <button
                                 className="save"
-                                onClick={() => handleSave("sdt", "sdt")}
+                                onClick={() => {
+                                  if(infor.sdt.length === 10 || infor.sdt.length === 11 ){
+                                    handleSave("sdt", "sdt")
+                                  }else setModal(!modal);
+                                }}
                               >
                                 Lưu
                               </button>
@@ -302,6 +307,17 @@ function SettingsAccount() {
             </section>
           </>
         )) || <Load />}
+        {
+          modal && <><div className="Cart-modal settingAccModal">
+          <div className="close-s">
+            <i
+              onClick={() => setModal(!modal)}
+              className="fas fa-times-circle "
+            ></i>
+            </div>
+            <p>Vui Lòng Nhập Lại SĐT (10 - 11 số)</p>
+          </div></>
+        }
       </main>
 
       <Footer />

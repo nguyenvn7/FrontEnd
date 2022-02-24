@@ -6,6 +6,7 @@ import Lottie from "react-lottie";
 import animAdd from "../lottie/4914-cart-checkout-fast";
 import { formatPrice } from "../helper";
 import { CartState } from "../context/context";
+import Comment from "../Component/Comment";
 
 function Details() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -53,10 +54,10 @@ function Details() {
                   onClick={() => {
                     checkLogged().then((data) => {
                       if (data?.user) {
-                        addCart(data.user.username,product.idsp,qty);
-                        setCartQty({quantity: quantity + 1});
+                        addCart(data.user.username, product.idsp, qty);
+                        setCartQty({ quantity: quantity + 1 });
                         handleLottie();
-                      }else {
+                      } else {
                         history.push('/login');
                       }
                     });
@@ -64,19 +65,33 @@ function Details() {
                 >
                   Thêm Vào Giỏ Hàng
                 </button>
-                <button className="Buy">Mua Ngay</button>
+                <button className="Buy" onClick={() => {
+                  checkLogged().then((data) => {
+                    if (data?.user) {
+                      addCart(data.user.username, product.idsp, (qty || 1)).then(() => {
+                        const listIdsp = [product.idsp];
+                        setCartQty({ quantity: quantity + 1 });
+                        history.push("/Order", {
+                          username: data.user.username,
+                          idsp: listIdsp
+                        });
+                      })
+                    } else {
+                      history.push('/login');
+                    }
+                  })}}>Mua Ngay</button>
               </div>
             </div>
             <div className="Product-detail">
               <div className="Product-tittle">
-                <h1>{product.name}</h1>
+                <h1>{product.tenSach}</h1>
                 <div className="Product-infor">
                   <p>Nhà Cung Cấp: Nhã Nam</p>
                   <p>Nhà Xuất Bản: NXB Kim Đồng</p>
                   <p>Tác Giả: Json</p>
                 </div>
                 <div className="Product__wrap">
-                  <p className="Product-price">{formatPrice(product.price)}</p>
+                  <p className="Product-price">{formatPrice(product.gia)}</p>
                   <div className="Product-count">
                     <label htmlFor="">Số Lượng: </label>
                     <div className="Product-qty">
@@ -226,35 +241,7 @@ function Details() {
               điều khiến cuộc đời này đáng sống... một tác phẩm kinh điển của
               Brazil.” - Booklist “Một cách nhìn cuộc sống gần như hoàn chỉnh từ
               con mắt trẻ thơ… có sức mạnh sưởi ấm và làm tan nát cõi lòng, dù
-              người đọc ở lứa tuổi nào.” - The National Hãy làm quen với Zezé,
-              cậu bé tinh nghịch siêu hạng đồng thời cũng đáng yêu bậc nhất, với
-              ước mơ lớn lên trở thành nhà thơ cổ thắt nơ bướm. Chẳng phải ai
-              cũng công nhận khoản “đáng yêu” kia đâu nhé. Bởi vì, ở cái xóm
-              ngoại ô nghèo ấy, nỗi khắc khổ bủa vây đã che mờ mắt người ta
-              trước trái tim thiện lương cùng trí tưởng tượng tuyệt vời của cậu
-              bé con năm tuổi. Có hề gì đâu bao nhiêu là hắt hủi, đánh mắng, vì
-              Zezé đã có một người bạn đặc biệt để trút nỗi lòng: cây cam ngọt
-              nơi vườn sau. Và cả một người bạn nữa, bằng xương bằng thịt, một
-              ngày kia xuất hiện, cho cậu bé nhạy cảm khôn sớm biết thế nào là
-              trìu mến, thế nào là nỗi đau, và mãi mãi thay đổi cuộc đời cậu. Mở
-              đầu bằng những thanh âm trong sáng và kết thúc lắng lại trong
-              những nốt trầm hoài niệm, Cây cam ngọt của tôi khiến ta nhận ra vẻ
-              đẹp thực sự của cuộc sống đến từ những điều giản dị như bông hoa
-              trắng của cái cây sau nhà, và rằng cuộc đời thật khốn khổ nếu
-              thiếu đi lòng yêu thương và niềm trắc ẩn. Cuốn sách kinh điển này
-              bởi thế không ngừng khiến trái tim người đọc khắp thế giới thổn
-              thức, kể từ khi ra mắt lần đầu năm 1968 tại Brazil. TÁC GIẢ: JOSÉ
-              MAURO DE VASCONCELOS (1920-1984) là nhà văn người Brazil. Sinh ra
-              trong một gia đình nghèo ở ngoại ô Rio de Janeiro, lớn lên ông
-              phải làm đủ nghề để kiếm sống. Nhưng với tài kể chuyện thiên bẩm,
-              trí nhớ phi thường, trí tưởng tượng tuyệt vời cùng vốn sống phong
-              phú, José cảm thấy trong mình thôi thúc phải trở thành nhà văn nên
-              đã bắt đầu sáng tác năm 22 tuổi. Tác phẩm nổi tiếng nhất của ông
-              là tiểu thuyết mang màu sắc tự truyện Cây cam ngọt của tôi. Cuốn
-              sách được đưa vào chương trình tiểu học của Brazil, được bán bản
-              quyền cho hai mươi quốc gia và chuyển thể thành phim điện ảnh.
-              Ngoài ra, José còn rất thành công trong vai trò diễn viên điện ảnh
-              và biên kịch.
+              người đọc ở lứa tuổi nào.”
             </p>
 
             {(toggleBtn && (
@@ -265,17 +252,18 @@ function Details() {
                 Xem Thêm
               </button>
             )) || (
-              <button
-                className="Details-btn"
-                onClick={() => setToggleBtn(!toggleBtn)}
-              >
-                Rút Gọn
-              </button>
-            )}
+                <button
+                  className="Details-btn"
+                  onClick={() => setToggleBtn(!toggleBtn)}
+                >
+                  Rút Gọn
+                </button>
+              )}
 
             {toggleBtn && <div className="Details-gardient"></div>}
           </section>
         </div>
+        <Comment />
       </main>
       <Footer />
     </>
